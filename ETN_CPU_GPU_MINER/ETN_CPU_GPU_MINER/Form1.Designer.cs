@@ -36,11 +36,9 @@
             this.lbl_gpubrand = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lbl_threads = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
             this.wallet_address = new System.Windows.Forms.TextBox();
-            this.threads = new System.Windows.Forms.TextBox();
             this.port = new System.Windows.Forms.TextBox();
             this.clear = new System.Windows.Forms.Button();
             this.gpubrand = new System.Windows.Forms.ComboBox();
@@ -50,9 +48,13 @@
             this.custom_pool = new System.Windows.Forms.TextBox();
             this.Label9 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
+            this.lbl_threads = new System.Windows.Forms.Label();
+            this.threads = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.lblCPUTemp = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblGPUTemp = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.help = new System.Windows.Forms.Button();
             this.mining = new System.Windows.Forms.Button();
@@ -76,11 +78,14 @@
             this.save_config = new System.Windows.Forms.Button();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.label1 = new System.Windows.Forms.Label();
             this.Tab_website.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tab_as.SuspendLayout();
@@ -96,6 +101,7 @@
             // 
             // tab_miner
             // 
+            this.tab_miner.Controls.Add(this.label1);
             this.tab_miner.Controls.Add(this.groupBox6);
             this.tab_miner.Controls.Add(this.lbl_gpubrand);
             this.tab_miner.Controls.Add(this.label11);
@@ -144,11 +150,6 @@
             this.label6.CausesValidation = false;
             this.label6.Name = "label6";
             // 
-            // lbl_threads
-            // 
-            resources.ApplyResources(this.lbl_threads, "lbl_threads");
-            this.lbl_threads.Name = "lbl_threads";
-            // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
@@ -170,11 +171,6 @@
             // 
             resources.ApplyResources(this.wallet_address, "wallet_address");
             this.wallet_address.Name = "wallet_address";
-            // 
-            // threads
-            // 
-            resources.ApplyResources(this.threads, "threads");
-            this.threads.Name = "threads";
             // 
             // port
             // 
@@ -251,23 +247,47 @@
             resources.ApplyResources(this.Label5, "Label5");
             this.Label5.Name = "Label5";
             // 
+            // lbl_threads
+            // 
+            resources.ApplyResources(this.lbl_threads, "lbl_threads");
+            this.lbl_threads.Name = "lbl_threads";
+            // 
+            // threads
+            // 
+            resources.ApplyResources(this.threads, "threads");
+            this.threads.Name = "threads";
+            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.lblCPUTemp);
+            this.groupBox3.Controls.Add(this.groupBox7);
+            this.groupBox3.Controls.Add(this.groupBox8);
             resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
-            // label1
+            // groupBox7
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            this.groupBox7.Controls.Add(this.lblCPUTemp);
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.TabStop = false;
             // 
             // lblCPUTemp
             // 
             resources.ApplyResources(this.lblCPUTemp, "lblCPUTemp");
             this.lblCPUTemp.Name = "lblCPUTemp";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.lblGPUTemp);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.TabStop = false;
+            // 
+            // lblGPUTemp
+            // 
+            resources.ApplyResources(this.lblGPUTemp, "lblGPUTemp");
+            this.lblGPUTemp.Name = "lblGPUTemp";
             // 
             // groupBox4
             // 
@@ -433,6 +453,11 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -447,7 +472,10 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.tab_as.ResumeLayout(false);
@@ -492,7 +520,6 @@
         internal System.Windows.Forms.OpenFileDialog open_config_dialog;
         internal System.Windows.Forms.SaveFileDialog save_config_dialog;
         private System.Windows.Forms.Label lblCPUTemp;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbl_gpubrand;
         private System.Windows.Forms.Label label11;
@@ -505,6 +532,10 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label lblGPUTemp;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label1;
     }
 }
 

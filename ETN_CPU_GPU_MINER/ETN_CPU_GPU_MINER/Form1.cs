@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Linq;
-using System.Drawing;
+using System.Windows.Forms;
 using System.Diagnostics;
-using System.Data;
-using System.Xml.Linq;
 using Microsoft.VisualBasic;
-using System.Collections;
 using System.Windows.Forms;
 using System.IO;
-using System.Net;
-using System.Threading;
+using OpenHardwareMonitor.Hardware;
 namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
     {
         public static string pool_url = "";
         public static int globalindex = 0;
+        public bool m_bStartTime = false;
+        private Stopwatch stopwatch = new Stopwatch();
         public Form1()
         {
 
@@ -29,21 +26,27 @@ namespace ETN_CPU_GPU_MINER
             gpubrand.SelectedItem = gpubrand.Items[0];
             string[] lines = System.IO.File.ReadAllLines("custom_url.conf");
             pool.Items.AddRange(lines);
-            TempCheckTimer();
+            GetTemps();
         }
-        private void wallet_address_Click(object sender, EventArgs e)
-        {
-            if (wallet_address.Text == "Enter Public Wallet Here")
-                wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
-        }
+        //private void wallet_address_Click(object sender, EventArgs e)
+        //{
+        //    if (wallet_address.Text == "Enter Public Wallet Here")
+        //    {
+        //        wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
+        //        MessageBox.Show("Developers Wallet Has Been Entered!");
+        //    }
+        //}
 
         private void mining_Click_1(object sender, EventArgs e)
         {
+            
             string minerstring = "";
             if (wallet_address.Text == "Enter Public Wallet Here")
             {
                 wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
                 status.Text += Constants.vbNewLine + ">dev wallet address selected! thanks!";
+                MessageBox.Show("Developers Wallet Has Been Entered!\r\nARE YOU SURE?!");
+
             }
             if (pool.SelectedItem == pool.Items[9])
                 pool_url = custom_pool.Text;
@@ -279,11 +282,16 @@ namespace ETN_CPU_GPU_MINER
                 }
             }
             status.Text += Constants.vbNewLine + "****************\r\n" + minerstring;
-
+            //Start Timer
+            m_bStartTime = true;
+            stopwatch.Start();
         }
 
         private void new_miner_Click_1(object sender, EventArgs e)
         {
+            //Stop Timer
+            m_bStartTime = false;
+            stopwatch.Stop();
             Process[] arrProcessCPU = System.Diagnostics.Process.GetProcessesByName("cpuminer");
 
             foreach (Process p in arrProcessCPU)
@@ -611,23 +619,111 @@ namespace ETN_CPU_GPU_MINER
 
         }
 
-        public void GetCpuTemp()
+        #region Temp Shiz
+        Computer myComputer;
+        Timer timer = new Timer { Enabled = true, Interval = 1000 };
+        public void GetTemps()
         {
-            GetTemperature cTemp = new GetTemperature();
-            lblCPUTemp.Text = cTemp.GetCPUTemp().ToString();
-        }
-        private System.Windows.Forms.Timer timer1;
-        public void TempCheckTimer()
-        {
-            timer1 = new System.Windows.Forms.Timer();
-            timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = 2000; // in miliseconds
-            timer1.Start();
-        }
+            timer.Tick += new EventHandler(timer_Tick);
 
-        private void timer1_Tick(object sender, EventArgs e)
+            GetTemperature.System settings = new GetTemperature.System(new Dictionary<string, string>
+            {
+                { "/intelcpu/0/temperature/0/values", "H4sIAAAAAAAEAOy9B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcplVmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/Iu6//MH37x79i9/+NX6N3/TJm9/5f/01fw1+fosnv+A/+OlfS37/jZ/s/Lpv9fff6Ml/NTef/yZPnozc5679b+i193//TQZ+/w2Dd+P9/sZeX/67v/GTf/b3iP3u4/ObBL//73+i+f039+D8Zk/+xz/e/P6beu2TQZju8yH8f6OgzcvPv/U3/Rb8+z/0f/9b/+yfaOn8079X6fr6Cws7ln/iHzNwflPv99/wyS/+xY4+v/evcJ+733+jJ5//Cw7/4ndy9Im3+U2e/Fbnrk31C93vrt/fyPvdb+N//hsF7/4/AQAA//9NLZZ8WAIAAA==" },
+                { "/intelcpu/0/load/0/values", "H4sIAAAAAAAEAOy9B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcplVmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/Iu6//MH37x79i9++mpwcv/md/9df89egZ/xX/ym/5y/4D37618Lv7ya//u+58+u+5d9/z7/5t/w9/6u5fP5bH/6av+eTkXyefXxp26ONaf/v/dG/sf39D/rvnv4e5vc/0IP56/waK/vuHzf5I38P8/tv+mv8Rbb9f0pwTF9/zr/1X9vP/8I//+/6Pf7Z30N+/zdf/HX29zd/859q4aCNP5b//U+U3/+7f+zXOjZwfqvDX/V7/o9/vPz+a1G/pv0f+fGlhfk7eZ//N3/0v28//5X0u/n8Cxq7+f1X/tHft20A5x8a/W5/02+BP36Nf+j/nv8XfzrT+c2//Ob4p3+vktvUhNs/+xcWikP6e/4T/5jS5M8/sL8vP/5ff49f/Ivl9//sHzv6PX/vXyG//9R/94/9HuZ34P/5vyC//3W/5e/1exa/k+Bw4bUBnU2bP4Xg/1bn0uafeTH6PatfKL//N3/0t2y/gG9+/8+IzqYNxmU+/+jwX7afY67/nwAAAP//GYSA31gCAAA=" },
+            });
+
+            myComputer = new Computer(settings)
+            {
+                GPUEnabled = true,
+                CPUEnabled = true
+                //MainboardEnabled = true,
+                //RAMEnabled = true,
+                // FanControllerEnabled = true,
+                //HDDEnabled = true
+            };
+            myComputer.Open();
+        }
+        #endregion
+        void timer_Tick(object sender, EventArgs e)
         {
-            GetCpuTemp();
+            #region Temp Interval
+            lblCPUTemp.Text = "";
+            lblGPUTemp.Text = "";
+
+            foreach (var hardwareItem in myComputer.Hardware)
+            {
+                hardwareItem.Update();
+                if (hardwareItem.HardwareType == HardwareType.CPU)
+                {
+                    hardwareItem.Update();
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                        subHardware.Update();
+
+                    foreach (var sensor in hardwareItem.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Temperature)
+                        {
+                            lblCPUTemp.Text += (String.Format("{0} = {1}C", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
+                        }
+                    }
+                }
+                if (hardwareItem.HardwareType == HardwareType.GpuAti || hardwareItem.HardwareType == HardwareType.GpuNvidia)
+                {
+                    foreach (IHardware subHardware in hardwareItem.SubHardware)
+                        subHardware.Update();
+
+                    foreach (var sensor in hardwareItem.Sensors)
+                    {
+                        if (sensor.SensorType == SensorType.Temperature)
+                        {
+                            lblGPUTemp.Text += (String.Format("{0} = {1}C", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
+                        }
+                    }
+                }
+            }
+            #region Use This loop for all hardware info
+            //foreach (var hardwareItem in myComputer.Hardware)
+            //{
+            //    hardwareItem.Update();
+
+            //    if (hardwareItem.SubHardware.Length > 0)
+            //    {
+            //        foreach (IHardware subHardware in hardwareItem.SubHardware)
+            //        {
+            //            subHardware.Update();
+
+            //            foreach (var sensor in subHardware.Sensors)
+            //            {
+
+            //                lblGPUTemp.Text += (String.Format("{0} {1} = {2}", sensor.Name, sensor.Hardware, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value"));
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        foreach (var sensor in hardwareItem.Sensors)
+            //        {
+
+            //            lblGPUTemp.Text += (String.Format("{0} {1} = {2}", sensor.Identifier, sensor.Hardware, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value"));
+            //        }
+            //    }
+            //}
+            #endregion
+
+            #endregion
+            #region Timer
+
+            if (m_bStartTime)
+            {
+                this.Text = "ETNCRAFT | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
+                this.Update();
+            }
+            #endregion
+            //To Keep log at bottom -- Easier than putting this at each write line
+            status.SelectionStart = status.Text.Length;
+            status.ScrollToCaret();
         }
     }
+
+
 }
