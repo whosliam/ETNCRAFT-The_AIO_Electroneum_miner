@@ -47,11 +47,17 @@ namespace ETN_CPU_GPU_MINER
         {            
             string minerstring = "";
             if (wallet_address.Text == "Enter Public Wallet Here")
-            {
-                wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
-                status.Text = Messager.PushMessage("Developer Wallet Address Selected! Thanks!");
-                MessageBox.Show("Developers Wallet Has Been Entered!\r\nARE YOU SURE?!");
-
+            {                
+                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "TEST CAPTION", MessageBoxButtons.OKCancel);
+                if (UserInput.Equals(DialogResult.Cancel))
+                {
+                    return;
+                }
+                else if (UserInput.Equals(DialogResult.OK))
+                {
+                    wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
+                    status.Text = Messager.PushMessage("Developer Wallet Address Selected! Thanks!");
+                }
             }
             if (pool.SelectedItem == pool.Items[9])
                 PoolURL = custom_pool.Text;
