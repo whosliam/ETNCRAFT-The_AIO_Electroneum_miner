@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Tab_website = new System.Windows.Forms.TabControl();
             this.tab_miner = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.lbl_gpubrand = new System.Windows.Forms.Label();
@@ -61,6 +62,7 @@
             this.new_miner = new System.Windows.Forms.Button();
             this.check = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.OpenLogButton = new System.Windows.Forms.Button();
             this.status = new System.Windows.Forms.RichTextBox();
             this.tab_as = new System.Windows.Forms.TabPage();
             this.update_lbl = new System.Windows.Forms.Label();
@@ -78,7 +80,7 @@
             this.save_config = new System.Windows.Forms.Button();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ClearMessagesButton = new System.Windows.Forms.Button();
             this.Tab_website.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -120,6 +122,11 @@
             resources.ApplyResources(this.tab_miner, "tab_miner");
             this.tab_miner.Name = "tab_miner";
             this.tab_miner.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // groupBox6
             // 
@@ -335,10 +342,19 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.ClearMessagesButton);
+            this.groupBox5.Controls.Add(this.OpenLogButton);
             this.groupBox5.Controls.Add(this.status);
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            // 
+            // OpenLogButton
+            // 
+            resources.ApplyResources(this.OpenLogButton, "OpenLogButton");
+            this.OpenLogButton.Name = "OpenLogButton";
+            this.OpenLogButton.UseVisualStyleBackColor = true;
+            this.OpenLogButton.Click += new System.EventHandler(this.OpenLogButton_Click);
             // 
             // status
             // 
@@ -453,10 +469,12 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
-            // label1
+            // ClearMessagesButton
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.ClearMessagesButton, "ClearMessagesButton");
+            this.ClearMessagesButton.Name = "ClearMessagesButton";
+            this.ClearMessagesButton.UseVisualStyleBackColor = true;
+            this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
             // 
             // Form1
             // 
@@ -536,6 +554,8 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.Button OpenLogButton;
+        internal System.Windows.Forms.Button ClearMessagesButton;
     }
 }
 

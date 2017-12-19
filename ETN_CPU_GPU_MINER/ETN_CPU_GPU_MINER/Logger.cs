@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace ETN
+namespace ETNCRAFT
 {
     public class Logger
     {
@@ -47,6 +47,11 @@ namespace ETN
             FileStream LogFileStream = File.Create(LogFilePath);
             LogFileStream.Close();
 
+        }
+
+        public string GetLogFilePath()
+        {            
+            return LogFilePath;
         }
 
 

@@ -6,7 +6,7 @@ using Microsoft.VisualBasic;
 using System.Windows.Forms;
 using System.IO;
 using OpenHardwareMonitor.Hardware;
-using ETN;
+using ETNCRAFT;
 
 namespace ETN_CPU_GPU_MINER
 {
@@ -16,12 +16,16 @@ namespace ETN_CPU_GPU_MINER
         public static int globalindex = 0;
         public bool m_bStartTime = false;
         private Stopwatch stopwatch = new Stopwatch();
-        private Logger Log = new Logger();
+
+        private Logger Logger = new Logger();
+        private Messager Messager = new Messager();
+
         public Form1()
         {
-
+            Messager.InitializeMessager(Logger);
             InitializeComponent();
-            Log.Debug("ETNCRAFT Logging Enabled.");
+            status.Text = Messager.PushMessage("TEST MESSAGE");
+            
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             pool.SelectedItem = pool.Items[4];
@@ -42,8 +46,7 @@ namespace ETN_CPU_GPU_MINER
         //}
 
         private void mining_Click_1(object sender, EventArgs e)
-        {
-            
+        {            
             string minerstring = "";
             if (wallet_address.Text == "Enter Public Wallet Here")
             {
@@ -726,6 +729,23 @@ namespace ETN_CPU_GPU_MINER
             //To Keep log at bottom -- Easier than putting this at each write line
             status.SelectionStart = status.Text.Length;
             status.ScrollToCaret();
+        }
+
+        private void OpenLogButton_Click(object sender, EventArgs e)
+        {            
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = Logger.GetLogFilePath()
+            };
+
+            process.Start();
+        }
+
+        private void ClearMessagesButton_Click(object sender, EventArgs e)
+        {
+            Messager.ClearMessages();
         }
     }
 

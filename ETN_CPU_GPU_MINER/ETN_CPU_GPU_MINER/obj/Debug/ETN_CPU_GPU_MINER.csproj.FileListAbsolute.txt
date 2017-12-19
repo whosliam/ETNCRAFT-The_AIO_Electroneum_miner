@@ -16,3 +16,13 @@ E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_
 E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.exe
 E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb
 E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe.config
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Form1.resources
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Properties.Resources.resources
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.GenerateResource.Cache
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.CoreCompileInputs.cache
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb
