@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETN_CPU_GPU_MINER", "ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER.csproj", "{A8DB51AA-F8BF-4900-A68E-5F9B2810AC4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8DB51AA-F8BF-4900-A68E-5F9B2810AC4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DB51AA-F8BF-4900-A68E-5F9B2810AC4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8DB51AA-F8BF-4900-A68E-5F9B2810AC4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8DB51AA-F8BF-4900-A68E-5F9B2810AC4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

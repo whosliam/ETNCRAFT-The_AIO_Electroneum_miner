@@ -1,0 +1,9 @@
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\ETN_CPU_GPU_MINER.exe.config
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\ETN_CPU_GPU_MINER.exe
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\ETN_CPU_GPU_MINER.pdb
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.Form1.resources
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.Properties.Resources.resources
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.csproj.GenerateResource.Cache
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.exe
+E:\Crypto\Liams_ETN_Miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.pdb
