@@ -3,7 +3,6 @@ using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
-using System.Windows.Forms;
 using System.IO;
 using OpenHardwareMonitor.Hardware;
 using ETNCRAFT;
@@ -12,7 +11,7 @@ namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
     {
-        public static string pool_url = "";
+        public static string PoolURL = "";
         public static int globalindex = 0;
         public bool m_bStartTime = false;
         private Stopwatch stopwatch = new Stopwatch();
@@ -23,8 +22,7 @@ namespace ETN_CPU_GPU_MINER
         public Form1()
         {
             Messager.InitializeMessager(Logger);
-            InitializeComponent();
-            status.Text = Messager.PushMessage("TEST MESSAGE");
+            InitializeComponent();            
             
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
@@ -32,7 +30,7 @@ namespace ETN_CPU_GPU_MINER
             gpubrand.Visible = false;
             lbl_gpubrand.Visible = false;
             gpubrand.SelectedItem = gpubrand.Items[0];
-            string[] lines = System.IO.File.ReadAllLines("custom_url.conf");
+            string[] lines = File.ReadAllLines("custom_url.conf");
             pool.Items.AddRange(lines);
             GetTemps();
         }
@@ -51,12 +49,12 @@ namespace ETN_CPU_GPU_MINER
             if (wallet_address.Text == "Enter Public Wallet Here")
             {
                 wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
-                status.Text += Constants.vbNewLine + ">dev wallet address selected! thanks!";
+                status.Text = Messager.PushMessage("Developer Wallet Address Selected! Thanks!");
                 MessageBox.Show("Developers Wallet Has Been Entered!\r\nARE YOU SURE?!");
 
             }
             if (pool.SelectedItem == pool.Items[9])
-                pool_url = custom_pool.Text;
+                PoolURL = custom_pool.Text;
             if (double.Parse(threads.Text) <= 1)
                 threads.Text = "1";
             if (mining.Text == "Leftovercode")
@@ -65,27 +63,27 @@ namespace ETN_CPU_GPU_MINER
             else
             {
                 string FILE_NAME = "mine.bat";
-                if (System.IO.File.Exists(FILE_NAME) == false)
+                if (File.Exists(FILE_NAME) == false)
                 {
-                    System.IO.File.Create(FILE_NAME).Dispose();
-                    status.Text += Constants.vbNewLine + "mine.bat created";
+                    File.Create(FILE_NAME).Dispose();
+                    status.Text = Messager.PushMessage("mine.bat created");
                 }
                 else
                 {
-                    System.IO.File.Delete(FILE_NAME);
-                    status.Text += Constants.vbNewLine + "old mine.bat deleted";
-                    System.IO.File.Create(FILE_NAME).Dispose();
-                    status.Text += Constants.vbNewLine + "mine.bat created";
+                    File.Delete(FILE_NAME);
+                    status.Text = Messager.PushMessage("old mine.bat deleted");
+                    File.Create(FILE_NAME).Dispose();
+                    status.Text = Messager.PushMessage("mine.bat created");
                 }
 
                 if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
                 {
-                    System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
-                    objWriter.WriteLine("cpuminer -a cryptonight -o stratum+tcp://" + pool_url + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
+                    StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
+                    objWriter.WriteLine("cpuminer -a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
                     objWriter.Close();
-                    System.Diagnostics.Process.Start("mine.bat");
-                    status.Text += Constants.vbNewLine + "mine.bat ran";
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + pool_url;
+                    Process.Start("mine.bat");
+                    status.Text = Messager.PushMessage("mine.bat ran");
+                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
                     open_miners.Items.Add(minerstring);
                     globalindex++;
                     //new_miner.Visible = true;
@@ -93,13 +91,13 @@ namespace ETN_CPU_GPU_MINER
 
                 if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
                 {
-                    System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
-                    objWriter.WriteLine("ccminer -o stratum+tcp://" + pool_url + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
+                    StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
+                    objWriter.WriteLine("ccminer -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
                     objWriter.Close();
-                    System.Diagnostics.Process.Start("mine.bat");
-                    status.Text += Constants.vbNewLine + "mine.bat ran";
+                    Process.Start("mine.bat");
+                    status.Text = Messager.PushMessage("mine.bat ran");
 
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + pool_url;
+                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
                     open_miners.Items.Add(minerstring);
                     globalindex++;
                     // new_miner.Visible = true;
@@ -109,22 +107,22 @@ namespace ETN_CPU_GPU_MINER
                 {
                     //create new config file
                     string FILE_NAME_AMD = "config.txt";
-                    if (System.IO.File.Exists(FILE_NAME_AMD) == false)
+                    if (File.Exists(FILE_NAME_AMD) == false)
                     {
-                        System.IO.File.Create(FILE_NAME_AMD).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Create(FILE_NAME_AMD).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
                     else
                     {
-                        System.IO.File.Delete(FILE_NAME_AMD);
-                        status.Text += Constants.vbNewLine + "old config.txt deleted";
-                        System.IO.File.Create(FILE_NAME_AMD).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Delete(FILE_NAME_AMD);
+                        status.Text = Messager.PushMessage("old config.txt deleted");
+                        File.Create(FILE_NAME_AMD).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
-                    System.IO.File.Copy("config-template.txt", "config.txt", true);
+                    File.Copy("config-template.txt", "config.txt", true);
                     //This can done way better but i can't be assed
                     string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText("config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", pool_url + ":" + port.Text);
+                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
                     fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
                     int index = System.Convert.ToInt32(threads.Text);
                     while (index <= 15)
@@ -133,10 +131,10 @@ namespace ETN_CPU_GPU_MINER
                         index++;
                     }
                     (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config.txt", fileReader, false);
-                    status.Text += Constants.vbNewLine + "config.txt updated";
+                    status.Text = Messager.PushMessage("config.txt updated");
 
-                    System.Diagnostics.Process.Start("xmr-stak-amd.exe");
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + pool_url;
+                    Process.Start("xmr-stak-amd.exe");
+                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
                     open_miners.Items.Add(minerstring);
                     globalindex++;
                     // new_miner.Visible = true;
@@ -146,22 +144,22 @@ namespace ETN_CPU_GPU_MINER
                 {
                     //create new config file
                     string FILE_NAME_NV = "config.txt";
-                    if (System.IO.File.Exists(FILE_NAME_NV) == false)
+                    if (File.Exists(FILE_NAME_NV) == false)
                     {
-                        System.IO.File.Create(FILE_NAME_NV).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Create(FILE_NAME_NV).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
                     else
                     {
-                        System.IO.File.Delete(FILE_NAME_NV);
-                        status.Text += Constants.vbNewLine + "old config.txt deleted";
-                        System.IO.File.Create(FILE_NAME_NV).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Delete(FILE_NAME_NV);
+                        status.Text = Messager.PushMessage("old config.txt deleted");
+                        File.Create(FILE_NAME_NV).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
-                    System.IO.File.Copy("config-template-nv.txt", "config.txt", true);
+                    File.Copy("config-template-nv.txt", "config.txt", true);
                     //This can done way better but i can't be assed
                     string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText("config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", pool_url + ":" + port.Text);
+                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
                     fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
                     int index = System.Convert.ToInt32(threads.Text);
                     while (index <= 15)
@@ -170,10 +168,10 @@ namespace ETN_CPU_GPU_MINER
                         index++;
                     }
                     (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config.txt", fileReader, false);
-                    System.Diagnostics.Process.Start("xmr-stak-nvidia.exe");
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + pool_url;
+                    Process.Start("xmr-stak-nvidia.exe");
+                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
                     open_miners.Items.Add(minerstring);
-                    status.Text += Constants.vbNewLine + "config.txt updated";
+                    status.Text = Messager.PushMessage("config.txt updated");
 
                     globalindex++;
                     // new_miner.Visible = true;
@@ -183,22 +181,22 @@ namespace ETN_CPU_GPU_MINER
                 {
                     //create new config file
                     string FILE_NAME_NV = "config.txt";
-                    if (System.IO.File.Exists(FILE_NAME_NV) == false)
+                    if (File.Exists(FILE_NAME_NV) == false)
                     {
-                        System.IO.File.Create(FILE_NAME_NV).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Create(FILE_NAME_NV).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
                     else
                     {
-                        System.IO.File.Delete(FILE_NAME_NV);
-                        status.Text += Constants.vbNewLine + "old config.txt deleted";
-                        System.IO.File.Create(FILE_NAME_NV).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Delete(FILE_NAME_NV);
+                        status.Text = Messager.PushMessage("old config.txt deleted");
+                        File.Create(FILE_NAME_NV).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
-                    System.IO.File.Copy("config-template-nv-hp.txt", "config.txt", true);
+                    File.Copy("config-template-nv-hp.txt", "config.txt", true);
                     //This can done way better but i can't be assed
                     string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText("config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", pool_url + ":" + port.Text);
+                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
                     fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
                     int index = System.Convert.ToInt32(threads.Text);
                     while (index <= 15)
@@ -207,10 +205,10 @@ namespace ETN_CPU_GPU_MINER
                         index++;
                     }
                     (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config.txt", fileReader, false);
-                    System.Diagnostics.Process.Start("xmr-stak-nvidia.exe");
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + pool_url;
+                    Process.Start("xmr-stak-nvidia.exe");
+                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
                     open_miners.Items.Add(minerstring);
-                    status.Text += Constants.vbNewLine + "config.txt updated";
+                    status.Text = Messager.PushMessage("config.txt updated");
 
                     globalindex++;
                     //new_miner.Visible = true;
@@ -220,22 +218,22 @@ namespace ETN_CPU_GPU_MINER
                 {
                     //create new config file
                     string FILE_NAME_CPU = "config.txt";
-                    if (System.IO.File.Exists(FILE_NAME_CPU) == false)
+                    if (File.Exists(FILE_NAME_CPU) == false)
                     {
-                        System.IO.File.Create(FILE_NAME_CPU).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Create(FILE_NAME_CPU).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
                     else
                     {
-                        System.IO.File.Delete(FILE_NAME_CPU);
-                        status.Text += Constants.vbNewLine + "old config.txt deleted";
-                        System.IO.File.Create(FILE_NAME_CPU).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Delete(FILE_NAME_CPU);
+                        status.Text = Messager.PushMessage("old config.txt deleted");
+                        File.Create(FILE_NAME_CPU).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
-                    System.IO.File.Copy("config-template-cpu.txt", "config.txt", true);
+                    File.Copy("config-template-cpu.txt", "config.txt", true);
                     //This can done way better but i can't be assed
                     string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText("config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", pool_url + ":" + port.Text);
+                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
                     fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
                     int index = System.Convert.ToInt32((double.Parse(threads.Text) * 2) - 1);
                     while (index <= 14)
@@ -244,10 +242,10 @@ namespace ETN_CPU_GPU_MINER
                         index++;
                     }
                     (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config.txt", fileReader, false);
-                    System.Diagnostics.Process.Start("xmr-stak-cpu.exe");
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + pool_url;
+                    Process.Start("xmr-stak-cpu.exe");
+                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
                     open_miners.Items.Add(minerstring);
-                    status.Text += Constants.vbNewLine + "config.txt updated";
+                    status.Text = Messager.PushMessage("config.txt updated");
                     globalindex++;
                     //new_miner.Visible = true;
                 }
@@ -256,22 +254,22 @@ namespace ETN_CPU_GPU_MINER
                 {
                     //create new config file
                     string FILE_NAME_CPU = "config.txt";
-                    if (System.IO.File.Exists(FILE_NAME_CPU) == false)
+                    if (File.Exists(FILE_NAME_CPU) == false)
                     {
-                        System.IO.File.Create(FILE_NAME_CPU).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Create(FILE_NAME_CPU).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
                     else
                     {
-                        System.IO.File.Delete(FILE_NAME_CPU);
-                        status.Text += Constants.vbNewLine + "old config.txt deleted";
-                        System.IO.File.Create(FILE_NAME_CPU).Dispose();
-                        status.Text += Constants.vbNewLine + "config.txt created";
+                        File.Delete(FILE_NAME_CPU);
+                        status.Text = Messager.PushMessage("old config.txt deleted");
+                        File.Create(FILE_NAME_CPU).Dispose();
+                        status.Text = Messager.PushMessage("config.txt created");
                     }
-                    System.IO.File.Copy("config-template-cpu-le.txt", "config.txt", true);
+                    File.Copy("config-template-cpu-le.txt", "config.txt", true);
                     //This can done way better but i can't be assed
                     string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText("config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", pool_url + ":" + port.Text);
+                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
                     fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
                     int index = System.Convert.ToInt32(threads.Text);
                     while (index <= 14)
@@ -280,15 +278,15 @@ namespace ETN_CPU_GPU_MINER
                         index++;
                     }
                     (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config.txt", fileReader, false);
-                    System.Diagnostics.Process.Start("xmr-stak-cpu.exe");
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + pool_url;
+                    Process.Start("xmr-stak-cpu.exe");
+                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
                     open_miners.Items.Add(minerstring);
-                    status.Text += Constants.vbNewLine + "config.txt updated";
+                    status.Text = Messager.PushMessage("config.txt updated");
                     globalindex++;
                     //new_miner.Visible = true;
                 }
             }
-            status.Text += Constants.vbNewLine + "****************\r\n" + minerstring;
+            status.Text = Messager.PushMessage("****************\r\n" + minerstring);
             //Start Timer
             m_bStartTime = true;
             stopwatch.Start();
@@ -299,51 +297,42 @@ namespace ETN_CPU_GPU_MINER
             //Stop Timer
             m_bStartTime = false;
             stopwatch.Stop();
-            Process[] arrProcessCPU = System.Diagnostics.Process.GetProcessesByName("cpuminer");
 
-            foreach (Process p in arrProcessCPU)
-            {                
-                p.Kill();
-            }
-            Process[] arrProcessNV = System.Diagnostics.Process.GetProcessesByName("ccminer");
+            // Get Process Arrays
+            Process[] ArrProcessCPU = Process.GetProcessesByName("cpuminer");            
+            Process[] ArrProcessNV = Process.GetProcessesByName("ccminer");
+            Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd");
+            Process[] ArrProcessNVXMR = Process.GetProcessesByName("xmr-stak-nvidia");
+            Process[] ArrProcessCPUXMR = Process.GetProcessesByName("xmr-stak-cpu");
 
-            foreach (Process p in arrProcessNV)
-            {
-                p.Kill();
+            // Build Aggregate Process Array
+            int ProcessCount = ArrProcessCPU.Length + ArrProcessNV.Length + ArrProcessAMD.Length + ArrProcessNVXMR.Length + ArrProcessCPUXMR.Length;
+            Process[] ArrProcesses = new Process[ProcessCount];
+            ArrProcessCPU.CopyTo(ArrProcesses, 0);
+            ArrProcessNV.CopyTo(ArrProcesses, ArrProcessCPU.Length);
+            ArrProcessAMD.CopyTo(ArrProcesses, ArrProcessNV.Length);
+            ArrProcessNVXMR.CopyTo(ArrProcesses, ArrProcessAMD.Length);
+            ArrProcessCPUXMR.CopyTo(ArrProcesses, ArrProcessNVXMR.Length);
+           
+            // Kill Processes
+            foreach (Process p in ArrProcesses)
+            {                                
+                status.Text = Messager.PushMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
+                p.Kill();                
             }
-            Process[] arrProcessAMD = System.Diagnostics.Process.GetProcessesByName("xmr-stak-amd");
 
-            foreach (Process p in arrProcessAMD)
-            {
-                p.Kill();
-            }
-            Process[] arrProcessNVXMR = System.Diagnostics.Process.GetProcessesByName("xmr-stak-nvidia");
-
-            foreach (Process p in arrProcessNVXMR)
-            {
-                p.Kill();
-            }
-            Process[] arrProcessCPUXMR = System.Diagnostics.Process.GetProcessesByName("xmr-stak-cpu");
-
-            foreach (Process p in arrProcessCPUXMR)
-            {
-                p.Kill();
-            }
+            status.Text = Messager.PushMessage("All Processes Killed!");
             globalindex = 0;
             open_miners.Items.Clear();
             string titlestring = "Miner No. |Address:					|Backend:		|Pool:		";
             open_miners.Items.Add(titlestring);
-            //new_miner.Visible = false;
-            status.Text = "";
-            status.Text += Constants.vbNewLine + " All Processes Killed";
-
-
+           
         }
 
         private void clear_Click_1(object sender, EventArgs e)
         {
             wallet_address.Text = "";
-            status.Text += Constants.vbNewLine + "";
+            status.Text = Messager.ClearMessages();
         }
 
         private void cpuorgpu_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -419,7 +408,7 @@ namespace ETN_CPU_GPU_MINER
             if (pool.SelectedItem == pool.Items[9])
             {
                 custom_pool.Enabled = true;
-                status.Text += Constants.vbNewLine + ">>custom pool selected, make sure to add your pool address!";
+                status.Text = Messager.PushMessage("custom pool selected, make sure to add your pool address!");
             }
             else
             {
@@ -428,63 +417,63 @@ namespace ETN_CPU_GPU_MINER
 
             if (!(pool.SelectedItem == pool.Items[0] || pool.SelectedItem == pool.Items[1] || pool.SelectedItem == pool.Items[2] || pool.SelectedItem == pool.Items[3] || pool.SelectedItem == pool.Items[4] || pool.SelectedItem == pool.Items[5] || pool.SelectedItem == pool.Items[6] || pool.SelectedItem == pool.Items[7] || pool.SelectedItem == pool.Items[8] || pool.SelectedItem == pool.Items[9]))
             {
-                string custom_pool_url = "";
-                custom_pool_url = pool.SelectedItem.ToString();
-                pool_url = custom_pool_url;
-                status.Text += Constants.vbNewLine + ">>custom pool selected, make sure it is a valid address!";
+                string custom_PoolURL = "";
+                custom_PoolURL = pool.SelectedItem.ToString();
+                PoolURL = custom_PoolURL;
+                status.Text = Messager.PushMessage("custom pool selected, make sure it is a valid address!");
             }
 
             if (pool.SelectedItem == pool.Items[0])
             {
-                pool_url = "uspool.electroneum.com";
-                status.Text += Constants.vbNewLine + ">>uspool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout";
+                PoolURL = "uspool.electroneum.com";
+                status.Text = Messager.PushMessage("uspool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout");
             }
             if (pool.SelectedItem == pool.Items[1])
             {
-                pool_url = "eupool.electroneum.com";
-                status.Text += Constants.vbNewLine + ">>eupool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout";
+                PoolURL = "eupool.electroneum.com";
+                status.Text = Messager.PushMessage("eupool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[2])
             {
-                pool_url = "asiapool.electroneum.com";
-                status.Text += Constants.vbNewLine + ">>asiapool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout";
+                PoolURL = "asiapool.electroneum.com";
+                status.Text = Messager.PushMessage("asiapool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[3])
             {
-                pool_url = "us-etn-pool.hashparty.io";
-                status.Text += Constants.vbNewLine + ">>us-etn-pool.hashparty.io selected, 1.5% Pool fee, 10 ETN Minimum Cashout";
+                PoolURL = "us-etn-pool.hashparty.io";
+                status.Text = Messager.PushMessage("us-etn-pool.hashparty.io selected, 1.5% Pool fee, 10 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[4])
             {
-                pool_url = "pool.electroneum.space";
-                status.Text += Constants.vbNewLine + ">>pool.electroneum.space selected, UNKWN Pool fee, 1 ETN Minimum Cashout";
+                PoolURL = "pool.electroneum.space";
+                status.Text = Messager.PushMessage("pool.electroneum.space selected, 0.5% Pool fee, 10 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[5])
             {
-                pool_url = "myetn.uk";
-                status.Text += Constants.vbNewLine + ">>myetn.uk selected, 2% Pool fee, 10 ETN Minimum Cashout";
+                PoolURL = "myetn.uk";
+                status.Text = Messager.PushMessage("myetn.uk selected, 2% Pool fee, 10 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[6])
             {
-                pool_url = "etnhash.com";
-                status.Text += Constants.vbNewLine + ">>etnhash.com selected, 1.5% Pool fee, 0.5 ETN Minimum Cashout";
+                PoolURL = "etnhash.com";
+                status.Text = Messager.PushMessage("etnhash.com selected, 1.5% Pool fee, 0.5 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[7])
             {
-                pool_url = "www.etnpools.com";
-                status.Text += Constants.vbNewLine + ">>www.etnpools.com selected, 1% Pool fee, 5 ETN Minimum Cashout";
+                PoolURL = "www.etnpools.com";
+                status.Text = Messager.PushMessage("www.etnpools.com selected, 1% Pool fee, 5 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[8])
             {
-                pool_url = "etnpool.minekitten.io";
-                status.Text += Constants.vbNewLine + ">>etnpool.minekitten.io selected, 0.4% Pool fee, 5 ETN Minimum Cashout";
+                PoolURL = "etnpool.minekitten.io";
+                status.Text = Messager.PushMessage("etnpool.minekitten.io selected, 0.4% Pool fee, 5 ETN Minimum Cashout");
 
             }
 
@@ -496,54 +485,54 @@ namespace ETN_CPU_GPU_MINER
             string1 = miner_type.SelectedItem.ToString();
             if (string1 == "xmr-stak-cpu")
             {
-                status.Text += Constants.vbNewLine + ">>xmr-stak-cpu miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 3: If it still doesn't work, switch the miner backend to cpuminer-multi";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 4: Perhaps you have too many threads";
-                status.Text += Constants.vbNewLine + ">>Thread count halved";
+                status.Text = Messager.PushMessage("xmr-stak-cpu miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
+                status.Text = Messager.PushMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
+                status.Text = Messager.PushMessage("   ERROR HELP 3: If it still doesn't work, switch the miner backend to cpuminer-multi");
+                status.Text = Messager.PushMessage("   ERROR HELP 4: Perhaps you have too many threads");
+                status.Text = Messager.PushMessage("Thread count halved");
                 threads.Text = System.Convert.ToString(double.Parse(threads.Text) / 2);
             }
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && double.Parse(threads.Text) >= 2)
             {
                 port.Text = "7777";
-                status.Text += Constants.vbNewLine + ">>gpu mining with 2+GPUs detected, setting port to 7777";
+                status.Text = Messager.PushMessage("gpu mining with 2+GPUs detected, setting port to 7777");
             }
             if (string1 == "xmr-stak-nvidia")
             {
-                status.Text += Constants.vbNewLine + ">>xmr-stak-nvidia miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 3: If it still doesn't work, switch the miner backend to ccminer, xmr-stak-nvidia does not support more than 16 GPUs";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 4: Are you using High Performance mode? Switching to standard mode for compatibility";
+                status.Text = Messager.PushMessage("xmr-stak-nvidia miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
+                status.Text = Messager.PushMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
+                status.Text = Messager.PushMessage("   ERROR HELP 3: If it still doesn't work, switch the miner backend to ccminer, xmr-stak-nvidia does not support more than 16 GPUs");
+                status.Text = Messager.PushMessage("   ERROR HELP 4: Are you using High Performance mode? Switching to standard mode for compatibility");
                 xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
 
             }
             if (string1 == "xmr-stak-amd")
             {
-                status.Text += Constants.vbNewLine + ">>xmr-stak-amd miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 3:If it still doesn't work, reduce the number of GPUs xmr-stak-amd does not support more than 16 GPUs";
+                status.Text = Messager.PushMessage("xmr-stak-amd miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
+                status.Text = Messager.PushMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
+                status.Text = Messager.PushMessage("   ERROR HELP 3:If it still doesn't work, reduce the number of GPUs xmr-stak-amd does not support more than 16 GPUs");
             }
             if (string1 == "ccminer")
             {
-                status.Text += Constants.vbNewLine + ">>ccminer detected" + Constants.vbNewLine + "   ERROR HELP 1: Your GPU is probably not supported (some GTX x80 Series and 10xx series not supported. Switch to xmr-stak-nvidia";
+                status.Text = Messager.PushMessage("ccminer detected" + Constants.vbNewLine + "   ERROR HELP 1: Your GPU is probably not supported (some GTX x80 Series and 10xx series not supported. Switch to xmr-stak-nvidia");
             }
             if (string1 == "cpuminer-multi")
             {
-                status.Text += Constants.vbNewLine + ">>cpuminer-multi detected" + Constants.vbNewLine + "   ERROR HELP 1: Your CPU is probably not supported (This build it built for Intel Core-I series, Switch to xmr-stak-cpu";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 2: Perhaps you have too many threads";
-                status.Text += Constants.vbNewLine + ">>Thread count halved";
+                status.Text = Messager.PushMessage("cpuminer-multi detected" + Constants.vbNewLine + "   ERROR HELP 1: Your CPU is probably not supported (This build it built for Intel Core-I series, Switch to xmr-stak-cpu");
+                status.Text = Messager.PushMessage("   ERROR HELP 2: Perhaps you have too many threads");
+                status.Text = Messager.PushMessage("Thread count halved");
                 threads.Text = System.Convert.ToString(double.Parse(threads.Text) / 2);
             }
             if (!(pool.SelectedItem == pool.Items[0] || pool.SelectedItem == pool.Items[1] || pool.SelectedItem == pool.Items[2] || pool.SelectedItem == pool.Items[3] || pool.SelectedItem == pool.Items[4] || pool.SelectedItem == pool.Items[5] || pool.SelectedItem == pool.Items[6] || pool.SelectedItem == pool.Items[7] || pool.SelectedItem == pool.Items[8] || pool.SelectedItem == pool.Items[9]))
             {
-                status.Text += Constants.vbNewLine + ">>custom pool detected";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 1: Custom pool detected, is it the correct address?";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 2: Did you accidentally add the port number in the config file?";
+                status.Text = Messager.PushMessage("custom pool detected");
+                status.Text = Messager.PushMessage("   ERROR HELP 1: Custom pool detected, is it the correct address?");
+                status.Text = Messager.PushMessage("   ERROR HELP 2: Did you accidentally add the port number in the config file?");
             }
             if (pool.SelectedItem == pool.Items[9])
             {
-                status.Text += Constants.vbNewLine + ">>custom pool detected";
-                status.Text += Constants.vbNewLine + "   ERROR HELP 1: Custom pool detected, is it the correct address?";
+                status.Text = Messager.PushMessage("custom pool detected");
+                status.Text = Messager.PushMessage("   ERROR HELP 1: Custom pool detected, is it the correct address?");
             }
 
         }
@@ -551,12 +540,12 @@ namespace ETN_CPU_GPU_MINER
         private void check_Click(object sender, EventArgs e)
         {
             if (pool.SelectedItem == pool.Items[9])
-                status.Text += Constants.vbNewLine + "   INFO: Cannot check ETN of custom pool directly from miner, go to their website.";
+                status.Text = Messager.PushMessage("   INFO: Cannot check ETN of custom pool directly from miner, go to their website.");
             else if (!(pool.SelectedItem == pool.Items[0] || pool.SelectedItem == pool.Items[1] || pool.SelectedItem == pool.Items[2] || pool.SelectedItem == pool.Items[3] || pool.SelectedItem == pool.Items[4] || pool.SelectedItem == pool.Items[5] || pool.SelectedItem == pool.Items[6] || pool.SelectedItem == pool.Items[7] || pool.SelectedItem == pool.Items[8] || pool.SelectedItem == pool.Items[9]))
-                status.Text += Constants.vbNewLine + "   INFO: Cannot check ETN of custom pool directly from miner, go to their website.";
+                status.Text = Messager.PushMessage("   INFO: Cannot check ETN of custom pool directly from miner, go to their website.");
             else
             {
-                string webAddress = "http://" + pool_url;
+                string webAddress = "http://" + PoolURL;
                 Process.Start(webAddress);
             }
 
@@ -594,7 +583,7 @@ namespace ETN_CPU_GPU_MINER
                 wallet_address.Text = config_contents_load[0];
                 pool.SelectedItem = config_contents_load[1];
                 custom_pool.Text = config_contents_load[2];
-                pool_url = config_contents_load[3];
+                PoolURL = config_contents_load[3];
                 port.Text = config_contents_load[4];
                 cpuorgpu.SelectedItem = config_contents_load[6];
                 gpubrand.SelectedItem = config_contents_load[7];
@@ -620,7 +609,7 @@ namespace ETN_CPU_GPU_MINER
                     ht_checkstate = "yes";
                 else if (hyperthread.Checked == false)
                     ht_checkstate = "no";
-                string config_contents_save = wallet_address.Text + Constants.vbNewLine + System.Convert.ToString(pool.SelectedItem) + Constants.vbNewLine + custom_pool.Text + Constants.vbNewLine + pool_url + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
+                string config_contents_save = wallet_address.Text + Constants.vbNewLine + System.Convert.ToString(pool.SelectedItem) + Constants.vbNewLine + custom_pool.Text + Constants.vbNewLine + PoolURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(save_config_dialog.FileName, config_contents_save, true);
             }
 
