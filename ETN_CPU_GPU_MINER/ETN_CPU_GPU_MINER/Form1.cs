@@ -6,6 +6,8 @@ using Microsoft.VisualBasic;
 using System.Windows.Forms;
 using System.IO;
 using OpenHardwareMonitor.Hardware;
+using ETN;
+
 namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
@@ -14,10 +16,12 @@ namespace ETN_CPU_GPU_MINER
         public static int globalindex = 0;
         public bool m_bStartTime = false;
         private Stopwatch stopwatch = new Stopwatch();
+        private Logger Log = new Logger();
         public Form1()
         {
 
             InitializeComponent();
+            Log.Debug("ETNCRAFT Logging Enabled.");
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             pool.SelectedItem = pool.Items[4];
@@ -295,7 +299,7 @@ namespace ETN_CPU_GPU_MINER
             Process[] arrProcessCPU = System.Diagnostics.Process.GetProcessesByName("cpuminer");
 
             foreach (Process p in arrProcessCPU)
-            {
+            {                
                 p.Kill();
             }
             Process[] arrProcessNV = System.Diagnostics.Process.GetProcessesByName("ccminer");
