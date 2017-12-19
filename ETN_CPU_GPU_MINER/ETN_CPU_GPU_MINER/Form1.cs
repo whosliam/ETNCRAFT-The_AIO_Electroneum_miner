@@ -745,7 +745,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void ClearMessagesButton_Click(object sender, EventArgs e)
         {
-            Messager.ClearMessages();
+            status.Text = Messager.ClearMessages();
         }
     }
 

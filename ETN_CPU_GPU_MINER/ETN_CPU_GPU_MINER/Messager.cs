@@ -38,9 +38,10 @@ namespace ETNCRAFT
             return Text;
         }
 
-        public void ClearMessages()
+        public string ClearMessages()
         {
             Text = Constants.vbNewLine;
+            return Text;
         }
 
     }
