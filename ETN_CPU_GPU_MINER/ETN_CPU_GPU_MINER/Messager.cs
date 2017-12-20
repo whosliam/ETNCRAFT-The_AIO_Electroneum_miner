@@ -28,14 +28,14 @@ namespace ETNCRAFT
             if (WriteToLog)
                 Logger.Debug(Message);
 
-            Text += Constants.vbNewLine + "> " + Message;
+            Text += "> " + Message + Constants.vbNewLine;
 
             return Text;
         }
 
         public string ClearMessages()
         {
-            Text = Constants.vbNewLine;
+            Text = "";
             return Text;
         }
 
