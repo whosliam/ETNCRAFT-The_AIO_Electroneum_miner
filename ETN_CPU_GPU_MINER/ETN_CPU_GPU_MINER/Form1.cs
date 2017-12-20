@@ -50,6 +50,10 @@ namespace ETN_CPU_GPU_MINER
 
         private void mining_Click_1(object sender, EventArgs e)
         {
+            //Auto Save 
+            if(chkAutoLoadConfig.Checked)
+                SaveConfig();
+
             string minerstring = "";
             if (wallet_address.Text.Equals("Enter Public Wallet Here"))
             {
@@ -68,279 +72,273 @@ namespace ETN_CPU_GPU_MINER
                 PoolURL = custom_pool.Text;
             if (double.Parse(threads.Text) <= 1)
                 threads.Text = "1";
-            if (mining.Text == "Leftovercode")
+            string FILE_NAME = Application.StartupPath + "\\app_assets\\mine.bat";
+            if (File.Exists(FILE_NAME) == false)
             {
+                File.Create(FILE_NAME).Dispose();
+                PushStatusMessage("mine.bat created");
             }
             else
             {
-                string FILE_NAME = Application.StartupPath + "\\app_assets\\mine.bat";
-                if (File.Exists(FILE_NAME) == false)
+                File.Delete(FILE_NAME);
+                PushStatusMessage("old mine.bat deleted");
+                File.Create(FILE_NAME).Dispose();
+                PushStatusMessage("mine.bat created");
+            }
+
+            if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
+            {
+                StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
+                objWriter.WriteLine("cpuminer -a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
+                objWriter.Close();
+                PushStatusMessage("mine.bat ran");
+                //we should get ride of this stuff////
+                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
+                open_miners.Items.Add(minerstring);
+                /////////////////////////////////////
+                globalindex++;
+                //WHY THE FUCK!!!!!!!!! god damn this took way too long.   (╯°□°）╯︵ ┻━┻
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = "mine.bat";
+                proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
+                proc.Start();
+
+            }
+
+            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
+            {
+                StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
+                objWriter.WriteLine("ccminer -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
+                objWriter.Close();
+                PushStatusMessage("mine.bat ran");
+                //we should get ride of this stuff///
+                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
+                open_miners.Items.Add(minerstring);
+                ////////////////////////////////////
+
+                globalindex++;
+                //WHY THE FUCK!!!!!!!!! god damn this took way too long.   (╯°□°）╯︵ ┻━┻
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = "mine.bat";
+                proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
+                proc.Start();
+            }
+
+            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[1])
+            {
+                //create new config file
+                string FILE_NAME_AMD = "app_assets/config.txt";
+                if (File.Exists(FILE_NAME_AMD) == false)
                 {
-                    File.Create(FILE_NAME).Dispose();
-                    PushStatusMessage("mine.bat created");
+                    File.Create(FILE_NAME_AMD).Dispose();
+                    PushStatusMessage("config.txt created");
                 }
                 else
                 {
-                    File.Delete(FILE_NAME);
-                    PushStatusMessage("old mine.bat deleted");
-                    File.Create(FILE_NAME).Dispose();
-                    PushStatusMessage("mine.bat created");
+                    File.Delete(FILE_NAME_AMD);
+                    PushStatusMessage("old config.txt deleted");
+                    File.Create(FILE_NAME_AMD).Dispose();
+                    PushStatusMessage("config.txt created");
                 }
-
-                if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
+                File.Copy(@"config_templates/config-template.txt", @"app_assets/config.txt", true);
+                //This can done way better but i can't be assed
+                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
+                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                int index = System.Convert.ToInt32(threads.Text);
+                while (index <= 15)
                 {
-                    StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
-                    objWriter.WriteLine("cpuminer -a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
-                    objWriter.Close();
-                    PushStatusMessage("mine.bat ran");
-                    //we should get ride of this stuff////
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                    open_miners.Items.Add(minerstring);
-                    /////////////////////////////////////
-                    globalindex++;
-                    //WHY THE FUCK!!!!!!!!! god damn this took way too long.   (╯°□°）╯︵ ┻━┻
-                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                    proc.StartInfo.FileName = "mine.bat";
-                    proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                    proc.Start();
-
+                    fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ", \"intensity\" : 1000, \"worksize\" : 8, \"affine_to_cpu\" : false },", "");
+                    index++;
                 }
+                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+                PushStatusMessage("config.txt updated");
 
-                if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
+
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = "xmr-stak-amd.exe";
+                proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
+                proc.Start();
+
+
+
+                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
+                open_miners.Items.Add(minerstring);
+                globalindex++;
+                // new_miner.Visible = true;
+            }
+
+            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[0])
+            {
+                //create new config file
+                string FILE_NAME_NV = "app_assets/config.txt";
+                if (File.Exists(FILE_NAME_NV) == false)
                 {
-                    StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
-                    objWriter.WriteLine("ccminer -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
-                    objWriter.Close();
-                    PushStatusMessage("mine.bat ran");
-                    //we should get ride of this stuff///
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                    open_miners.Items.Add(minerstring);
-                    ////////////////////////////////////
-
-                    globalindex++;
-                    //WHY THE FUCK!!!!!!!!! god damn this took way too long.   (╯°□°）╯︵ ┻━┻
-                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                    proc.StartInfo.FileName = "mine.bat";
-                    proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                    proc.Start();
+                    File.Create(FILE_NAME_NV).Dispose();
+                    PushStatusMessage("config.txt created");
                 }
-
-                if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[1])
+                else
                 {
-                    //create new config file
-                    string FILE_NAME_AMD = "app_assets/config.txt";
-                    if (File.Exists(FILE_NAME_AMD) == false)
-                    {
-                        File.Create(FILE_NAME_AMD).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    else
-                    {
-                        File.Delete(FILE_NAME_AMD);
-                        PushStatusMessage("old config.txt deleted");
-                        File.Create(FILE_NAME_AMD).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    File.Copy(@"config_templates/config-template.txt", @"app_assets/config.txt", true);
-                    //This can done way better but i can't be assed
-                    string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                    fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
-                    int index = System.Convert.ToInt32(threads.Text);
-                    while (index <= 15)
-                    {
-                        fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ", \"intensity\" : 1000, \"worksize\" : 8, \"affine_to_cpu\" : false },", "");
-                        index++;
-                    }
-                    (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-                    PushStatusMessage("config.txt updated");
-
-
-                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                    proc.StartInfo.FileName = "xmr-stak-amd.exe";
-                    proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                    proc.Start();
-
-
-
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                    open_miners.Items.Add(minerstring);
-                    globalindex++;
-                    // new_miner.Visible = true;
+                    File.Delete(FILE_NAME_NV);
+                    PushStatusMessage("old config.txt deleted");
+                    File.Create(FILE_NAME_NV).Dispose();
+                    PushStatusMessage("config.txt created");
                 }
-
-                if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[0])
+                File.Copy(@"config_templates/config-template-nv.txt", "@app_assets/config.txt", true);
+                //This can done way better but i can't be assed
+                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
+                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                int index = System.Convert.ToInt32(threads.Text);
+                while (index <= 15)
                 {
-                    //create new config file
-                    string FILE_NAME_NV = "app_assets/config.txt";
-                    if (File.Exists(FILE_NAME_NV) == false)
-                    {
-                        File.Create(FILE_NAME_NV).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    else
-                    {
-                        File.Delete(FILE_NAME_NV);
-                        PushStatusMessage("old config.txt deleted");
-                        File.Create(FILE_NAME_NV).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    File.Copy(@"config_templates/config-template-nv.txt", "@app_assets/config.txt", true);
-                    //This can done way better but i can't be assed
-                    string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                    fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
-                    int index = System.Convert.ToInt32(threads.Text);
-                    while (index <= 15)
-                    {
-                        fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ",\"threads\" : 16, \"blocks\" : 14,\"bfactor\" : 6, \"bsleep\" :  25,\"affine_to_cpu\" : false,},", "");
-                        index++;
-                    }
-                    (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-
-                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                    proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
-                    proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                    proc.Start();
-
-
-
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                    open_miners.Items.Add(minerstring);
-                    PushStatusMessage("config.txt updated");
-
-                    globalindex++;
-                    // new_miner.Visible = true;
+                    fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ",\"threads\" : 16, \"blocks\" : 14,\"bfactor\" : 6, \"bsleep\" :  25,\"affine_to_cpu\" : false,},", "");
+                    index++;
                 }
+                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
 
-                if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[1])
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
+                proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
+                proc.Start();
+
+
+
+                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
+                open_miners.Items.Add(minerstring);
+                PushStatusMessage("config.txt updated");
+
+                globalindex++;
+                // new_miner.Visible = true;
+            }
+
+            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[1])
+            {
+                //create new config file
+                string FILE_NAME_NV = "app_assets/config.txt";
+                if (File.Exists(FILE_NAME_NV) == false)
                 {
-                    //create new config file
-                    string FILE_NAME_NV = "app_assets/config.txt";
-                    if (File.Exists(FILE_NAME_NV) == false)
-                    {
-                        File.Create(FILE_NAME_NV).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    else
-                    {
-                        File.Delete(FILE_NAME_NV);
-                        PushStatusMessage("old config.txt deleted");
-                        File.Create(FILE_NAME_NV).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    File.Copy(@"config_templates/config-template-nv-hp.txt", @"app_assets/config.txt", true);
-                    //This can done way better but i can't be assed
-                    string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                    fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
-                    int index = System.Convert.ToInt32(threads.Text);
-                    while (index <= 15)
-                    {
-                        fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ",\"threads\" : 32, \"blocks\" : 27,\"bfactor\" : 6, \"bsleep\" :  25,\"affine_to_cpu\" : false,},", "");
-                        index++;
-                    }
-                    (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-
-
-                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                    proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
-                    proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                    proc.Start();
-
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                    open_miners.Items.Add(minerstring);
-                    PushStatusMessage("config.txt updated");
-
-                    globalindex++;
-                    //new_miner.Visible = true;
+                    File.Create(FILE_NAME_NV).Dispose();
+                    PushStatusMessage("config.txt created");
                 }
-
-                if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == true)
+                else
                 {
-                    //create new config file
-                    string FILE_NAME_CPU = "app_assets/config.txt";
-                    if (File.Exists(FILE_NAME_CPU) == false)
-                    {
-                        File.Create(FILE_NAME_CPU).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    else
-                    {
-                        File.Delete(FILE_NAME_CPU);
-                        PushStatusMessage("old config.txt deleted");
-                        File.Create(FILE_NAME_CPU).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    File.Copy(@"config_templates/config-template-cpu.txt", @"app_assets/config.txt", true);
-                    //This can done way better but i can't be assed
-                    string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                    fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
-                    int index = System.Convert.ToInt32((double.Parse(threads.Text) * 2) - 1);
-                    while (index <= 14)
-                    {
-                        fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
-                        index++;
-                    }
-                    (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-
-                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                    proc.StartInfo.FileName = "xmr-stak-cpu.exe";
-                    proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                    proc.Start();
-
-
-
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                    open_miners.Items.Add(minerstring);
-                    PushStatusMessage("config.txt updated");
-                    globalindex++;
-                    //new_miner.Visible = true;
+                    File.Delete(FILE_NAME_NV);
+                    PushStatusMessage("old config.txt deleted");
+                    File.Create(FILE_NAME_NV).Dispose();
+                    PushStatusMessage("config.txt created");
                 }
-
-                if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == false)
+                File.Copy(@"config_templates/config-template-nv-hp.txt", @"app_assets/config.txt", true);
+                //This can done way better but i can't be assed
+                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
+                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                int index = System.Convert.ToInt32(threads.Text);
+                while (index <= 15)
                 {
-                    //create new config file
-                    string FILE_NAME_CPU = "app_assets/config.txt";
-                    if (File.Exists(FILE_NAME_CPU) == false)
-                    {
-                        File.Create(FILE_NAME_CPU).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    else
-                    {
-                        File.Delete(FILE_NAME_CPU);
-                        PushStatusMessage("old config.txt deleted");
-                        File.Create(FILE_NAME_CPU).Dispose();
-                        PushStatusMessage("config.txt created");
-                    }
-                    File.Copy(@"config_templates/config-template-cpu-le.txt", @"app_assets/config.txt", true);
-                    //This can done way better but i can't be assed
-                    string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                    fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                    fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
-                    int index = System.Convert.ToInt32(threads.Text);
-                    while (index <= 14)
-                    {
-                        fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
-                        index++;
-                    }
-                    (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-
-                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                    proc.StartInfo.FileName = "xmr-stak-cpu.exe";
-                    proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                    proc.Start();
-
-
-
-                    minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                    open_miners.Items.Add(minerstring);
-                    PushStatusMessage("config.txt updated");
-                    globalindex++;
-                    //new_miner.Visible = true;
+                    fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ",\"threads\" : 32, \"blocks\" : 27,\"bfactor\" : 6, \"bsleep\" :  25,\"affine_to_cpu\" : false,},", "");
+                    index++;
                 }
+                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+
+
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
+                proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
+                proc.Start();
+
+                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
+                open_miners.Items.Add(minerstring);
+                PushStatusMessage("config.txt updated");
+
+                globalindex++;
+                //new_miner.Visible = true;
+            }
+
+            if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == true)
+            {
+                //create new config file
+                string FILE_NAME_CPU = "app_assets/config.txt";
+                if (File.Exists(FILE_NAME_CPU) == false)
+                {
+                    File.Create(FILE_NAME_CPU).Dispose();
+                    PushStatusMessage("config.txt created");
+                }
+                else
+                {
+                    File.Delete(FILE_NAME_CPU);
+                    PushStatusMessage("old config.txt deleted");
+                    File.Create(FILE_NAME_CPU).Dispose();
+                    PushStatusMessage("config.txt created");
+                }
+                File.Copy(@"config_templates/config-template-cpu.txt", @"app_assets/config.txt", true);
+                //This can done way better but i can't be assed
+                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
+                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                int index = System.Convert.ToInt32((double.Parse(threads.Text) * 2) - 1);
+                while (index <= 14)
+                {
+                    fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
+                    index++;
+                }
+                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = "xmr-stak-cpu.exe";
+                proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
+                proc.Start();
+
+
+
+                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
+                open_miners.Items.Add(minerstring);
+                PushStatusMessage("config.txt updated");
+                globalindex++;
+                //new_miner.Visible = true;
+            }
+
+            if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == false)
+            {
+                //create new config file
+                string FILE_NAME_CPU = "app_assets/config.txt";
+                if (File.Exists(FILE_NAME_CPU) == false)
+                {
+                    File.Create(FILE_NAME_CPU).Dispose();
+                    PushStatusMessage("config.txt created");
+                }
+                else
+                {
+                    File.Delete(FILE_NAME_CPU);
+                    PushStatusMessage("old config.txt deleted");
+                    File.Create(FILE_NAME_CPU).Dispose();
+                    PushStatusMessage("config.txt created");
+                }
+                File.Copy(@"config_templates/config-template-cpu-le.txt", @"app_assets/config.txt", true);
+                //This can done way better but i can't be assed
+                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
+                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                int index = System.Convert.ToInt32(threads.Text);
+                while (index <= 14)
+                {
+                    fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
+                    index++;
+                }
+                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = "xmr-stak-cpu.exe";
+                proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
+                proc.Start();
+
+
+
+                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
+                open_miners.Items.Add(minerstring);
+                PushStatusMessage("config.txt updated");
+                globalindex++;
+                //new_miner.Visible = true;
             }
             //Start Timer
             m_bStartTime = true;
@@ -480,15 +478,7 @@ namespace ETN_CPU_GPU_MINER
         {
             save_config_dialog.Filter = "Miner Configuration Files (*.mcf*)|*.mcf";
             if (save_config_dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string ht_checkstate = "no";
-                if (hyperthread.Checked == true)
-                    ht_checkstate = "yes";
-                else if (hyperthread.Checked == false)
-                    ht_checkstate = "no";
-                string config_contents_save = wallet_address.Text + Constants.vbNewLine + System.Convert.ToString(pool.SelectedItem) + Constants.vbNewLine + custom_pool.Text + Constants.vbNewLine + PoolURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
-                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(save_config_dialog.FileName, config_contents_save, true);
-            }
+                SaveConfig();
 
         }
 
@@ -722,7 +712,17 @@ namespace ETN_CPU_GPU_MINER
                 hyperthread.Checked = false;
 
         }
+        private void SaveConfig()
+        {
+            string ht_checkstate = "no";
+            if (hyperthread.Checked == true)
+                ht_checkstate = "yes";
+            else if (hyperthread.Checked == false)
+                ht_checkstate = "no";
+            string config_contents_save = wallet_address.Text + Constants.vbNewLine + System.Convert.ToString(pool.SelectedItem) + Constants.vbNewLine + custom_pool.Text + Constants.vbNewLine + PoolURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
+            (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config_templates\\ENTCRAFT.mcf", config_contents_save, true);
 
+        }
         private bool CheckRegistry()
         {
             PushStatusMessage("Checking ETNCRAFT for autoload registry key");
