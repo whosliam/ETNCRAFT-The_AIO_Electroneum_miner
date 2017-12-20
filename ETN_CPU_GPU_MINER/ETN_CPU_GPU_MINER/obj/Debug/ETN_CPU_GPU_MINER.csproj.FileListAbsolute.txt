@@ -26,3 +26,23 @@ C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\D
 C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.CoreCompileInputs.cache
 C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.exe
 C:\Users\Randall\Source\Repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe.config
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\OpenHardwareMonitorLib.dll
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Form1.resources
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Properties.Resources.resources
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.GenerateResource.Cache
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb
+C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT-master\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe.config
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\OpenHardwareMonitorLib.dll
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Form1.resources
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Properties.Resources.resources
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.GenerateResource.Cache
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\SaturnV\Desktop\Local GIT\UserTHIS\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb

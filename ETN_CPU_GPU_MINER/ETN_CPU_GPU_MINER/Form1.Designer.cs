@@ -62,10 +62,10 @@
             this.new_miner = new System.Windows.Forms.Button();
             this.check = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.ClearMessagesButton = new System.Windows.Forms.Button();
             this.OpenLogButton = new System.Windows.Forms.Button();
             this.status = new System.Windows.Forms.RichTextBox();
             this.tab_as = new System.Windows.Forms.TabPage();
-            this.update_lbl = new System.Windows.Forms.Label();
             this.hyperthread = new System.Windows.Forms.CheckBox();
             this.Label3 = new System.Windows.Forms.Label();
             this.Label8 = new System.Windows.Forms.Label();
@@ -80,7 +80,8 @@
             this.save_config = new System.Windows.Forms.Button();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.ClearMessagesButton = new System.Windows.Forms.Button();
+            this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
+            this.btnLoadDefaults = new System.Windows.Forms.Button();
             this.Tab_website.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -349,6 +350,13 @@
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
+            // ClearMessagesButton
+            // 
+            resources.ApplyResources(this.ClearMessagesButton, "ClearMessagesButton");
+            this.ClearMessagesButton.Name = "ClearMessagesButton";
+            this.ClearMessagesButton.UseVisualStyleBackColor = true;
+            this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
+            // 
             // OpenLogButton
             // 
             resources.ApplyResources(this.OpenLogButton, "OpenLogButton");
@@ -366,7 +374,8 @@
             // 
             // tab_as
             // 
-            this.tab_as.Controls.Add(this.update_lbl);
+            this.tab_as.Controls.Add(this.btnLoadDefaults);
+            this.tab_as.Controls.Add(this.chkAutoLoadConfig);
             this.tab_as.Controls.Add(this.hyperthread);
             this.tab_as.Controls.Add(this.Label3);
             this.tab_as.Controls.Add(this.Label8);
@@ -382,11 +391,6 @@
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
-            // 
-            // update_lbl
-            // 
-            resources.ApplyResources(this.update_lbl, "update_lbl");
-            this.update_lbl.Name = "update_lbl";
             // 
             // hyperthread
             // 
@@ -469,12 +473,19 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
-            // ClearMessagesButton
+            // chkAutoLoadConfig
             // 
-            resources.ApplyResources(this.ClearMessagesButton, "ClearMessagesButton");
-            this.ClearMessagesButton.Name = "ClearMessagesButton";
-            this.ClearMessagesButton.UseVisualStyleBackColor = true;
-            this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
+            resources.ApplyResources(this.chkAutoLoadConfig, "chkAutoLoadConfig");
+            this.chkAutoLoadConfig.Name = "chkAutoLoadConfig";
+            this.chkAutoLoadConfig.UseVisualStyleBackColor = true;
+            this.chkAutoLoadConfig.CheckedChanged += new System.EventHandler(this.chkAutoLoadConfig_CheckedChanged);
+            // 
+            // btnLoadDefaults
+            // 
+            resources.ApplyResources(this.btnLoadDefaults, "btnLoadDefaults");
+            this.btnLoadDefaults.Name = "btnLoadDefaults";
+            this.btnLoadDefaults.UseVisualStyleBackColor = true;
+            this.btnLoadDefaults.Click += new System.EventHandler(this.btnLoadDefaults_Click);
             // 
             // Form1
             // 
@@ -522,7 +533,6 @@
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.ComboBox cpuorgpu;
         internal System.Windows.Forms.TabPage tab_as;
-        internal System.Windows.Forms.Label update_lbl;
         internal System.Windows.Forms.CheckBox hyperthread;
         internal System.Windows.Forms.Label Label3;
         internal System.Windows.Forms.Label Label8;
@@ -556,6 +566,8 @@
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Button OpenLogButton;
         internal System.Windows.Forms.Button ClearMessagesButton;
+        private System.Windows.Forms.Button btnLoadDefaults;
+        private System.Windows.Forms.CheckBox chkAutoLoadConfig;
     }
 }
 

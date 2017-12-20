@@ -73,7 +73,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="OpenHardwareMonitorLib, Version=0.8.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\OpenHardwareMonitorLib.dll</HintPath>
+      <HintPath>bin\Debug\app_assets\OpenHardwareMonitorLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

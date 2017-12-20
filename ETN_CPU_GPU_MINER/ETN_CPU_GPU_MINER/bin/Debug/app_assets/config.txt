@@ -1,0 +1,37 @@
+﻿     "gpu_thread_num" : 1,
+     "gpu_threads_conf" : [ 
+       { "index" : 0, "intensity" : 1000, "worksize" : 8, "affine_to_cpu" : false },
+	   
+       
+       
+       
+       
+	   
+       
+	   
+	   
+       
+       
+       
+       
+	   
+       
+     ],
+     "platform_index" : 0,
+     "use_tls" : false,
+     "tls_secure_algo" : true,
+     "tls_fingerprint" : "",
+     "pool_address" : "pool.electroneum.space:7777",
+     "wallet_address" : "etnkLKPeTqjii2XbLHkqzy31MSx4Hqxa1XEf3mmGCBGq1khC65PpBicQZ56ukCkoTSDJwLaKHmbH5UR1zcr6ijVF8UrxnniNUP",
+     "pool_password" : "x",
+     "call_timeout" : 10,
+     "retry_time" : 10,
+     "giveup_limit" : 0,
+     "verbose_level" : 3,
+     "h_print_time" : 60,
+     "daemon_mode" : false,
+     "output_file" : "",
+     "httpd_port" : 0,
+     "prefer_ipv4" : true,
+     
+      
