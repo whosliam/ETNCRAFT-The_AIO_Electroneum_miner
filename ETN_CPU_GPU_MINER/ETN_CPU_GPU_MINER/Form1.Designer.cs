@@ -90,6 +90,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.lblCPUUsage = new System.Windows.Forms.Label();
+            this.lblGPUUsage = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -279,6 +281,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.lblCPUUsage);
             this.groupBox7.Controls.Add(this.lblCPUTemp);
             resources.ApplyResources(this.groupBox7, "groupBox7");
             this.groupBox7.Name = "groupBox7";
@@ -291,6 +294,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.lblGPUUsage);
             this.groupBox8.Controls.Add(this.lblGPUTemp);
             resources.ApplyResources(this.groupBox8, "groupBox8");
             this.groupBox8.Name = "groupBox8";
@@ -546,6 +550,16 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // lblCPUUsage
+            // 
+            resources.ApplyResources(this.lblCPUUsage, "lblCPUUsage");
+            this.lblCPUUsage.Name = "lblCPUUsage";
+            // 
+            // lblGPUUsage
+            // 
+            resources.ApplyResources(this.lblGPUUsage, "lblGPUUsage");
+            this.lblGPUUsage.Name = "lblGPUUsage";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -639,6 +653,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox WorkStatus;
+        private System.Windows.Forms.Label lblCPUUsage;
+        private System.Windows.Forms.Label lblGPUUsage;
     }
 }
 

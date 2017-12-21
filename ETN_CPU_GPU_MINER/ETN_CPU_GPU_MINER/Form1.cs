@@ -835,7 +835,9 @@ namespace ETN_CPU_GPU_MINER
         {
             #region Temp Interval
             lblCPUTemp.Text = "";
+            lblCPUUsage.Text = "";
             lblGPUTemp.Text = "";
+            lblGPUUsage.Text = "";
 
             foreach (var hardwareItem in myComputer.Hardware)
             {
@@ -850,6 +852,9 @@ namespace ETN_CPU_GPU_MINER
                     {
                         if (sensor.SensorType.Equals(SensorType.Temperature))
                             lblCPUTemp.Text += (String.Format("{0} = {1}C", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
+                        else if(sensor.SensorType.Equals(SensorType.Load))
+                            lblCPUUsage.Text += (String.Format("{0} = {1}%", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
+
                     }
                 }
                 if (hardwareItem.HardwareType.Equals(HardwareType.GpuAti) || hardwareItem.HardwareType.Equals(HardwareType.GpuNvidia))
@@ -860,9 +865,9 @@ namespace ETN_CPU_GPU_MINER
                     foreach (var sensor in hardwareItem.Sensors)
                     {
                         if (sensor.SensorType.Equals(SensorType.Temperature))
-                        {
                             lblGPUTemp.Text += (String.Format("{0} = {1}C", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
-                        }
+                        else if (sensor.SensorType.Equals(SensorType.Load))
+                            lblGPUUsage.Text += (String.Format("{0} = {1}%", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
                     }
                 }
             }
