@@ -12,7 +12,7 @@ namespace ETN_CPU_GPU_MINER
     public partial class Form1 : Form
     {
         public static string m_Version = "(V1.5)";
-        public bool m_BFirstRun = false;
+        public bool b_FormLoaded = false;
         public static string m_sAggHashData = "";
         public static string PoolURL = "";
         public bool m_bStartTime = false;
@@ -31,11 +31,7 @@ namespace ETN_CPU_GPU_MINER
             if (CheckRegistry("AutoLoad"))
                 LoadConfig("config_templates/ENTCRAFT.mcf");
             else
-            {
-                m_BFirstRun = true;
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
-            }
-
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             pool.SelectedItem = pool.Items[4];
@@ -46,6 +42,8 @@ namespace ETN_CPU_GPU_MINER
             pool.Items.AddRange(lines);
             //Spool up timers
             GetTemps();
+            //This is to keep the event handlers from fireing when the form load. Just wrapp functions in this.
+            b_FormLoaded = true;
         }
 
         #endregion
@@ -57,13 +55,14 @@ namespace ETN_CPU_GPU_MINER
         private void mining_Click_1(object sender, EventArgs e)
         {
             //Auto Save 
-            if (chkAutoLoadConfig.Checked)
-                SaveConfig();
+            //if (chkAutoLoadConfig.Checked)
+
+            SaveConfig();
 
             if (!IsWalletValid())
                 return;
 
-            if (pool.SelectedItem.Equals(pool.Items[9]))
+            if (pool.SelectedItem.Equals(pool.Items[9]))//No magic numbers. Needs to be a flag
                 PoolURL = custom_pool.Text;
 
             if (double.Parse(threads.Text) <= 1)
@@ -147,9 +146,6 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-
-                PushStatusMessage("config.txt updated");
-
                 #region XMR STAK AMD MINER
                 PushStatusMessage("Spawning xmr-stak-amd miner");
                 Process process = Process.Start(new ProcessStartInfo()
@@ -201,9 +197,6 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-
-                PushStatusMessage("config.txt updated");
-
                 #region XMR STAK NVIDIA MINER
                 PushStatusMessage("Spawning xmr-stak-nvidia miner");
                 Process process = Process.Start(new ProcessStartInfo()
@@ -255,9 +248,6 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-
-                PushStatusMessage("config.txt updated");
-
                 #region XMR STAK NVIDIA MINER
                 PushStatusMessage("Spawning xmr-stak-nvidia miner");
                 Process process = Process.Start(new ProcessStartInfo()
@@ -309,9 +299,6 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-
-                PushStatusMessage("config.txt updated");
-
                 #region XMR STAK CPU MINER
                 PushStatusMessage("Spawning xmr-stak-cpu miner");
                 Process process = Process.Start(new ProcessStartInfo()
@@ -364,8 +351,6 @@ namespace ETN_CPU_GPU_MINER
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
 
-                PushStatusMessage("config.txt updated");
-
                 #region XMR STAK CPU MINER
                 PushStatusMessage("Spawning xmr-stak-cpu miner");
                 Process process = Process.Start(new ProcessStartInfo()
@@ -387,6 +372,8 @@ namespace ETN_CPU_GPU_MINER
                 process.BeginErrorReadLine();
                 #endregion
             }
+            PushStatusMessage("config.txt updated");
+
             //Start header Timer for app run time
             m_bStartTime = true;
             stopwatch.Start();
@@ -714,25 +701,30 @@ namespace ETN_CPU_GPU_MINER
 
         private void chkAutoLoadConfig_CheckedChanged(object sender, EventArgs e)
         {
-            bool bSaveRegKey = false;
-            DialogResult UserInput;
-            if (chkAutoLoadConfig.Checked && m_BFirstRun)
+            if (b_FormLoaded)
             {
-                new DialogResult();
-                UserInput = MessageBox.Show("Make sure your wallet information has been entered!\r\nThis will save your info and also setup auto config when the app restarts\r\nClick yes to continue", "ALERT", MessageBoxButtons.YesNo);
-                if (UserInput == DialogResult.No)
+                DialogResult UserInput;
+                if (chkAutoLoadConfig.Checked)
                 {
-                    LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
-                    SaveConfig();
-                    chkAutoLoadConfig.Checked = false;
+                    new DialogResult();
+                    UserInput = MessageBox.Show("Make sure your wallet information has been entered!\r\nThis will save your info and also setup auto config when the app restarts\r\nClick yes to continue", "ALERT", MessageBoxButtons.YesNo);
+                    if (UserInput == DialogResult.No)
+                    {
+                        CreateOrEditRegistryKey("AutoLoad", false);
+                        chkAutoLoadConfig.Checked = false;
+                    }
+                    else
+                    {
+                        SaveConfig();
+                        CreateOrEditRegistryKey("AutoLoad", chkAutoLoadConfig.Checked);
+
+                    }
                 }
                 else
-                    bSaveRegKey = true;
+                    CreateOrEditRegistryKey("AutoLoad", false);
             }
-            else if (chkAutoLoadConfig.Checked) //quick fix. Im supposed to be working wight now. 
-                bSaveRegKey = true;
-            if (bSaveRegKey)
-                CreateRegistryKey("AutoLoad", chkAutoLoadConfig.Checked);
+
+
 
         }
         #endregion
@@ -745,28 +737,35 @@ namespace ETN_CPU_GPU_MINER
         private void LoadConfig(string sConfigFilePath)
         {
             PushStatusMessage("Loading ETNCRAFT config");
-            string[] config_contents_load = File.ReadAllLines(sConfigFilePath);
-            wallet_address.Text = config_contents_load[0];
-            pool.SelectedItem = config_contents_load[1];
-            custom_pool.Text = config_contents_load[2];
-            PoolURL = config_contents_load[3];
-            port.Text = config_contents_load[4];
-            cpuorgpu.SelectedItem = config_contents_load[6];
-            gpubrand.SelectedItem = config_contents_load[7];
-            miner_type.SelectedItem = config_contents_load[10];
-            xmr_stak_perf_box.SelectedItem = config_contents_load[8];
-            threads.Text = config_contents_load[5];
-            string ht_checkstate = config_contents_load[9];
-            if (ht_checkstate == "yes")
-                hyperthread.Checked = true;
-            else if (ht_checkstate == "no")
-                hyperthread.Checked = false;
+            try
+            {
+                string[] config_contents_load = File.ReadAllLines(sConfigFilePath);
+                wallet_address.Text = config_contents_load[0];
+                pool.SelectedItem = config_contents_load[1];
+                custom_pool.Text = config_contents_load[2];
+                PoolURL = config_contents_load[3];
+                port.Text = config_contents_load[4];
+                cpuorgpu.SelectedItem = config_contents_load[6];
+                gpubrand.SelectedItem = config_contents_load[7];
+                miner_type.SelectedItem = config_contents_load[10];
+                xmr_stak_perf_box.SelectedItem = config_contents_load[8];
+                threads.Text = config_contents_load[5];
+                string ht_checkstate = config_contents_load[9];
+                if (ht_checkstate == "yes")
+                    hyperthread.Checked = true;
+                else if (ht_checkstate == "no")
+                    hyperthread.Checked = false;
+            }
+            catch (Exception e)
+            {
+                PushStatusMessage(e.Message);
+            }
 
         }
         private void SaveConfig()
         {
-            File.Delete("ENTCRAFT.mcf");
-            File.Create("ENTCRAFT.mcf").Dispose();
+            File.Delete("config_templates\\ENTCRAFT.mcf");
+            File.Create("config_templates\\ENTCRAFT.mcf").Dispose();
 
             string ht_checkstate = "no";
             if (hyperthread.Checked == true)
@@ -797,7 +796,7 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("No registry keys found.");
                 PushStatusMessage("First run detected");
                 //Added miner here since they wouldnt have a key prior to running so it will throw a null value which falls in here.
-                CreateRegistryKey("NewMiner", true);
+                CreateOrEditRegistryKey("NewMiner", true);
                 PushStatusMessage("NewMiner key created");
                 //Push Message
                 DialogResult UserInput = MessageBox.Show("Welcome new miner!\r\nThe help tab has been pre selected.\r\nPlease read and follow the directions.", "WELCOME!", MessageBoxButtons.OK);
@@ -806,7 +805,7 @@ namespace ETN_CPU_GPU_MINER
             }
             return bAutoLoad;
         }
-        private void CreateRegistryKey(string sKey, bool bValue)
+        private void CreateOrEditRegistryKey(string sKey, bool bValue)
         {
             var reg = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
             if (reg == null)
@@ -827,6 +826,7 @@ namespace ETN_CPU_GPU_MINER
             reg.Close();
 
         }
+
         #endregion
 
         #region Timers/Temperature Data
@@ -965,12 +965,6 @@ namespace ETN_CPU_GPU_MINER
         {
             m_sAggHashData += Message + "\r\n";
             ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
-            //Need to figure out how to keep it at bottom without thread issues.
-            //Maybe something in dom?
-            //Also need to delete text field every few minutes
-            //WorkStatus.SelectionStart = WorkStatus.Text.Length;
-            //WorkStatus.ScrollToCaret();
-
         }
 
         /// <summary>
