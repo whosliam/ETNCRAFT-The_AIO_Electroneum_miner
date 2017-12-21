@@ -12,7 +12,6 @@ namespace ETN_CPU_GPU_MINER
     public partial class Form1 : Form
     {
         public static string PoolURL = "";
-        public static int globalindex = 0;
         public bool m_bStartTime = false;
         private Stopwatch stopwatch = new Stopwatch();
         private Logger Logger = new Logger();
@@ -25,8 +24,8 @@ namespace ETN_CPU_GPU_MINER
         {
             Messager.InitializeMessager(Logger);
             InitializeComponent();
-            //Check Registry upon loading
-            if (CheckRegistry())
+            //Check Registry for autoload & if user is new
+            if (CheckRegistry("AutoLoad"))
                 LoadConfig("config_templates/ENTCRAFT.mcf");
             else
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
@@ -51,13 +50,13 @@ namespace ETN_CPU_GPU_MINER
         private void mining_Click_1(object sender, EventArgs e)
         {
             //Auto Save 
-            if(chkAutoLoadConfig.Checked)
+            if (chkAutoLoadConfig.Checked)
                 SaveConfig();
 
             string minerstring = "";
             if (wallet_address.Text.Equals("Enter Public Wallet Here"))
             {
-                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "TEST CAPTION", MessageBoxButtons.OKCancel);
+                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
                 if (UserInput.Equals(DialogResult.Cancel))
                 {
                     return;
@@ -92,11 +91,6 @@ namespace ETN_CPU_GPU_MINER
                 objWriter.WriteLine("cpuminer -a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
                 objWriter.Close();
                 PushStatusMessage("mine.bat ran");
-                //we should get ride of this stuff////
-                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                open_miners.Items.Add(minerstring);
-                /////////////////////////////////////
-                globalindex++;
                 //WHY THE FUCK!!!!!!!!! god damn this took way too long.   (╯°□°）╯︵ ┻━┻
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
                 proc.StartInfo.FileName = "mine.bat";
@@ -111,12 +105,6 @@ namespace ETN_CPU_GPU_MINER
                 objWriter.WriteLine("ccminer -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
                 objWriter.Close();
                 PushStatusMessage("mine.bat ran");
-                //we should get ride of this stuff///
-                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                open_miners.Items.Add(minerstring);
-                ////////////////////////////////////
-
-                globalindex++;
                 //WHY THE FUCK!!!!!!!!! god damn this took way too long.   (╯°□°）╯︵ ┻━┻
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
                 proc.StartInfo.FileName = "mine.bat";
@@ -159,13 +147,6 @@ namespace ETN_CPU_GPU_MINER
                 proc.StartInfo.FileName = "xmr-stak-amd.exe";
                 proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
                 proc.Start();
-
-
-
-                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                open_miners.Items.Add(minerstring);
-                globalindex++;
-                // new_miner.Visible = true;
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[0])
@@ -201,15 +182,7 @@ namespace ETN_CPU_GPU_MINER
                 proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
                 proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
                 proc.Start();
-
-
-
-                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                open_miners.Items.Add(minerstring);
                 PushStatusMessage("config.txt updated");
-
-                globalindex++;
-                // new_miner.Visible = true;
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[1])
@@ -246,13 +219,7 @@ namespace ETN_CPU_GPU_MINER
                 proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
                 proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
                 proc.Start();
-
-                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                open_miners.Items.Add(minerstring);
                 PushStatusMessage("config.txt updated");
-
-                globalindex++;
-                //new_miner.Visible = true;
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == true)
@@ -290,12 +257,7 @@ namespace ETN_CPU_GPU_MINER
                 proc.Start();
 
 
-
-                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                open_miners.Items.Add(minerstring);
                 PushStatusMessage("config.txt updated");
-                globalindex++;
-                //new_miner.Visible = true;
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == false)
@@ -333,12 +295,7 @@ namespace ETN_CPU_GPU_MINER
                 proc.Start();
 
 
-
-                minerstring = globalindex + "    |    " + wallet_address.Text.Substring(0, 40) + "   |   " + System.Convert.ToString(miner_type.SelectedItem) + "   |   " + PoolURL;
-                open_miners.Items.Add(minerstring);
                 PushStatusMessage("config.txt updated");
-                globalindex++;
-                //new_miner.Visible = true;
             }
             //Start Timer
             m_bStartTime = true;
@@ -381,11 +338,6 @@ namespace ETN_CPU_GPU_MINER
             }
 
             PushStatusMessage("All Processes Killed!");
-            globalindex = 0;
-            open_miners.Items.Clear();
-            string titlestring = "Miner No. |Address:					|Backend:		|Pool:		";
-            open_miners.Items.Add(titlestring);
-
         }
 
         private void clear_Click_1(object sender, EventArgs e)
@@ -664,25 +616,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void chkAutoLoadConfig_CheckedChanged(object sender, EventArgs e)
         {
-            //Should this be moved to the Save config btn?
-
-            var reg = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
-            if (reg == null)
-            {
-                PushStatusMessage("creating ETNCRAFT autoload registry key");
-                reg = localMachine.CreateSubKey("SOFTWARE\\ETNCRAFT");
-            }
-            if (chkAutoLoadConfig.Checked && reg.GetValue("AutoLoad") != null)
-            {
-                // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"TRUE\"");
-                reg.SetValue("AutoLoad", "true");
-            }
-            else
-            {
-                // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"FALSE\"");
-                reg.SetValue("AutoLoad", "false");
-            }
-            reg.Close();
+            CreateRegistryKey("AutoLoad", chkAutoLoadConfig.Checked);
         }
         #endregion
 
@@ -723,27 +657,55 @@ namespace ETN_CPU_GPU_MINER
             (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config_templates\\ENTCRAFT.mcf", config_contents_save, true);
 
         }
-        private bool CheckRegistry()
+        private bool CheckRegistry(string sKey)
         {
-            PushStatusMessage("Checking ETNCRAFT for autoload registry key");
+            PushStatusMessage("Checking for ETNCRAFT registry keys");
             bool bAutoLoad = false;
             var key = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
             if (key != null)
             {
-                PushStatusMessage("AutoLoad registry key found!");
-                object keyValue = key.GetValue("AutoLoad");
+                PushStatusMessage(sKey + " registry key found!");
+                object keyValue = key.GetValue(sKey);
                 //Set Return value
                 bAutoLoad = Convert.ToBoolean(keyValue);
                 //Set Check box on advanced setting tab
                 chkAutoLoadConfig.Checked = bAutoLoad;
             }
             else
-                PushStatusMessage("No registry key found");
-
+            {
+                PushStatusMessage("No registry keys found.");
+                PushStatusMessage("First run detected");
+                //Added miner here since they wouldnt have a key prior to running so it will throw a null value which falls in here.
+                CreateRegistryKey("NewMiner", true);
+                PushStatusMessage("NewMiner key created");
+                //Push Message
+                DialogResult UserInput = MessageBox.Show("Welcome new miner!\r\nThe help tab has been pre selected.\r\nPlease read and follow the directions.", "WELCOME!", MessageBoxButtons.OK);
+                //Load Help tab
+                tabs.SelectedTab = tbHelp;
+            }
             return bAutoLoad;
+        }
+        private void CreateRegistryKey(string sKey, bool bValue)
+        {
+            var reg = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
+            if (reg == null)
+            {
+                PushStatusMessage("creating ETNCRAFT " + sKey + " registry key. Set to " + bValue);
+                reg = localMachine.CreateSubKey("SOFTWARE\\ETNCRAFT");
+            }
+            if (chkAutoLoadConfig.Checked && reg.GetValue("") != null)
+            {
+                // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"TRUE\"");
+                reg.SetValue(sKey, bValue);
+            }
+            else
+            {
+                // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"FALSE\"");
+                reg.SetValue(sKey, bValue);
+            }
+            reg.Close();
 
         }
-
         #endregion
 
         #region Timer

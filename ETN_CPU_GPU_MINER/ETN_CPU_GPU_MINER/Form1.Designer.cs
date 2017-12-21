@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.Tab_website = new System.Windows.Forms.TabControl();
+            this.tabs = new System.Windows.Forms.TabControl();
             this.tab_miner = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -66,23 +66,32 @@
             this.OpenLogButton = new System.Windows.Forms.Button();
             this.status = new System.Windows.Forms.RichTextBox();
             this.tab_as = new System.Windows.Forms.TabPage();
+            this.btnLoadDefaults = new System.Windows.Forms.Button();
+            this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
             this.hyperthread = new System.Windows.Forms.CheckBox();
             this.Label3 = new System.Windows.Forms.Label();
-            this.Label8 = new System.Windows.Forms.Label();
             this.Label10 = new System.Windows.Forms.Label();
             this.xmr_notice = new System.Windows.Forms.Label();
             this.xmr_stak_perf_box = new System.Windows.Forms.ComboBox();
             this.stak_nvidia_perf = new System.Windows.Forms.Label();
             this.Label4 = new System.Windows.Forms.Label();
             this.miner_type = new System.Windows.Forms.ComboBox();
-            this.open_miners = new System.Windows.Forms.ListBox();
             this.load_config = new System.Windows.Forms.Button();
             this.save_config = new System.Windows.Forms.Button();
+            this.tbHelp = new System.Windows.Forms.TabPage();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
-            this.btnLoadDefaults = new System.Windows.Forms.Button();
-            this.Tab_website.SuspendLayout();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -92,15 +101,18 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tab_as.SuspendLayout();
+            this.tbHelp.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Tab_website
+            // tabs
             // 
-            this.Tab_website.Controls.Add(this.tab_miner);
-            this.Tab_website.Controls.Add(this.tab_as);
-            resources.ApplyResources(this.Tab_website, "Tab_website");
-            this.Tab_website.Name = "Tab_website";
-            this.Tab_website.SelectedIndex = 0;
+            this.tabs.Controls.Add(this.tab_miner);
+            this.tabs.Controls.Add(this.tab_as);
+            this.tabs.Controls.Add(this.tbHelp);
+            resources.ApplyResources(this.tabs, "tabs");
+            this.tabs.Name = "tabs";
+            this.tabs.SelectedIndex = 0;
             // 
             // tab_miner
             // 
@@ -378,19 +390,31 @@
             this.tab_as.Controls.Add(this.chkAutoLoadConfig);
             this.tab_as.Controls.Add(this.hyperthread);
             this.tab_as.Controls.Add(this.Label3);
-            this.tab_as.Controls.Add(this.Label8);
             this.tab_as.Controls.Add(this.Label10);
             this.tab_as.Controls.Add(this.xmr_notice);
             this.tab_as.Controls.Add(this.xmr_stak_perf_box);
             this.tab_as.Controls.Add(this.stak_nvidia_perf);
             this.tab_as.Controls.Add(this.Label4);
             this.tab_as.Controls.Add(this.miner_type);
-            this.tab_as.Controls.Add(this.open_miners);
             this.tab_as.Controls.Add(this.load_config);
             this.tab_as.Controls.Add(this.save_config);
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadDefaults
+            // 
+            resources.ApplyResources(this.btnLoadDefaults, "btnLoadDefaults");
+            this.btnLoadDefaults.Name = "btnLoadDefaults";
+            this.btnLoadDefaults.UseVisualStyleBackColor = true;
+            this.btnLoadDefaults.Click += new System.EventHandler(this.btnLoadDefaults_Click);
+            // 
+            // chkAutoLoadConfig
+            // 
+            resources.ApplyResources(this.chkAutoLoadConfig, "chkAutoLoadConfig");
+            this.chkAutoLoadConfig.Name = "chkAutoLoadConfig";
+            this.chkAutoLoadConfig.UseVisualStyleBackColor = true;
+            this.chkAutoLoadConfig.CheckedChanged += new System.EventHandler(this.chkAutoLoadConfig_CheckedChanged);
             // 
             // hyperthread
             // 
@@ -402,11 +426,6 @@
             // 
             resources.ApplyResources(this.Label3, "Label3");
             this.Label3.Name = "Label3";
-            // 
-            // Label8
-            // 
-            resources.ApplyResources(this.Label8, "Label8");
-            this.Label8.Name = "Label8";
             // 
             // Label10
             // 
@@ -447,14 +466,6 @@
             this.miner_type.Name = "miner_type";
             this.miner_type.SelectedIndexChanged += new System.EventHandler(this.miner_type_SelectedIndexChanged_1);
             // 
-            // open_miners
-            // 
-            this.open_miners.FormattingEnabled = true;
-            this.open_miners.Items.AddRange(new object[] {
-            resources.GetString("open_miners.Items")});
-            resources.ApplyResources(this.open_miners, "open_miners");
-            this.open_miners.Name = "open_miners";
-            // 
             // load_config
             // 
             resources.ApplyResources(this.load_config, "load_config");
@@ -469,32 +480,87 @@
             this.save_config.UseVisualStyleBackColor = true;
             this.save_config.Click += new System.EventHandler(this.save_config_Click_1);
             // 
+            // tbHelp
+            // 
+            this.tbHelp.Controls.Add(this.groupBox9);
+            resources.ApplyResources(this.tbHelp, "tbHelp");
+            this.tbHelp.Name = "tbHelp";
+            this.tbHelp.UseVisualStyleBackColor = true;
+            // 
             // open_config_dialog
             // 
             this.open_config_dialog.FileName = "File name";
             // 
-            // chkAutoLoadConfig
+            // groupBox9
             // 
-            resources.ApplyResources(this.chkAutoLoadConfig, "chkAutoLoadConfig");
-            this.chkAutoLoadConfig.Name = "chkAutoLoadConfig";
-            this.chkAutoLoadConfig.UseVisualStyleBackColor = true;
-            this.chkAutoLoadConfig.CheckedChanged += new System.EventHandler(this.chkAutoLoadConfig_CheckedChanged);
+            this.groupBox9.Controls.Add(this.label18);
+            this.groupBox9.Controls.Add(this.label17);
+            this.groupBox9.Controls.Add(this.label16);
+            this.groupBox9.Controls.Add(this.label15);
+            this.groupBox9.Controls.Add(this.label14);
+            this.groupBox9.Controls.Add(this.label13);
+            this.groupBox9.Controls.Add(this.label12);
+            this.groupBox9.Controls.Add(this.linkLabel1);
+            this.groupBox9.Controls.Add(this.label7);
+            resources.ApplyResources(this.groupBox9, "groupBox9");
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.TabStop = false;
             // 
-            // btnLoadDefaults
+            // label7
             // 
-            resources.ApplyResources(this.btnLoadDefaults, "btnLoadDefaults");
-            this.btnLoadDefaults.Name = "btnLoadDefaults";
-            this.btnLoadDefaults.UseVisualStyleBackColor = true;
-            this.btnLoadDefaults.Click += new System.EventHandler(this.btnLoadDefaults_Click);
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // linkLabel1
+            // 
+            resources.ApplyResources(this.linkLabel1, "linkLabel1");
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.TabStop = true;
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Name = "label13";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.Controls.Add(this.Tab_website);
+            this.Controls.Add(this.tabs);
             this.Name = "Form1";
-            this.Tab_website.ResumeLayout(false);
+            this.tabs.ResumeLayout(false);
             this.tab_miner.ResumeLayout(false);
             this.tab_miner.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -509,13 +575,16 @@
             this.groupBox5.ResumeLayout(false);
             this.tab_as.ResumeLayout(false);
             this.tab_as.PerformLayout();
+            this.tbHelp.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        internal System.Windows.Forms.TabControl Tab_website;
+        internal System.Windows.Forms.TabControl tabs;
         internal System.Windows.Forms.TabPage tab_miner;
         internal System.Windows.Forms.Button new_miner;
         internal System.Windows.Forms.Button help;
@@ -535,14 +604,12 @@
         internal System.Windows.Forms.TabPage tab_as;
         internal System.Windows.Forms.CheckBox hyperthread;
         internal System.Windows.Forms.Label Label3;
-        internal System.Windows.Forms.Label Label8;
         internal System.Windows.Forms.Label Label10;
         internal System.Windows.Forms.Label xmr_notice;
         internal System.Windows.Forms.ComboBox xmr_stak_perf_box;
         internal System.Windows.Forms.Label stak_nvidia_perf;
         internal System.Windows.Forms.Label Label4;
         internal System.Windows.Forms.ComboBox miner_type;
-        internal System.Windows.Forms.ListBox open_miners;
         internal System.Windows.Forms.Button load_config;
         internal System.Windows.Forms.Button save_config;
         internal System.Windows.Forms.OpenFileDialog open_config_dialog;
@@ -568,6 +635,17 @@
         internal System.Windows.Forms.Button ClearMessagesButton;
         private System.Windows.Forms.Button btnLoadDefaults;
         private System.Windows.Forms.CheckBox chkAutoLoadConfig;
+        private System.Windows.Forms.TabPage tbHelp;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label18;
     }
 }
 
