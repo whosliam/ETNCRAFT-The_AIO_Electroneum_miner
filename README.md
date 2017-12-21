@@ -8,4 +8,4 @@ Feel free to to send us a message if you have any ideas or features you would li
 If this project is successful and has interest.
 We plan to adapt the GUI to support multiple crypto currencies.
 
-Let us know how we are doing! CraftMiners@gmail.com
+Let us know how we are doing! CraftMinerTeam@gmail.com
