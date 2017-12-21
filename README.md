@@ -8,3 +8,6 @@ If this project is successful and has interest.
 We plan to adapt the GUI to support multiple crypto currencies with the ease of a few clicks.
 
 Let us know how we are doing! CraftMinerTeam@gmail.com
+
+If you would like to donate an ETN or two please use the following wallet ID
+etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT
