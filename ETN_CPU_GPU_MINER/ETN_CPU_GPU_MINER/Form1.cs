@@ -29,6 +29,7 @@ namespace ETN_CPU_GPU_MINER
                 LoadConfig("config_templates/ENTCRAFT.mcf");
             else
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
+
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             pool.SelectedItem = pool.Items[4];
@@ -52,44 +53,21 @@ namespace ETN_CPU_GPU_MINER
             //Auto Save 
             if (chkAutoLoadConfig.Checked)
                 SaveConfig();
+            
+            if (!IsWalletValid())
+                return;
 
-            string minerstring = "";
-            if (wallet_address.Text.Equals("Enter Public Wallet Here"))
-            {
-                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
-                if (UserInput.Equals(DialogResult.Cancel))
-                {
-                    return;
-                }
-                else if (UserInput.Equals(DialogResult.OK))
-                {
-                    wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
-                    PushStatusMessage("Developer Wallet Address Selected! Thanks!");
-                }
-            }
             if (pool.SelectedItem.Equals(pool.Items[9]))
                 PoolURL = custom_pool.Text;
+
             if (double.Parse(threads.Text) <= 1)
-                threads.Text = "1";
-            string FILE_NAME = Application.StartupPath + "\\app_assets\\mine.bat";
-            if (File.Exists(FILE_NAME) == false)
-            {
-                File.Create(FILE_NAME).Dispose();
-                PushStatusMessage("mine.bat created");
-            }
-            else
-            {
-                File.Delete(FILE_NAME);
-                PushStatusMessage("old mine.bat deleted");
-                File.Create(FILE_NAME).Dispose();
-                PushStatusMessage("mine.bat created");
-            }
+                threads.Text = "1";            
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
             {                
                 #region CPU MINER
                 PushStatusMessage("Spawning cpuminer");
-               Process process = Process.Start(new ProcessStartInfo() {
+                Process process = Process.Start(new ProcessStartInfo() {
                     FileName = Application.StartupPath + "\\app_assets\\cpuminer.exe",
                     Arguments = "-a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
@@ -107,29 +85,6 @@ namespace ETN_CPU_GPU_MINER
                     Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-
-                #region Using bat
-                //StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
-                //objWriter.WriteLine("cpuminer -a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
-                //objWriter.Close();
-                //PushStatusMessage("mine.bat ran");
-                //processInfo = new ProcessStartInfo("cmd.exe", "/c mine.bat");
-                //processInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                //processInfo.UseShellExecute = false;
-                //processInfo.CreateNoWindow = true;
-                //processInfo.RedirectStandardOutput = true;
-                //processInfo.RedirectStandardError = true;
-                //process = Process.Start(processInfo);
-
-                //process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                //Console.WriteLine("output>>" + eOut.Data);
-                //process.BeginOutputReadLine();
-
-                //process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                //    Console.WriteLine("error>>" + eErr.Data);
-                //process.BeginErrorReadLine();
-                #endregion
-
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
@@ -155,16 +110,11 @@ namespace ETN_CPU_GPU_MINER
                     Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-                
-                //StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
-                //objWriter.WriteLine("ccminer -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
-                //objWriter.Close();
-                //PushStatusMessage("mine.bat ran");
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[1])
             {
-                //create new config file
+                #region UPDATE CONFIG
                 string FILE_NAME_AMD = "app_assets/config.txt";
                 if (File.Exists(FILE_NAME_AMD) == false)
                 {
@@ -190,6 +140,8 @@ namespace ETN_CPU_GPU_MINER
                     index++;
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+                #endregion
+
                 PushStatusMessage("config.txt updated");
 
                 #region XMR STAK AMD MINER
@@ -212,16 +164,11 @@ namespace ETN_CPU_GPU_MINER
                     Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-
-                //System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                //proc.StartInfo.FileName = "xmr-stak-amd.exe";
-                //proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                //proc.Start();
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[0])
             {
-                //create new config file
+                #region UPDATE CONFIG
                 string FILE_NAME_NV = "app_assets/config.txt";
                 if (File.Exists(FILE_NAME_NV) == false)
                 {
@@ -247,6 +194,9 @@ namespace ETN_CPU_GPU_MINER
                     index++;
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+                #endregion
+
+                PushStatusMessage("config.txt updated");
 
                 #region XMR STAK NVIDIA MINER
                 PushStatusMessage("Spawning xmr-stak-nvidia miner");
@@ -268,17 +218,11 @@ namespace ETN_CPU_GPU_MINER
                     Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-
-                //System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                //proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
-                //proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                //proc.Start();
-                //PushStatusMessage("config.txt updated");
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[1])
             {
-                //create new config file
+                #region UPDATE CONFIG
                 string FILE_NAME_NV = "app_assets/config.txt";
                 if (File.Exists(FILE_NAME_NV) == false)
                 {
@@ -304,6 +248,9 @@ namespace ETN_CPU_GPU_MINER
                     index++;
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+                #endregion
+
+                PushStatusMessage("config.txt updated");
 
                 #region XMR STAK NVIDIA MINER
                 PushStatusMessage("Spawning xmr-stak-nvidia miner");
@@ -325,18 +272,11 @@ namespace ETN_CPU_GPU_MINER
                     Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-
-
-                //System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                //proc.StartInfo.FileName = "xmr-stak-nvidia.exe";
-                //proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                //proc.Start();
-                PushStatusMessage("config.txt updated");
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == true)
             {
-                //create new config file
+                #region UPDATE CONFIG
                 string FILE_NAME_CPU = "app_assets/config.txt";
                 if (File.Exists(FILE_NAME_CPU) == false)
                 {
@@ -362,6 +302,9 @@ namespace ETN_CPU_GPU_MINER
                     index++;
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+                #endregion
+
+                PushStatusMessage("config.txt updated");
 
                 #region XMR STAK CPU MINER
                 PushStatusMessage("Spawning xmr-stak-cpu miner");
@@ -383,19 +326,11 @@ namespace ETN_CPU_GPU_MINER
                     Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-
-                //System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                //proc.StartInfo.FileName = "xmr-stak-cpu.exe";
-                //proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                //proc.Start();
-
-
-                PushStatusMessage("config.txt updated");
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == false)
             {
-                //create new config file
+                #region UPDATE CONFIG
                 string FILE_NAME_CPU = "app_assets/config.txt";
                 if (File.Exists(FILE_NAME_CPU) == false)
                 {
@@ -421,7 +356,10 @@ namespace ETN_CPU_GPU_MINER
                     index++;
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
+                #endregion
 
+                PushStatusMessage("config.txt updated");
+                
                 #region XMR STAK CPU MINER
                 PushStatusMessage("Spawning xmr-stak-cpu miner");
                 Process process = Process.Start(new ProcessStartInfo()
@@ -442,12 +380,6 @@ namespace ETN_CPU_GPU_MINER
                     Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-
-                //System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                //proc.StartInfo.FileName = "xmr-stak-cpu.exe";
-                //proc.StartInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                //proc.Start();
-                PushStatusMessage("config.txt updated");
             }
             //Start Timer
             m_bStartTime = true;
@@ -1010,6 +942,25 @@ namespace ETN_CPU_GPU_MINER
             process.Start();
         }
         #endregion
+
+        private bool IsWalletValid()
+        {
+            if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals(""))
+            {
+                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
+                if (UserInput.Equals(DialogResult.Cancel))
+                {
+                    return false;
+                }
+                else if (UserInput.Equals(DialogResult.OK))
+                {
+                    wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
+                    PushStatusMessage("Developer Wallet Address Selected! Thanks!");
+                    return true;
+                }
+            }
+            return true;
+        }
 
         #endregion
     }

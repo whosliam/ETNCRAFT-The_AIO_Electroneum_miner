@@ -58,7 +58,7 @@
             this.lblGPUTemp = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.help = new System.Windows.Forms.Button();
-            this.mining = new System.Windows.Forms.Button();
+            this.StartMining = new System.Windows.Forms.Button();
             this.new_miner = new System.Windows.Forms.Button();
             this.check = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -313,7 +313,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.help);
-            this.groupBox4.Controls.Add(this.mining);
+            this.groupBox4.Controls.Add(this.StartMining);
             this.groupBox4.Controls.Add(this.new_miner);
             this.groupBox4.Controls.Add(this.check);
             resources.ApplyResources(this.groupBox4, "groupBox4");
@@ -328,14 +328,14 @@
             this.help.UseVisualStyleBackColor = false;
             this.help.Click += new System.EventHandler(this.help_Click_1);
             // 
-            // mining
+            // StartMining
             // 
-            this.mining.BackColor = System.Drawing.Color.LawnGreen;
-            resources.ApplyResources(this.mining, "mining");
-            this.mining.ForeColor = System.Drawing.Color.Black;
-            this.mining.Name = "mining";
-            this.mining.UseVisualStyleBackColor = false;
-            this.mining.Click += new System.EventHandler(this.mining_Click_1);
+            this.StartMining.BackColor = System.Drawing.Color.LawnGreen;
+            resources.ApplyResources(this.StartMining, "StartMining");
+            this.StartMining.ForeColor = System.Drawing.Color.Black;
+            this.StartMining.Name = "StartMining";
+            this.StartMining.UseVisualStyleBackColor = false;
+            this.StartMining.Click += new System.EventHandler(this.mining_Click_1);
             // 
             // new_miner
             // 
@@ -598,7 +598,7 @@
         internal System.Windows.Forms.Button clear;
         internal System.Windows.Forms.ComboBox pool;
         internal System.Windows.Forms.ComboBox gpubrand;
-        internal System.Windows.Forms.Button mining;
+        internal System.Windows.Forms.Button StartMining;
         internal System.Windows.Forms.Label Label9;
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.ComboBox cpuorgpu;
