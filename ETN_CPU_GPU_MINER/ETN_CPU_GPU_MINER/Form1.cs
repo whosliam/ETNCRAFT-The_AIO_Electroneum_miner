@@ -11,6 +11,8 @@ namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
     {
+        public static string m_Version = "(V1.5)";
+        public static string m_sAggHashData = "";
         public static string PoolURL = "";
         public bool m_bStartTime = false;
         private Stopwatch stopwatch = new Stopwatch();
@@ -52,8 +54,6 @@ namespace ETN_CPU_GPU_MINER
             //Auto Save 
             if (chkAutoLoadConfig.Checked)
                 SaveConfig();
-
-            string minerstring = "";
             if (wallet_address.Text.Equals("Enter Public Wallet Here"))
             {
                 DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
@@ -71,25 +71,12 @@ namespace ETN_CPU_GPU_MINER
                 PoolURL = custom_pool.Text;
             if (double.Parse(threads.Text) <= 1)
                 threads.Text = "1";
-            string FILE_NAME = Application.StartupPath + "\\app_assets\\mine.bat";
-            if (File.Exists(FILE_NAME) == false)
-            {
-                File.Create(FILE_NAME).Dispose();
-                PushStatusMessage("mine.bat created");
-            }
-            else
-            {
-                File.Delete(FILE_NAME);
-                PushStatusMessage("old mine.bat deleted");
-                File.Create(FILE_NAME).Dispose();
-                PushStatusMessage("mine.bat created");
-            }
-
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
-            {                
+            {
                 #region CPU MINER
                 PushStatusMessage("Spawning cpuminer");
-               Process process = Process.Start(new ProcessStartInfo() {
+                Process process = Process.Start(new ProcessStartInfo()
+                {
                     FileName = Application.StartupPath + "\\app_assets\\cpuminer.exe",
                     Arguments = "-a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
@@ -98,38 +85,14 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 });
-
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                    Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data + "\r\n");
+                // Console.WriteLine("output>>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                    Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data + "\r\n");
+                // Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-
-                #region Using bat
-                //StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
-                //objWriter.WriteLine("cpuminer -a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
-                //objWriter.Close();
-                //PushStatusMessage("mine.bat ran");
-                //processInfo = new ProcessStartInfo("cmd.exe", "/c mine.bat");
-                //processInfo.WorkingDirectory = Application.StartupPath + "\\app_assets";
-                //processInfo.UseShellExecute = false;
-                //processInfo.CreateNoWindow = true;
-                //processInfo.RedirectStandardOutput = true;
-                //processInfo.RedirectStandardError = true;
-                //process = Process.Start(processInfo);
-
-                //process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                //Console.WriteLine("output>>" + eOut.Data);
-                //process.BeginOutputReadLine();
-
-                //process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                //    Console.WriteLine("error>>" + eErr.Data);
-                //process.BeginErrorReadLine();
-                #endregion
-
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
@@ -147,19 +110,14 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                    Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data);
+                // Console.WriteLine("output>>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                    Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data);
+                // Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
-                
-                //StreamWriter objWriter = new StreamWriter(FILE_NAME, true);
-                //objWriter.WriteLine("ccminer -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause");
-                //objWriter.Close();
-                //PushStatusMessage("mine.bat ran");
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[1])
@@ -196,7 +154,7 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("Spawning xmr-stak-amd miner");
                 Process process = Process.Start(new ProcessStartInfo()
                 {
-                    FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd.exe",                    
+                    FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd.exe",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -204,12 +162,12 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                    Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data);
+                // Console.WriteLine("output>>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                    Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data);
+                // Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
 
@@ -235,7 +193,7 @@ namespace ETN_CPU_GPU_MINER
                     File.Create(FILE_NAME_NV).Dispose();
                     PushStatusMessage("config.txt created");
                 }
-                File.Copy(@"config_templates/config-template-nv.txt", "@app_assets/config.txt", true);
+                File.Copy(@"config_templates/config-template-nv.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
@@ -260,12 +218,12 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                    Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data);
+                // Console.WriteLine("output>>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                    Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data);
+                // Console.WriteLine("error>>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
 
@@ -449,9 +407,11 @@ namespace ETN_CPU_GPU_MINER
                 //proc.Start();
                 PushStatusMessage("config.txt updated");
             }
-            //Start Timer
+            //Start header Timer for app run time
             m_bStartTime = true;
             stopwatch.Start();
+            //Start Hash textbox reset timer
+            HashTimer();
         }
 
         private void new_miner_Click_1(object sender, EventArgs e)
@@ -860,8 +820,8 @@ namespace ETN_CPU_GPU_MINER
         }
         #endregion
 
-        #region Timer
-
+        #region Timers/Temperature Data
+        //System usage timer
         void timer_Tick(object sender, EventArgs e)
         {
             #region Temp Interval
@@ -928,22 +888,36 @@ namespace ETN_CPU_GPU_MINER
 
             #endregion
             #region Timer in window header
+            //DONT BE LAZY LIAM! MAKE THIS WORK ELSEWHERE
+            WorkStatus.SelectionStart = WorkStatus.Text.Length;
+            WorkStatus.ScrollToCaret();
 
             if (m_bStartTime)
             {
-                this.Text = "ETNCRAFT | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
+                this.Text = "ETNCRAFT" + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
                 this.Update();
             }
             #endregion                      
         }
+        //clear hash data text field
+        private void HashTimer()
+        {
+            Timer HashTxtTimer = new Timer();
+            HashTxtTimer.Interval = 300000;//5 minutes
+            HashTxtTimer.Tick += new System.EventHandler(Hashtxt_Tick);
+            HashTxtTimer.Start();
 
-        #endregion
+        }
+        private void Hashtxt_Tick(object sender, EventArgs e)
+        {
+            WorkStatus.Text = "Log Cleared!";
+        }
 
-        #region Temperature
         Computer myComputer;
         Timer timer = new Timer { Enabled = true, Interval = 1000 };
         public void GetTemps()
         {
+
             timer.Tick += new EventHandler(timer_Tick);
 
             GetTemperature.System settings = new GetTemperature.System(new Dictionary<string, string>
@@ -980,7 +954,14 @@ namespace ETN_CPU_GPU_MINER
 
         private void PushWorkStatusMessage(string Message)
         {
-            WorkStatus.Text += Message;
+            m_sAggHashData += Message + "\r\n";
+            ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
+            //Need to figure out how to keep it at bottom without thread issues.
+            //Maybe something in dom?
+            //Also need to delete text field every few minutes
+            //WorkStatus.SelectionStart = WorkStatus.Text.Length;
+            //WorkStatus.ScrollToCaret();
+
         }
 
         /// <summary>
