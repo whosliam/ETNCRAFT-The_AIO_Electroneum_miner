@@ -12,6 +12,7 @@ namespace ETN_CPU_GPU_MINER
     public partial class Form1 : Form
     {
         public static string m_Version = "(V1.5)";
+        public bool m_BFirstRun = false;
         public static string m_sAggHashData = "";
         public static string PoolURL = "";
         public bool m_bStartTime = false;
@@ -30,7 +31,10 @@ namespace ETN_CPU_GPU_MINER
             if (CheckRegistry("AutoLoad"))
                 LoadConfig("config_templates/ENTCRAFT.mcf");
             else
+            {
+                m_BFirstRun = true;
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
+            }
 
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
@@ -55,7 +59,7 @@ namespace ETN_CPU_GPU_MINER
             //Auto Save 
             if (chkAutoLoadConfig.Checked)
                 SaveConfig();
-            
+
             if (!IsWalletValid())
                 return;
 
@@ -63,15 +67,16 @@ namespace ETN_CPU_GPU_MINER
                 PoolURL = custom_pool.Text;
 
             if (double.Parse(threads.Text) <= 1)
-                threads.Text = "1";            
+                threads.Text = "1";
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
             {
                 #region CPU MINER
                 PushStatusMessage("Spawning cpuminer");
-                Process process = Process.Start(new ProcessStartInfo() {
+                Process process = Process.Start(new ProcessStartInfo()
+                {
                     FileName = Application.StartupPath + "\\app_assets\\cpuminer.exe",
-                    Arguments = "-a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause",
+                    Arguments = "-a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -95,7 +100,7 @@ namespace ETN_CPU_GPU_MINER
                 Process process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = Application.StartupPath + "\\app_assets\\ccminer.exe",
-                    Arguments = "-o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text + " -p x -t " + threads.Text + "pause",
+                    Arguments = "-o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -133,7 +138,7 @@ namespace ETN_CPU_GPU_MINER
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 15)
                 {
@@ -187,7 +192,7 @@ namespace ETN_CPU_GPU_MINER
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 15)
                 {
@@ -241,7 +246,7 @@ namespace ETN_CPU_GPU_MINER
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 15)
                 {
@@ -295,7 +300,7 @@ namespace ETN_CPU_GPU_MINER
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32((double.Parse(threads.Text) * 2) - 1);
                 while (index <= 14)
                 {
@@ -349,7 +354,7 @@ namespace ETN_CPU_GPU_MINER
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text);
+                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 14)
                 {
@@ -360,7 +365,7 @@ namespace ETN_CPU_GPU_MINER
                 #endregion
 
                 PushStatusMessage("config.txt updated");
-                
+
                 #region XMR STAK CPU MINER
                 PushStatusMessage("Spawning xmr-stak-cpu miner");
                 Process process = Process.Start(new ProcessStartInfo()
@@ -528,7 +533,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void lnkWalletGen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-           Process.Start("https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html");
+            Process.Start("https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html");
         }
 
 
@@ -709,7 +714,26 @@ namespace ETN_CPU_GPU_MINER
 
         private void chkAutoLoadConfig_CheckedChanged(object sender, EventArgs e)
         {
-            CreateRegistryKey("AutoLoad", chkAutoLoadConfig.Checked);
+            bool bSaveRegKey = false;
+            DialogResult UserInput;
+            if (chkAutoLoadConfig.Checked && m_BFirstRun)
+            {
+                new DialogResult();
+                UserInput = MessageBox.Show("Make sure your wallet information has been entered!\r\nThis will save your info and also setup auto config when the app restarts\r\nClick yes to continue", "ALERT", MessageBoxButtons.YesNo);
+                if (UserInput == DialogResult.No)
+                {
+                    LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
+                    SaveConfig();
+                    chkAutoLoadConfig.Checked = false;
+                }
+                else
+                    bSaveRegKey = true;
+            }
+            else if (chkAutoLoadConfig.Checked) //quick fix. Im supposed to be working wight now. 
+                bSaveRegKey = true;
+            if (bSaveRegKey)
+                CreateRegistryKey("AutoLoad", chkAutoLoadConfig.Checked);
+
         }
         #endregion
 
@@ -741,13 +765,17 @@ namespace ETN_CPU_GPU_MINER
         }
         private void SaveConfig()
         {
+            File.Delete("ENTCRAFT.mcf");
+            File.Create("ENTCRAFT.mcf").Dispose();
+
             string ht_checkstate = "no";
             if (hyperthread.Checked == true)
                 ht_checkstate = "yes";
             else if (hyperthread.Checked == false)
                 ht_checkstate = "no";
-            string config_contents_save = wallet_address.Text + Constants.vbNewLine + System.Convert.ToString(pool.SelectedItem) + Constants.vbNewLine + custom_pool.Text + Constants.vbNewLine + PoolURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
+            string config_contents_save = wallet_address.Text.Replace(" ", "") + Constants.vbNewLine + System.Convert.ToString(pool.SelectedItem) + Constants.vbNewLine + custom_pool.Text + Constants.vbNewLine + PoolURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
             (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config_templates\\ENTCRAFT.mcf", config_contents_save, true);
+            PushStatusMessage("ENTCRAFT.mcf deleted & recreated");
 
         }
         private bool CheckRegistry(string sKey)

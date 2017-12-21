@@ -840,37 +840,34 @@
   <data name="&gt;&gt;help.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="mining.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="StartMining.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="mining.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="StartMining.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 10pt</value>
   </data>
-  <data name="mining.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="StartMining.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 27</value>
   </data>
-  <data name="mining.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="StartMining.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 30</value>
   </data>
-  <data name="mining.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 30</value>
+  <data name="StartMining.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
   </data>
-  <data name="mining.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="StartMining.Text" xml:space="preserve">
+    <value>Start Mining</value>
   </data>
-  <data name="mining.Text" xml:space="preserve">
-    <value>START</value>
+  <data name="&gt;&gt;StartMining.Name" xml:space="preserve">
+    <value>StartMining</value>
   </data>
-  <data name="&gt;&gt;mining.Name" xml:space="preserve">
-    <value>mining</value>
-  </data>
-  <data name="&gt;&gt;mining.Type" xml:space="preserve">
+  <data name="&gt;&gt;StartMining.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mining.Parent" xml:space="preserve">
+  <data name="&gt;&gt;StartMining.Parent" xml:space="preserve">
     <value>groupBox4</value>
   </data>
-  <data name="&gt;&gt;mining.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;StartMining.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="new_miner.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
