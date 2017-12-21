@@ -86,7 +86,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.lnkWalletGen = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
@@ -488,7 +488,7 @@
             this.groupBox9.Controls.Add(this.label14);
             this.groupBox9.Controls.Add(this.label13);
             this.groupBox9.Controls.Add(this.label12);
-            this.groupBox9.Controls.Add(this.linkLabel1);
+            this.groupBox9.Controls.Add(this.lnkWalletGen);
             this.groupBox9.Controls.Add(this.label7);
             resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Name = "groupBox9";
@@ -530,11 +530,12 @@
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
             // 
-            // linkLabel1
+            // lnkWalletGen
             // 
-            resources.ApplyResources(this.linkLabel1, "linkLabel1");
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.TabStop = true;
+            resources.ApplyResources(this.lnkWalletGen, "lnkWalletGen");
+            this.lnkWalletGen.Name = "lnkWalletGen";
+            this.lnkWalletGen.TabStop = true;
+            this.lnkWalletGen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkWalletGen_LinkClicked);
             // 
             // label7
             // 
@@ -630,7 +631,7 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel lnkWalletGen;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label17;

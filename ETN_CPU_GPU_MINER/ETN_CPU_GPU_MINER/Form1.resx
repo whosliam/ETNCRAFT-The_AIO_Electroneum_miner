@@ -1714,31 +1714,31 @@
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="linkLabel1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="lnkWalletGen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="lnkWalletGen.Location" type="System.Drawing.Point, System.Drawing">
     <value>309, 22</value>
   </data>
-  <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>347, 13</value>
+  <data name="lnkWalletGen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 13</value>
   </data>
-  <data name="linkLabel1.TabIndex" type="System.Int32, mscorlib">
+  <data name="lnkWalletGen.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="linkLabel1.Text" xml:space="preserve">
-    <value>https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html</value>
+  <data name="lnkWalletGen.Text" xml:space="preserve">
+    <value>electroneum wallet generator</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
-    <value>linkLabel1</value>
+  <data name="&gt;&gt;lnkWalletGen.Name" xml:space="preserve">
+    <value>lnkWalletGen</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
+  <data name="&gt;&gt;lnkWalletGen.Type" xml:space="preserve">
     <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lnkWalletGen.Parent" xml:space="preserve">
     <value>groupBox9</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lnkWalletGen.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">

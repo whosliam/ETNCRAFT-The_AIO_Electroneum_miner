@@ -551,6 +551,12 @@ namespace ETN_CPU_GPU_MINER
             LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
         }
 
+        private void lnkWalletGen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+           Process.Start("https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html");
+        }
+
+
         #endregion
 
         #region DropDown Handlers
@@ -993,5 +999,6 @@ namespace ETN_CPU_GPU_MINER
         #endregion
 
         #endregion
+
     }
 }
