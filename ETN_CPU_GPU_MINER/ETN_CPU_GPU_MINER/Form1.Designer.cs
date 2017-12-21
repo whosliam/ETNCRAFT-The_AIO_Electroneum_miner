@@ -31,9 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabs = new System.Windows.Forms.TabControl();
             this.tab_miner = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.WorkStatus = new System.Windows.Forms.RichTextBox();
+            this.WorkStatus = new System.Windows.Forms.TextBox();
             this.lbl_gpubrand = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -87,7 +86,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.lnkWalletGen = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
@@ -116,7 +115,6 @@
             // 
             // tab_miner
             // 
-            this.tab_miner.Controls.Add(this.label1);
             this.tab_miner.Controls.Add(this.groupBox6);
             this.tab_miner.Controls.Add(this.lbl_gpubrand);
             this.tab_miner.Controls.Add(this.label11);
@@ -136,11 +134,6 @@
             this.tab_miner.Name = "tab_miner";
             this.tab_miner.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.WorkStatus);
@@ -150,10 +143,8 @@
             // 
             // WorkStatus
             // 
-            this.WorkStatus.BackColor = System.Drawing.SystemColors.ControlLight;
             resources.ApplyResources(this.WorkStatus, "WorkStatus");
             this.WorkStatus.Name = "WorkStatus";
-            this.WorkStatus.ReadOnly = true;
             // 
             // lbl_gpubrand
             // 
@@ -379,7 +370,7 @@
             // 
             // status
             // 
-            this.status.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.status.BackColor = System.Drawing.SystemColors.Window;
             this.status.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.status, "status");
             this.status.Name = "status";
@@ -497,7 +488,7 @@
             this.groupBox9.Controls.Add(this.label14);
             this.groupBox9.Controls.Add(this.label13);
             this.groupBox9.Controls.Add(this.label12);
-            this.groupBox9.Controls.Add(this.linkLabel1);
+            this.groupBox9.Controls.Add(this.lnkWalletGen);
             this.groupBox9.Controls.Add(this.label7);
             resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Name = "groupBox9";
@@ -539,11 +530,12 @@
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
             // 
-            // linkLabel1
+            // lnkWalletGen
             // 
-            resources.ApplyResources(this.linkLabel1, "linkLabel1");
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.TabStop = true;
+            resources.ApplyResources(this.lnkWalletGen, "lnkWalletGen");
+            this.lnkWalletGen.Name = "lnkWalletGen";
+            this.lnkWalletGen.TabStop = true;
+            this.lnkWalletGen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkWalletGen_LinkClicked);
             // 
             // label7
             // 
@@ -565,6 +557,7 @@
             this.tab_miner.ResumeLayout(false);
             this.tab_miner.PerformLayout();
             this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -627,11 +620,9 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RichTextBox WorkStatus;
         private System.Windows.Forms.Label lblGPUTemp;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Button OpenLogButton;
         internal System.Windows.Forms.Button ClearMessagesButton;
         private System.Windows.Forms.Button btnLoadDefaults;
@@ -640,13 +631,14 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel lnkWalletGen;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox WorkStatus;
     }
 }
 

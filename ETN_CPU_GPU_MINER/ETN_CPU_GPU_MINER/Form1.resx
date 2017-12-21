@@ -117,52 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="WorkStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 20</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="WorkStatus.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>654, 655</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 13</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>49</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Version: 1.4</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>tab_miner</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="WorkStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 20</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="WorkStatus.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Both</value>
   </data>
   <data name="WorkStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 183</value>
+    <value>339, 183</value>
   </data>
   <data name="WorkStatus.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="WorkStatus.Text" xml:space="preserve">
-    <value />
+    <value>Reloads every 5 minutes</value>
   </data>
   <data name="&gt;&gt;WorkStatus.Name" xml:space="preserve">
     <value>WorkStatus</value>
   </data>
   <data name="&gt;&gt;WorkStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;WorkStatus.Parent" xml:space="preserve">
     <value>groupBox6</value>
@@ -180,7 +160,7 @@
     <value>47</value>
   </data>
   <data name="groupBox6.Text" xml:space="preserve">
-    <value>POOL/HASH DIAGNOSTICS</value>
+    <value>Pool/Hash Information</value>
   </data>
   <data name="&gt;&gt;groupBox6.Name" xml:space="preserve">
     <value>groupBox6</value>
@@ -192,12 +172,11 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;groupBox6.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="lbl_gpubrand.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lbl_gpubrand.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -223,7 +202,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;lbl_gpubrand.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -250,7 +229,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -280,7 +259,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -307,7 +286,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="cpuorgpu.Items" xml:space="preserve">
     <value>CPU</value>
@@ -337,7 +316,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;cpuorgpu.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="wallet_address.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 34</value>
@@ -364,7 +343,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;wallet_address.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="port.Location" type="System.Drawing.Point, System.Drawing">
     <value>371, 118</value>
@@ -391,7 +370,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;port.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="clear.Location" type="System.Drawing.Point, System.Drawing">
     <value>649, 34</value>
@@ -418,7 +397,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;clear.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="gpubrand.Items" xml:space="preserve">
     <value>Nvidia</value>
@@ -448,7 +427,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;gpubrand.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 5</value>
@@ -472,7 +451,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="pool.Items" xml:space="preserve">
     <value>uspool.electroneum.com</value>
@@ -694,7 +673,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="lblCPUTemp.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -811,7 +790,7 @@
     <value>46</value>
   </data>
   <data name="groupBox3.Text" xml:space="preserve">
-    <value>HARDWARE DIAGNOSTICS</value>
+    <value>Hardware Information</value>
   </data>
   <data name="&gt;&gt;groupBox3.Name" xml:space="preserve">
     <value>groupBox3</value>
@@ -823,7 +802,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="help.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -861,37 +840,37 @@
   <data name="&gt;&gt;help.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="StartMining.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="mining.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="StartMining.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="mining.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 10pt</value>
   </data>
-  <data name="StartMining.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="mining.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 27</value>
   </data>
-  <data name="StartMining.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="mining.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="StartMining.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="mining.Size" type="System.Drawing.Size, System.Drawing">
     <value>137, 30</value>
   </data>
-  <data name="StartMining.TabIndex" type="System.Int32, mscorlib">
+  <data name="mining.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="StartMining.Text" xml:space="preserve">
+  <data name="mining.Text" xml:space="preserve">
     <value>START</value>
   </data>
-  <data name="&gt;&gt;StartMining.Name" xml:space="preserve">
-    <value>StartMining</value>
+  <data name="&gt;&gt;mining.Name" xml:space="preserve">
+    <value>mining</value>
   </data>
-  <data name="&gt;&gt;StartMining.Type" xml:space="preserve">
+  <data name="&gt;&gt;mining.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;StartMining.Parent" xml:space="preserve">
+  <data name="&gt;&gt;mining.Parent" xml:space="preserve">
     <value>groupBox4</value>
   </data>
-  <data name="&gt;&gt;StartMining.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;mining.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="new_miner.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
@@ -988,7 +967,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="ClearMessagesButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1106,7 +1085,7 @@
     <value>tab_miner</value>
   </data>
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="tab_miner.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1735,31 +1714,31 @@
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="linkLabel1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="lnkWalletGen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="lnkWalletGen.Location" type="System.Drawing.Point, System.Drawing">
     <value>309, 22</value>
   </data>
-  <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>347, 13</value>
+  <data name="lnkWalletGen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 13</value>
   </data>
-  <data name="linkLabel1.TabIndex" type="System.Int32, mscorlib">
+  <data name="lnkWalletGen.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="linkLabel1.Text" xml:space="preserve">
-    <value>https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html</value>
+  <data name="lnkWalletGen.Text" xml:space="preserve">
+    <value>electroneum wallet generator</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
-    <value>linkLabel1</value>
+  <data name="&gt;&gt;lnkWalletGen.Name" xml:space="preserve">
+    <value>lnkWalletGen</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
+  <data name="&gt;&gt;lnkWalletGen.Type" xml:space="preserve">
     <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lnkWalletGen.Parent" xml:space="preserve">
     <value>groupBox9</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lnkWalletGen.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
@@ -1883,7 +1862,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>733, 693</value>
+    <value>733, 682</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2478,7 +2457,7 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>ETNCRAFT</value>
+    <value>ETNCRAFT(V1.5)</value>
   </data>
   <data name="&gt;&gt;open_config_dialog.Name" xml:space="preserve">
     <value>open_config_dialog</value>
