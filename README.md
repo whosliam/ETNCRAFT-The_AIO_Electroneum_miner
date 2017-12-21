@@ -1,4 +1,4 @@
-## Welcome to ETNCRAFT - The Electroneum miner
+## Welcome to ETNCRAFT - The AIO Electroneum miner 
 
 
 This is an ongoing project that we hope to spawn into something bigger!
