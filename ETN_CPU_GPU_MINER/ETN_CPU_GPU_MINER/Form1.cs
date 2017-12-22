@@ -41,10 +41,18 @@ namespace ETN_CPU_GPU_MINER
             string[] lines = File.ReadAllLines("config_templates/custom_url.conf");
             pool.Items.AddRange(lines);
             //Spool up timers
-            GetTemps();
+            GetTemps();            
             //This is to keep the event handlers from fireing when the form load. Just wrapp functions in this.
             b_FormLoaded = true;
+            this.FormClosing += new FormClosingEventHandler(CloseForm);
         }
+
+        private void CloseForm(object sender, FormClosingEventArgs e)
+        {
+            Messager.PushMessage("ETNCRAFT window closed, beginning process cleanup.");
+            EndProcesses();
+        }
+      
 
         #endregion
 
@@ -387,36 +395,7 @@ namespace ETN_CPU_GPU_MINER
             m_bStartTime = false;
             stopwatch.Stop();
 
-            // Get Process Arrays
-            Process[] ArrProcessCPU = Process.GetProcessesByName("cpuminer");
-            Process[] ArrProcessNV = Process.GetProcessesByName("ccminer");
-            Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd");
-            Process[] ArrProcessNVXMR = Process.GetProcessesByName("xmr-stak-nvidia");
-            Process[] ArrProcessCPUXMR = Process.GetProcessesByName("xmr-stak-cpu");
-
-            // Build Aggregate Process Array
-            int ProcessCount = ArrProcessCPU.Length + ArrProcessNV.Length + ArrProcessAMD.Length + ArrProcessNVXMR.Length + ArrProcessCPUXMR.Length;
-            Process[] ArrProcesses = new Process[ProcessCount];
-            int CopyStartInd = 0;
-            ArrProcessCPU.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessCPU.Length;
-            ArrProcessNV.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessNV.Length;
-            ArrProcessAMD.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessAMD.Length;
-            ArrProcessNVXMR.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessNVXMR.Length;
-            ArrProcessCPUXMR.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessCPUXMR.Length;
-
-            // Kill Processes
-            foreach (Process p in ArrProcesses)
-            {
-                PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
-                p.Kill();
-            }
-
-            PushStatusMessage("All Processes Killed!");
+            EndProcesses();
         }
 
         private void BtnDiagnostics_Click(object sender, EventArgs e)
@@ -1009,6 +988,40 @@ namespace ETN_CPU_GPU_MINER
                 }
             }
             return true;
+        }
+
+        private void EndProcesses()
+        {
+            // Get Process Arrays
+            Process[] ArrProcessCPU = Process.GetProcessesByName("cpuminer");
+            Process[] ArrProcessNV = Process.GetProcessesByName("ccminer");
+            Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd");
+            Process[] ArrProcessNVXMR = Process.GetProcessesByName("xmr-stak-nvidia");
+            Process[] ArrProcessCPUXMR = Process.GetProcessesByName("xmr-stak-cpu");
+
+            // Build Aggregate Process Array
+            int ProcessCount = ArrProcessCPU.Length + ArrProcessNV.Length + ArrProcessAMD.Length + ArrProcessNVXMR.Length + ArrProcessCPUXMR.Length;
+            Process[] ArrProcesses = new Process[ProcessCount];
+            int CopyStartInd = 0;
+            ArrProcessCPU.CopyTo(ArrProcesses, CopyStartInd);
+            CopyStartInd += ArrProcessCPU.Length;
+            ArrProcessNV.CopyTo(ArrProcesses, CopyStartInd);
+            CopyStartInd += ArrProcessNV.Length;
+            ArrProcessAMD.CopyTo(ArrProcesses, CopyStartInd);
+            CopyStartInd += ArrProcessAMD.Length;
+            ArrProcessNVXMR.CopyTo(ArrProcesses, CopyStartInd);
+            CopyStartInd += ArrProcessNVXMR.Length;
+            ArrProcessCPUXMR.CopyTo(ArrProcesses, CopyStartInd);
+            CopyStartInd += ArrProcessCPUXMR.Length;
+
+            // Kill Processes
+            foreach (Process p in ArrProcesses)
+            {
+                PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
+                p.Kill();
+            }
+
+            PushStatusMessage("All Processes Killed!");
         }
 
         #endregion
