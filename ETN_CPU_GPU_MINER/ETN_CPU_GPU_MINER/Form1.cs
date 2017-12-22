@@ -622,13 +622,13 @@ namespace ETN_CPU_GPU_MINER
             }
             if (pool.SelectedItem == pool.Items[3])
             {
-                PoolURL = "us-etn-pool.hashparty.io";
+                PoolURL = "us-etn-stats.hashparty.io/";
                 PushStatusMessage("us-etn-pool.hashparty.io selected, 1.5% Pool fee, 10 ETN Minimum Cashout");
 
             }
             if (pool.SelectedItem == pool.Items[4])
             {
-                PoolURL = "pool.electroneum.space";
+                PoolURL = "etn.spacepools.org";
                 PushStatusMessage("pool.electroneum.space selected, 0.5% Pool fee, 10 ETN Minimum Cashout");
 
             }
