@@ -1562,13 +1562,13 @@
     <value>7, 122</value>
   </data>
   <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>515, 17</value>
+    <value>526, 17</value>
   </data>
   <data name="label18.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
   <data name="label18.Text" xml:space="preserve">
-    <value>7) Change pool or select custom. Default pool is currently the best performing</value>
+    <value>7) Change POOL or select custom. Default pool is currently the best performing</value>
   </data>
   <data name="&gt;&gt;label18.Name" xml:space="preserve">
     <value>label18</value>
@@ -1592,13 +1592,13 @@
     <value>7, 105</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>626, 17</value>
+    <value>632, 17</value>
   </data>
   <data name="label17.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
   <data name="label17.Text" xml:space="preserve">
-    <value>6) Change PORT if applicable [(3333 - Low end PC) (5555 - Mid range PC) (7777 - High end PC ]</value>
+    <value>6) Change PORT if applicable [(3333 - Low end PC) (5555 - Mid range PC) (7777 - High end PC) ]</value>
   </data>
   <data name="&gt;&gt;label17.Name" xml:space="preserve">
     <value>label17</value>
@@ -1625,7 +1625,7 @@
     <value>7, 88</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>473, 17</value>
+    <value>474, 17</value>
   </data>
   <data name="label16.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1655,7 +1655,7 @@
     <value>7, 71</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>445, 17</value>
+    <value>447, 17</value>
   </data>
   <data name="label15.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1715,7 +1715,7 @@
     <value>25, 37</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>636, 17</value>
+    <value>631, 17</value>
   </data>
   <data name="label13.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
