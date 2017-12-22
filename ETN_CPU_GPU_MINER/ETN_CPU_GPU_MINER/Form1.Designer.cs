@@ -40,7 +40,7 @@
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
             this.wallet_address = new System.Windows.Forms.TextBox();
             this.port = new System.Windows.Forms.TextBox();
-            this.clear = new System.Windows.Forms.Button();
+            this.BtnClearWallet = new System.Windows.Forms.Button();
             this.gpubrand = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -52,20 +52,22 @@
             this.threads = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.lblCPUUsage = new System.Windows.Forms.Label();
             this.lblCPUTemp = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblGPUUsage = new System.Windows.Forms.Label();
             this.lblGPUTemp = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.help = new System.Windows.Forms.Button();
+            this.BtnDiagnostics = new System.Windows.Forms.Button();
             this.StartMining = new System.Windows.Forms.Button();
-            this.new_miner = new System.Windows.Forms.Button();
-            this.check = new System.Windows.Forms.Button();
+            this.BtnStopMining = new System.Windows.Forms.Button();
+            this.BtnCheckBalance = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.ClearMessagesButton = new System.Windows.Forms.Button();
-            this.OpenLogButton = new System.Windows.Forms.Button();
+            this.BtnOpenLog = new System.Windows.Forms.Button();
             this.status = new System.Windows.Forms.RichTextBox();
             this.tab_as = new System.Windows.Forms.TabPage();
-            this.btnLoadDefaults = new System.Windows.Forms.Button();
+            this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
             this.hyperthread = new System.Windows.Forms.CheckBox();
             this.Label3 = new System.Windows.Forms.Label();
@@ -75,8 +77,8 @@
             this.stak_nvidia_perf = new System.Windows.Forms.Label();
             this.Label4 = new System.Windows.Forms.Label();
             this.miner_type = new System.Windows.Forms.ComboBox();
-            this.load_config = new System.Windows.Forms.Button();
-            this.save_config = new System.Windows.Forms.Button();
+            this.BtnLoadConfig = new System.Windows.Forms.Button();
+            this.BtnSaveConfig = new System.Windows.Forms.Button();
             this.tbHelp = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -86,12 +88,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.lnkWalletGen = new System.Windows.Forms.LinkLabel();
+            this.LinkWalletGen = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.lblCPUUsage = new System.Windows.Forms.Label();
-            this.lblGPUUsage = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -125,7 +125,7 @@
             this.tab_miner.Controls.Add(this.cpuorgpu);
             this.tab_miner.Controls.Add(this.wallet_address);
             this.tab_miner.Controls.Add(this.port);
-            this.tab_miner.Controls.Add(this.clear);
+            this.tab_miner.Controls.Add(this.BtnClearWallet);
             this.tab_miner.Controls.Add(this.gpubrand);
             this.tab_miner.Controls.Add(this.groupBox1);
             this.tab_miner.Controls.Add(this.groupBox2);
@@ -191,12 +191,12 @@
             resources.ApplyResources(this.port, "port");
             this.port.Name = "port";
             // 
-            // clear
+            // BtnClearWallet
             // 
-            resources.ApplyResources(this.clear, "clear");
-            this.clear.Name = "clear";
-            this.clear.UseVisualStyleBackColor = true;
-            this.clear.Click += new System.EventHandler(this.clear_Click_1);
+            resources.ApplyResources(this.BtnClearWallet, "BtnClearWallet");
+            this.BtnClearWallet.Name = "BtnClearWallet";
+            this.BtnClearWallet.UseVisualStyleBackColor = true;
+            this.BtnClearWallet.Click += new System.EventHandler(this.BtnClearWallet_Click);
             // 
             // gpubrand
             // 
@@ -287,6 +287,11 @@
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.TabStop = false;
             // 
+            // lblCPUUsage
+            // 
+            resources.ApplyResources(this.lblCPUUsage, "lblCPUUsage");
+            this.lblCPUUsage.Name = "lblCPUUsage";
+            // 
             // lblCPUTemp
             // 
             resources.ApplyResources(this.lblCPUTemp, "lblCPUTemp");
@@ -300,6 +305,11 @@
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.TabStop = false;
             // 
+            // lblGPUUsage
+            // 
+            resources.ApplyResources(this.lblGPUUsage, "lblGPUUsage");
+            this.lblGPUUsage.Name = "lblGPUUsage";
+            // 
             // lblGPUTemp
             // 
             resources.ApplyResources(this.lblGPUTemp, "lblGPUTemp");
@@ -307,21 +317,21 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.help);
+            this.groupBox4.Controls.Add(this.BtnDiagnostics);
             this.groupBox4.Controls.Add(this.StartMining);
-            this.groupBox4.Controls.Add(this.new_miner);
-            this.groupBox4.Controls.Add(this.check);
+            this.groupBox4.Controls.Add(this.BtnStopMining);
+            this.groupBox4.Controls.Add(this.BtnCheckBalance);
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
-            // help
+            // BtnDiagnostics
             // 
-            this.help.BackColor = System.Drawing.SystemColors.ControlLight;
-            resources.ApplyResources(this.help, "help");
-            this.help.Name = "help";
-            this.help.UseVisualStyleBackColor = false;
-            this.help.Click += new System.EventHandler(this.help_Click_1);
+            this.BtnDiagnostics.BackColor = System.Drawing.SystemColors.ControlLight;
+            resources.ApplyResources(this.BtnDiagnostics, "BtnDiagnostics");
+            this.BtnDiagnostics.Name = "BtnDiagnostics";
+            this.BtnDiagnostics.UseVisualStyleBackColor = false;
+            this.BtnDiagnostics.Click += new System.EventHandler(this.BtnDiagnostics_Click);
             // 
             // StartMining
             // 
@@ -330,29 +340,29 @@
             this.StartMining.ForeColor = System.Drawing.Color.Black;
             this.StartMining.Name = "StartMining";
             this.StartMining.UseVisualStyleBackColor = false;
-            this.StartMining.Click += new System.EventHandler(this.mining_Click_1);
+            this.StartMining.Click += new System.EventHandler(this.BtnStartMining_Click);
             // 
-            // new_miner
+            // BtnStopMining
             // 
-            this.new_miner.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.new_miner, "new_miner");
-            this.new_miner.ForeColor = System.Drawing.Color.Black;
-            this.new_miner.Name = "new_miner";
-            this.new_miner.UseVisualStyleBackColor = false;
-            this.new_miner.Click += new System.EventHandler(this.new_miner_Click_1);
+            this.BtnStopMining.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.BtnStopMining, "BtnStopMining");
+            this.BtnStopMining.ForeColor = System.Drawing.Color.Black;
+            this.BtnStopMining.Name = "BtnStopMining";
+            this.BtnStopMining.UseVisualStyleBackColor = false;
+            this.BtnStopMining.Click += new System.EventHandler(this.BtnStopMining_Click);
             // 
-            // check
+            // BtnCheckBalance
             // 
-            this.check.BackColor = System.Drawing.Color.LightSeaGreen;
-            resources.ApplyResources(this.check, "check");
-            this.check.Name = "check";
-            this.check.UseVisualStyleBackColor = false;
-            this.check.Click += new System.EventHandler(this.check_Click);
+            this.BtnCheckBalance.BackColor = System.Drawing.Color.LightSeaGreen;
+            resources.ApplyResources(this.BtnCheckBalance, "BtnCheckBalance");
+            this.BtnCheckBalance.Name = "BtnCheckBalance";
+            this.BtnCheckBalance.UseVisualStyleBackColor = false;
+            this.BtnCheckBalance.Click += new System.EventHandler(this.BtnCheckBalance_Click);
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.ClearMessagesButton);
-            this.groupBox5.Controls.Add(this.OpenLogButton);
+            this.groupBox5.Controls.Add(this.BtnOpenLog);
             this.groupBox5.Controls.Add(this.status);
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
@@ -365,12 +375,12 @@
             this.ClearMessagesButton.UseVisualStyleBackColor = true;
             this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
             // 
-            // OpenLogButton
+            // BtnOpenLog
             // 
-            resources.ApplyResources(this.OpenLogButton, "OpenLogButton");
-            this.OpenLogButton.Name = "OpenLogButton";
-            this.OpenLogButton.UseVisualStyleBackColor = true;
-            this.OpenLogButton.Click += new System.EventHandler(this.OpenLogButton_Click);
+            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
+            this.BtnOpenLog.Name = "BtnOpenLog";
+            this.BtnOpenLog.UseVisualStyleBackColor = true;
+            this.BtnOpenLog.Click += new System.EventHandler(this.BtnOpenLog_Click);
             // 
             // status
             // 
@@ -382,7 +392,7 @@
             // 
             // tab_as
             // 
-            this.tab_as.Controls.Add(this.btnLoadDefaults);
+            this.tab_as.Controls.Add(this.BtnLoadDefaultConfig);
             this.tab_as.Controls.Add(this.chkAutoLoadConfig);
             this.tab_as.Controls.Add(this.hyperthread);
             this.tab_as.Controls.Add(this.Label3);
@@ -392,18 +402,18 @@
             this.tab_as.Controls.Add(this.stak_nvidia_perf);
             this.tab_as.Controls.Add(this.Label4);
             this.tab_as.Controls.Add(this.miner_type);
-            this.tab_as.Controls.Add(this.load_config);
-            this.tab_as.Controls.Add(this.save_config);
+            this.tab_as.Controls.Add(this.BtnLoadConfig);
+            this.tab_as.Controls.Add(this.BtnSaveConfig);
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
             // 
-            // btnLoadDefaults
+            // BtnLoadDefaultConfig
             // 
-            resources.ApplyResources(this.btnLoadDefaults, "btnLoadDefaults");
-            this.btnLoadDefaults.Name = "btnLoadDefaults";
-            this.btnLoadDefaults.UseVisualStyleBackColor = true;
-            this.btnLoadDefaults.Click += new System.EventHandler(this.btnLoadDefaults_Click);
+            resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
+            this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
+            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
+            this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
             // 
             // chkAutoLoadConfig
             // 
@@ -462,19 +472,19 @@
             this.miner_type.Name = "miner_type";
             this.miner_type.SelectedIndexChanged += new System.EventHandler(this.miner_type_SelectedIndexChanged_1);
             // 
-            // load_config
+            // BtnLoadConfig
             // 
-            resources.ApplyResources(this.load_config, "load_config");
-            this.load_config.Name = "load_config";
-            this.load_config.UseVisualStyleBackColor = true;
-            this.load_config.Click += new System.EventHandler(this.load_config_Click_1);
+            resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
+            this.BtnLoadConfig.Name = "BtnLoadConfig";
+            this.BtnLoadConfig.UseVisualStyleBackColor = true;
+            this.BtnLoadConfig.Click += new System.EventHandler(this.BtnLoadConfig_Click);
             // 
-            // save_config
+            // BtnSaveConfig
             // 
-            resources.ApplyResources(this.save_config, "save_config");
-            this.save_config.Name = "save_config";
-            this.save_config.UseVisualStyleBackColor = true;
-            this.save_config.Click += new System.EventHandler(this.save_config_Click_1);
+            resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
+            this.BtnSaveConfig.Name = "BtnSaveConfig";
+            this.BtnSaveConfig.UseVisualStyleBackColor = true;
+            this.BtnSaveConfig.Click += new System.EventHandler(this.BtnSaveConfig_Click);
             // 
             // tbHelp
             // 
@@ -492,7 +502,7 @@
             this.groupBox9.Controls.Add(this.label14);
             this.groupBox9.Controls.Add(this.label13);
             this.groupBox9.Controls.Add(this.label12);
-            this.groupBox9.Controls.Add(this.lnkWalletGen);
+            this.groupBox9.Controls.Add(this.LinkWalletGen);
             this.groupBox9.Controls.Add(this.label7);
             resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Name = "groupBox9";
@@ -534,12 +544,12 @@
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
             // 
-            // lnkWalletGen
+            // LinkWalletGen
             // 
-            resources.ApplyResources(this.lnkWalletGen, "lnkWalletGen");
-            this.lnkWalletGen.Name = "lnkWalletGen";
-            this.lnkWalletGen.TabStop = true;
-            this.lnkWalletGen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkWalletGen_LinkClicked);
+            resources.ApplyResources(this.LinkWalletGen, "LinkWalletGen");
+            this.LinkWalletGen.Name = "LinkWalletGen";
+            this.LinkWalletGen.TabStop = true;
+            this.LinkWalletGen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkWalletGen_LinkClicked);
             // 
             // label7
             // 
@@ -549,16 +559,6 @@
             // open_config_dialog
             // 
             this.open_config_dialog.FileName = "File name";
-            // 
-            // lblCPUUsage
-            // 
-            resources.ApplyResources(this.lblCPUUsage, "lblCPUUsage");
-            this.lblCPUUsage.Name = "lblCPUUsage";
-            // 
-            // lblGPUUsage
-            // 
-            resources.ApplyResources(this.lblGPUUsage, "lblGPUUsage");
-            this.lblGPUUsage.Name = "lblGPUUsage";
             // 
             // Form1
             // 
@@ -594,15 +594,15 @@
 
         internal System.Windows.Forms.TabControl tabs;
         internal System.Windows.Forms.TabPage tab_miner;
-        internal System.Windows.Forms.Button new_miner;
-        internal System.Windows.Forms.Button help;
+        internal System.Windows.Forms.Button BtnStopMining;
+        internal System.Windows.Forms.Button BtnDiagnostics;
         internal System.Windows.Forms.TextBox wallet_address;
         internal System.Windows.Forms.RichTextBox status;
         internal System.Windows.Forms.TextBox threads;
         internal System.Windows.Forms.TextBox custom_pool;
         internal System.Windows.Forms.TextBox port;
-        internal System.Windows.Forms.Button check;
-        internal System.Windows.Forms.Button clear;
+        internal System.Windows.Forms.Button BtnCheckBalance;
+        internal System.Windows.Forms.Button BtnClearWallet;
         internal System.Windows.Forms.ComboBox pool;
         internal System.Windows.Forms.ComboBox gpubrand;
         internal System.Windows.Forms.Button StartMining;
@@ -618,8 +618,8 @@
         internal System.Windows.Forms.Label stak_nvidia_perf;
         internal System.Windows.Forms.Label Label4;
         internal System.Windows.Forms.ComboBox miner_type;
-        internal System.Windows.Forms.Button load_config;
-        internal System.Windows.Forms.Button save_config;
+        internal System.Windows.Forms.Button BtnLoadConfig;
+        internal System.Windows.Forms.Button BtnSaveConfig;
         internal System.Windows.Forms.OpenFileDialog open_config_dialog;
         internal System.Windows.Forms.SaveFileDialog save_config_dialog;
         private System.Windows.Forms.Label lblCPUTemp;
@@ -637,15 +637,15 @@
         private System.Windows.Forms.Label lblGPUTemp;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
-        internal System.Windows.Forms.Button OpenLogButton;
+        internal System.Windows.Forms.Button BtnOpenLog;
         internal System.Windows.Forms.Button ClearMessagesButton;
-        private System.Windows.Forms.Button btnLoadDefaults;
+        private System.Windows.Forms.Button BtnLoadDefaultConfig;
         private System.Windows.Forms.CheckBox chkAutoLoadConfig;
         private System.Windows.Forms.TabPage tbHelp;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.LinkLabel lnkWalletGen;
+        private System.Windows.Forms.LinkLabel LinkWalletGen;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label17;

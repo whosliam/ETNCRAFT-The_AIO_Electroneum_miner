@@ -52,7 +52,7 @@ namespace ETN_CPU_GPU_MINER
 
         #region Click Handlers
 
-        private void mining_Click_1(object sender, EventArgs e)
+        private void BtnStartMining_Click(object sender, EventArgs e)
         {
             //Auto Save 
             //if (chkAutoLoadConfig.Checked)
@@ -381,7 +381,7 @@ namespace ETN_CPU_GPU_MINER
             HashTimer();
         }
 
-        private void new_miner_Click_1(object sender, EventArgs e)
+        private void BtnStopMining_Click(object sender, EventArgs e)
         {
             //Stop Timer
             m_bStartTime = false;
@@ -419,13 +419,7 @@ namespace ETN_CPU_GPU_MINER
             PushStatusMessage("All Processes Killed!");
         }
 
-        private void clear_Click_1(object sender, EventArgs e)
-        {
-            wallet_address.Text = "";
-            status.Text = Messager.ClearMessages();
-        }
-
-        private void help_Click_1(object sender, EventArgs e)
+        private void BtnDiagnostics_Click(object sender, EventArgs e)
         {
             string string1 = "";
             string1 = miner_type.SelectedItem.ToString();
@@ -480,10 +474,9 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("custom pool detected");
                 PushStatusMessage("   ERROR HELP 1: Custom pool detected, is it the correct address?");
             }
-
         }
 
-        private void check_Click(object sender, EventArgs e)
+        private void BtnCheckBalance_Click(object sender, EventArgs e)
         {
             if (pool.SelectedItem == pool.Items[9])
                 PushStatusMessage("   INFO: Cannot check ETN of custom pool directly from miner, go to their website.");
@@ -494,31 +487,46 @@ namespace ETN_CPU_GPU_MINER
                 string webAddress = "http://" + PoolURL;
                 Process.Start(webAddress);
             }
-
         }
 
-        private void load_config_Click_1(object sender, EventArgs e)
+        private void BtnClearWallet_Click(object sender, EventArgs e)
+        {
+            wallet_address.Text = "";
+            status.Text = Messager.ClearMessages();
+        }
+
+        private void BtnOpenLog_Click(object sender, EventArgs e)
+        {
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = Logger.GetLogFilePath()
+            };
+
+            process.Start();
+        }
+
+        private void BtnLoadConfig_Click(object sender, EventArgs e)
         {
             open_config_dialog.Filter = "Miner Configuration Files (*.mcf*)|*.mcf";
             if (open_config_dialog.ShowDialog().Equals(System.Windows.Forms.DialogResult.OK))
                 LoadConfig(open_config_dialog.FileName);
-
         }
 
-        private void save_config_Click_1(object sender, EventArgs e)
+        private void BtnSaveConfig_Click(object sender, EventArgs e)
         {
             save_config_dialog.Filter = "Miner Configuration Files (*.mcf*)|*.mcf";
             if (save_config_dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 SaveConfig();
-
         }
 
-        private void btnLoadDefaults_Click(object sender, EventArgs e)
+        private void BtnLoadDefaultConfig_Click(object sender, EventArgs e)
         {
             LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
         }
 
-        private void lnkWalletGen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkWalletGen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html");
         }
@@ -981,23 +989,7 @@ namespace ETN_CPU_GPU_MINER
         {
             status.Text = Messager.ClearMessages();
         }
-
-        /// <summary>
-        /// Open the in-use log file for viewing
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenLogButton_Click(object sender, EventArgs e)
-        {
-            var process = new Process();
-            process.StartInfo = new ProcessStartInfo()
-            {
-                UseShellExecute = true,
-                FileName = Logger.GetLogFilePath()
-            };
-
-            process.Start();
-        }
+                
         #endregion
 
         private bool IsWalletValid()
@@ -1020,6 +1012,6 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-
+        
     }
 }
