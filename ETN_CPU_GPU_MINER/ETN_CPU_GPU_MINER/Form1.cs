@@ -456,7 +456,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void BtnCheckBalance_Click(object sender, EventArgs e)
         {
-            string webAddress = "http://" + m_PoolWebsiteURL;
+            string webAddress = m_PoolWebsiteURL;
             Process.Start(webAddress);
         }
 
