@@ -21,7 +21,7 @@
      "use_tls" : false,
      "tls_secure_algo" : true,
      "tls_fingerprint" : "",
-     "pool_address" : "pool.electroneum.space:5555",
+     "pool_address" : "pool.etn.spacepools.org:5555",
      "wallet_address" : "etnkLKPeTqjii2XbLHkqzy31MSx4Hqxa1XEf3mmGCBGq1khC65PpBicQZ56ukCkoTSDJwLaKHmbH5UR1zcr6ijVF8UrxnniNUP",
      "pool_password" : "x",
      "call_timeout" : 10,

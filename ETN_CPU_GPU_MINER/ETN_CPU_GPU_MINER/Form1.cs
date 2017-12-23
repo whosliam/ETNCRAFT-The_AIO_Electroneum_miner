@@ -7,14 +7,18 @@ using System.IO;
 using OpenHardwareMonitor.Hardware;
 using ETNCRAFT;
 using Microsoft.Win32;
+using System.Linq;
+using System.Net;
+
 namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
     {
-        public static string m_Version = "(V1.5)";
+        public static string m_Version = "(V1.6)";
         public bool b_FormLoaded = false;
         public static string m_sAggHashData = "";
-        public static string PoolURL = "";
+        public static string m_MiningURL = "";
+        public static string m_PoolWebsiteURL = "";
         public bool m_bStartTime = false;
         private Stopwatch stopwatch = new Stopwatch();
         private Logger Logger = new Logger();
@@ -27,6 +31,8 @@ namespace ETN_CPU_GPU_MINER
         {
             Messager.InitializeMessager(Logger);
             InitializeComponent();
+            LoadPoolListFromWebsite();
+
             //Check Registry for autoload & if user is new
             if (CheckRegistry("AutoLoad"))
                 LoadConfig("config_templates/ENTCRAFT.mcf");
@@ -34,14 +40,11 @@ namespace ETN_CPU_GPU_MINER
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
-            pool.SelectedItem = pool.Items[4];
             gpubrand.Visible = false;
             lbl_gpubrand.Visible = false;
             gpubrand.SelectedItem = gpubrand.Items[0];
-            string[] lines = File.ReadAllLines("config_templates/custom_url.conf");
-            pool.Items.AddRange(lines);
             //Spool up timers
-            GetTemps();            
+            GetTemps();
             //This is to keep the event handlers from fireing when the form load. Just wrapp functions in this.
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
@@ -52,7 +55,7 @@ namespace ETN_CPU_GPU_MINER
             Messager.PushMessage("ETNCRAFT window closed, beginning process cleanup.");
             EndProcesses();
         }
-      
+
 
         #endregion
 
@@ -69,10 +72,6 @@ namespace ETN_CPU_GPU_MINER
 
             if (!IsWalletValid())
                 return;
-
-            if (pool.SelectedItem.Equals(pool.Items[9]))//No magic numbers. Needs to be a flag
-                PoolURL = custom_pool.Text;
-
             if (double.Parse(threads.Text) <= 1)
                 threads.Text = "1";
 
@@ -83,7 +82,7 @@ namespace ETN_CPU_GPU_MINER
                 Process process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = Application.StartupPath + "\\app_assets\\cpuminer.exe",
-                    Arguments = "-a cryptonight -o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
+                    Arguments = "-a cryptonight -o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -107,7 +106,7 @@ namespace ETN_CPU_GPU_MINER
                 Process process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = Application.StartupPath + "\\app_assets\\ccminer.exe",
-                    Arguments = "-o stratum+tcp://" + PoolURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
+                    Arguments = "-o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -144,7 +143,7 @@ namespace ETN_CPU_GPU_MINER
                 File.Copy(@"config_templates/config-template.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
                 fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 15)
@@ -195,7 +194,7 @@ namespace ETN_CPU_GPU_MINER
                 File.Copy(@"config_templates/config-template-nv.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
                 fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 15)
@@ -246,7 +245,7 @@ namespace ETN_CPU_GPU_MINER
                 File.Copy(@"config_templates/config-template-nv-hp.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
                 fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 15)
@@ -297,7 +296,7 @@ namespace ETN_CPU_GPU_MINER
                 File.Copy(@"config_templates/config-template-cpu.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
                 fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32((double.Parse(threads.Text) * 2) - 1);
                 while (index <= 14)
@@ -348,7 +347,7 @@ namespace ETN_CPU_GPU_MINER
                 File.Copy(@"config_templates/config-template-cpu-le.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", PoolURL + ":" + port.Text);
+                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
                 fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
                 int index = System.Convert.ToInt32(threads.Text);
                 while (index <= 14)
@@ -442,13 +441,13 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("Thread count halved");
                 threads.Text = System.Convert.ToString(double.Parse(threads.Text) / 2);
             }
-            if (!(pool.SelectedItem == pool.Items[0] || pool.SelectedItem == pool.Items[1] || pool.SelectedItem == pool.Items[2] || pool.SelectedItem == pool.Items[3] || pool.SelectedItem == pool.Items[4] || pool.SelectedItem == pool.Items[5] || pool.SelectedItem == pool.Items[6] || pool.SelectedItem == pool.Items[7] || pool.SelectedItem == pool.Items[8] || pool.SelectedItem == pool.Items[9]))
+            if (!(cboPool.SelectedItem == cboPool.Items[0] || cboPool.SelectedItem == cboPool.Items[1] || cboPool.SelectedItem == cboPool.Items[2] || cboPool.SelectedItem == cboPool.Items[3] || cboPool.SelectedItem == cboPool.Items[4] || cboPool.SelectedItem == cboPool.Items[5] || cboPool.SelectedItem == cboPool.Items[6] || cboPool.SelectedItem == cboPool.Items[7] || cboPool.SelectedItem == cboPool.Items[8] || cboPool.SelectedItem == cboPool.Items[9]))
             {
                 PushStatusMessage("custom pool detected");
                 PushStatusMessage("   ERROR HELP 1: Custom pool detected, is it the correct address?");
                 PushStatusMessage("   ERROR HELP 2: Did you accidentally add the port number in the config file?");
             }
-            if (pool.SelectedItem == pool.Items[9])
+            if (cboPool.SelectedItem == cboPool.Items[9])
             {
                 PushStatusMessage("custom pool detected");
                 PushStatusMessage("   ERROR HELP 1: Custom pool detected, is it the correct address?");
@@ -457,15 +456,8 @@ namespace ETN_CPU_GPU_MINER
 
         private void BtnCheckBalance_Click(object sender, EventArgs e)
         {
-            if (pool.SelectedItem == pool.Items[9])
-                PushStatusMessage("   INFO: Cannot check ETN of custom pool directly from miner, go to their website.");
-            else if (!(pool.SelectedItem == pool.Items[0] || pool.SelectedItem == pool.Items[1] || pool.SelectedItem == pool.Items[2] || pool.SelectedItem == pool.Items[3] || pool.SelectedItem == pool.Items[4] || pool.SelectedItem == pool.Items[5] || pool.SelectedItem == pool.Items[6] || pool.SelectedItem == pool.Items[7] || pool.SelectedItem == pool.Items[8] || pool.SelectedItem == pool.Items[9]))
-                PushStatusMessage("   INFO: Cannot check ETN of custom pool directly from miner, go to their website.");
-            else
-            {
-                string webAddress = "http://" + PoolURL;
-                Process.Start(webAddress);
-            }
+            string webAddress = "http://" + m_PoolWebsiteURL;
+            Process.Start(webAddress);
         }
 
         private void BtnClearWallet_Click(object sender, EventArgs e)
@@ -584,81 +576,29 @@ namespace ETN_CPU_GPU_MINER
 
         private void pool_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
-            if (pool.SelectedItem == pool.Items[9])
+            //Taking the lazy way out. Its still better than it was. Id rather not have this condition but the whole data binding with the cbo is a pain.
+            PoolsCollection cPoolCollection = new PoolsCollection();
+            cPoolCollection.Load();
+            foreach (var cItem in cPoolCollection)
             {
-                custom_pool.Enabled = true;
-                PushStatusMessage("custom pool selected, make sure to add your pool address!");
+                if (cItem.sDisplayName.Equals(cboPool.SelectedItem.ToString()))
+                {
+                    m_MiningURL = cItem.sPoolMiningURL;
+                    m_PoolWebsiteURL = cItem.sPoolWebsite;
+                    PushStatusMessage(cItem.sDisplayName + " selected, " + cItem.sPoolWebsite + " | " + cItem.sPoolInformation);
+                    break;
+                }
             }
-            else
-            {
-                custom_pool.Enabled = false;
-            }
-
-            if (!(pool.SelectedItem == pool.Items[0] || pool.SelectedItem == pool.Items[1] || pool.SelectedItem == pool.Items[2] || pool.SelectedItem == pool.Items[3] || pool.SelectedItem == pool.Items[4] || pool.SelectedItem == pool.Items[5] || pool.SelectedItem == pool.Items[6] || pool.SelectedItem == pool.Items[7] || pool.SelectedItem == pool.Items[8] || pool.SelectedItem == pool.Items[9]))
-            {
-                string custom_PoolURL = "";
-                custom_PoolURL = pool.SelectedItem.ToString();
-                PoolURL = custom_PoolURL;
-                PushStatusMessage("custom pool selected, make sure it is a valid address!");
-            }
-
-            if (pool.SelectedItem == pool.Items[0])
-            {
-                PoolURL = "uspool.electroneum.com";
-                PushStatusMessage("uspool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout");
-            }
-            if (pool.SelectedItem == pool.Items[1])
-            {
-                PoolURL = "eupool.electroneum.com";
-                PushStatusMessage("eupool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout");
-
-            }
-            if (pool.SelectedItem == pool.Items[2])
-            {
-                PoolURL = "asiapool.electroneum.com";
-                PushStatusMessage("asiapool.electroneum.com selected, 4% Pool fee, 20 ETN Minimum Cashout");
-
-            }
-            if (pool.SelectedItem == pool.Items[3])
-            {
-                PoolURL = "us-etn-stats.hashparty.io/";
-                PushStatusMessage("us-etn-pool.hashparty.io selected, 1.5% Pool fee, 10 ETN Minimum Cashout");
-
-            }
-            if (pool.SelectedItem == pool.Items[4])
-            {
-                PoolURL = "etn.spacepools.org";
-                PushStatusMessage("pool.electroneum.space selected, 0.5% Pool fee, 10 ETN Minimum Cashout");
-
-            }
-            if (pool.SelectedItem == pool.Items[5])
-            {
-                PoolURL = "myetn.uk";
-                PushStatusMessage("myetn.uk selected, 2% Pool fee, 10 ETN Minimum Cashout");
-
-            }
-            if (pool.SelectedItem == pool.Items[6])
-            {
-                PoolURL = "etnhash.com";
-                PushStatusMessage("etnhash.com selected, 1.5% Pool fee, 0.5 ETN Minimum Cashout");
-
-            }
-            if (pool.SelectedItem == pool.Items[7])
-            {
-                PoolURL = "www.etnpools.com";
-                PushStatusMessage("www.etnpools.com selected, 1% Pool fee, 5 ETN Minimum Cashout");
-
-            }
-            if (pool.SelectedItem == pool.Items[8])
-            {
-                PoolURL = "etnpool.minekitten.io";
-                PushStatusMessage("etnpool.minekitten.io selected, 0.4% Pool fee, 5 ETN Minimum Cashout");
-
-            }
-
         }
 
+        private void txtCustomPool_TextChanged(object sender, EventArgs e)
+        {
+            if (!txtCustomPool.Equals(""))
+            {
+                m_MiningURL = txtCustomPool.Text;
+                PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!");
+            }
+        }
         private void miner_type_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0])
@@ -728,9 +668,9 @@ namespace ETN_CPU_GPU_MINER
             {
                 string[] config_contents_load = File.ReadAllLines(sConfigFilePath);
                 wallet_address.Text = config_contents_load[0];
-                pool.SelectedItem = config_contents_load[1];
-                custom_pool.Text = config_contents_load[2];
-                PoolURL = config_contents_load[3];
+                cboPool.SelectedItem = config_contents_load[1];
+                txtCustomPool.Text = config_contents_load[2];
+                cboPool.SelectedValue = config_contents_load[3];
                 port.Text = config_contents_load[4];
                 cpuorgpu.SelectedItem = config_contents_load[6];
                 gpubrand.SelectedItem = config_contents_load[7];
@@ -759,7 +699,7 @@ namespace ETN_CPU_GPU_MINER
                 ht_checkstate = "yes";
             else if (hyperthread.Checked == false)
                 ht_checkstate = "no";
-            string config_contents_save = wallet_address.Text.Replace(" ", "") + Constants.vbNewLine + System.Convert.ToString(pool.SelectedItem) + Constants.vbNewLine + custom_pool.Text + Constants.vbNewLine + PoolURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
+            string config_contents_save = wallet_address.Text.Replace(" ", "") + Constants.vbNewLine + System.Convert.ToString(cboPool.SelectedItem) + Constants.vbNewLine + txtCustomPool.Text + Constants.vbNewLine + m_MiningURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
             (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config_templates\\ENTCRAFT.mcf", config_contents_save, true);
             PushStatusMessage("ENTCRAFT.mcf deleted & recreated");
 
@@ -839,7 +779,7 @@ namespace ETN_CPU_GPU_MINER
                     {
                         if (sensor.SensorType.Equals(SensorType.Temperature))
                             lblCPUTemp.Text += (String.Format("{0} = {1}C", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
-                        else if(sensor.SensorType.Equals(SensorType.Load))
+                        else if (sensor.SensorType.Equals(SensorType.Load))
                             lblCPUUsage.Text += (String.Format("{0} = {1}%", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
 
                     }
@@ -968,7 +908,7 @@ namespace ETN_CPU_GPU_MINER
         {
             status.Text = Messager.ClearMessages();
         }
-                
+
         #endregion
 
         private bool IsWalletValid()
@@ -1024,7 +964,79 @@ namespace ETN_CPU_GPU_MINER
             PushStatusMessage("All Processes Killed!");
         }
 
+        private void LoadPoolListFromWebsite()
+        {
+            //Set Path
+            string filepath = Application.StartupPath + "\\app_assets\\pools.txt";
+            //Download doc from website
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile("http://liamthrower.com/pools.txt", filepath);
+            //Build Collection of pools
+            PoolsCollection cAllPools = new PoolsCollection();
+            cAllPools.Load();
+            foreach (var citem in cAllPools)
+                cboPool.Items.Add(new PoolComboBoxItems(citem.sPoolMiningURL, citem.sDisplayName));
+            //Force selected item in dropdown list and fire the onselected change event which sets some global vars
+           cboPool.SelectedIndex = 0;
+            //pool_SelectedIndexChanged_1(cboPool, new EventArgs());
+        }
+
         #endregion
-        
     }
+    #region Pool Classes and collection/data parse
+    public class Pools
+    {
+        public int iID { get; set; }
+        public string sDisplayName { get; set; }
+        public string sPoolMiningURL { get; set; }
+        public string sPoolWebsite { get; set; }
+        public string sPoolInformation { get; set; }
+    }
+    public class PoolsCollection : System.Collections.Generic.List<Pools>
+    {
+        public int Load()
+        {
+            this.Clear();
+            try
+            {
+                using (StreamReader sr = new StreamReader(Application.StartupPath + "\\app_assets\\pools.txt"))
+                {
+                    while (sr.Peek() >= 0)
+                    {
+                        Pools cItem = new Pools();
+                        string str;
+                        string[] strArray;
+                        str = sr.ReadLine();
+                        strArray = str.Split(',');
+                        cItem.iID = int.Parse(strArray[0]);
+                        cItem.sDisplayName = strArray[1];
+                        cItem.sPoolMiningURL = strArray[2];
+                        cItem.sPoolWebsite = strArray[3];
+                        cItem.sPoolInformation = strArray[4];
+                        Add(cItem);
+                    }
+                }
+            }
+            catch (Exception) { }
+            return this.Count;
+        }
+    }
+    public class PoolComboBoxItems
+    {
+        public string Value;
+        public string Text;
+
+        public PoolComboBoxItems(string val, string text)
+        {
+            Value = val;
+            Text = text;
+        }
+
+        public override string ToString()
+        {
+            return Text;
+        }
+    }
+
+    #endregion
 }

@@ -453,88 +453,58 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="pool.Items" xml:space="preserve">
-    <value>uspool.electroneum.com</value>
-  </data>
-  <data name="pool.Items1" xml:space="preserve">
-    <value>eupool.electroneum.com</value>
-  </data>
-  <data name="pool.Items2" xml:space="preserve">
-    <value>asiapool.electroneum.com</value>
-  </data>
-  <data name="pool.Items3" xml:space="preserve">
-    <value>us-etn-pool.hashparty.io</value>
-  </data>
-  <data name="pool.Items4" xml:space="preserve">
-    <value>pool.electroneum.space</value>
-  </data>
-  <data name="pool.Items5" xml:space="preserve">
-    <value>myetn.uk</value>
-  </data>
-  <data name="pool.Items6" xml:space="preserve">
-    <value>etnhash.com</value>
-  </data>
-  <data name="pool.Items7" xml:space="preserve">
-    <value>www.etnpools.com</value>
-  </data>
-  <data name="pool.Items8" xml:space="preserve">
-    <value>etnpool.minekitten.io</value>
-  </data>
-  <data name="pool.Items9" xml:space="preserve">
-    <value>custom</value>
-  </data>
-  <data name="pool.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cboPool.Location" type="System.Drawing.Point, System.Drawing">
     <value>464, 34</value>
   </data>
-  <data name="pool.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="cboPool.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="pool.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cboPool.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 21</value>
   </data>
-  <data name="pool.TabIndex" type="System.Int32, mscorlib">
+  <data name="cboPool.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;pool.Name" xml:space="preserve">
-    <value>pool</value>
+  <data name="&gt;&gt;cboPool.Name" xml:space="preserve">
+    <value>cboPool</value>
   </data>
-  <data name="&gt;&gt;pool.Type" xml:space="preserve">
+  <data name="&gt;&gt;cboPool.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;pool.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cboPool.Parent" xml:space="preserve">
     <value>groupBox2</value>
   </data>
-  <data name="&gt;&gt;pool.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cboPool.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="custom_pool.Enabled" type="System.Boolean, mscorlib">
+  <data name="txtCustomPool.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="custom_pool.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="txtCustomPool.Location" type="System.Drawing.Point, System.Drawing">
     <value>464, 59</value>
   </data>
-  <data name="custom_pool.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="txtCustomPool.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="custom_pool.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="txtCustomPool.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 20</value>
   </data>
-  <data name="custom_pool.TabIndex" type="System.Int32, mscorlib">
+  <data name="txtCustomPool.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="custom_pool.Text" xml:space="preserve">
+  <data name="txtCustomPool.Text" xml:space="preserve">
     <value>Select custom in pool list to use your own</value>
   </data>
-  <data name="&gt;&gt;custom_pool.Name" xml:space="preserve">
-    <value>custom_pool</value>
+  <data name="&gt;&gt;txtCustomPool.Name" xml:space="preserve">
+    <value>txtCustomPool</value>
   </data>
-  <data name="&gt;&gt;custom_pool.Type" xml:space="preserve">
+  <data name="&gt;&gt;txtCustomPool.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;custom_pool.Parent" xml:space="preserve">
+  <data name="&gt;&gt;txtCustomPool.Parent" xml:space="preserve">
     <value>groupBox2</value>
   </data>
-  <data name="&gt;&gt;custom_pool.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;txtCustomPool.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="Label9.AutoSize" type="System.Boolean, mscorlib">

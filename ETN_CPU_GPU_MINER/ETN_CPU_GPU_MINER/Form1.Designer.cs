@@ -44,8 +44,8 @@
             this.gpubrand = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pool = new System.Windows.Forms.ComboBox();
-            this.custom_pool = new System.Windows.Forms.TextBox();
+            this.cboPool = new System.Windows.Forms.ComboBox();
+            this.txtCustomPool = new System.Windows.Forms.TextBox();
             this.Label9 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.lbl_threads = new System.Windows.Forms.Label();
@@ -217,8 +217,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.pool);
-            this.groupBox2.Controls.Add(this.custom_pool);
+            this.groupBox2.Controls.Add(this.cboPool);
+            this.groupBox2.Controls.Add(this.txtCustomPool);
             this.groupBox2.Controls.Add(this.Label9);
             this.groupBox2.Controls.Add(this.Label5);
             this.groupBox2.Controls.Add(this.lbl_threads);
@@ -227,29 +227,19 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
-            // pool
+            // cboPool
             // 
-            this.pool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pool.FormattingEnabled = true;
-            this.pool.Items.AddRange(new object[] {
-            resources.GetString("pool.Items"),
-            resources.GetString("pool.Items1"),
-            resources.GetString("pool.Items2"),
-            resources.GetString("pool.Items3"),
-            resources.GetString("pool.Items4"),
-            resources.GetString("pool.Items5"),
-            resources.GetString("pool.Items6"),
-            resources.GetString("pool.Items7"),
-            resources.GetString("pool.Items8"),
-            resources.GetString("pool.Items9")});
-            resources.ApplyResources(this.pool, "pool");
-            this.pool.Name = "pool";
-            this.pool.SelectedIndexChanged += new System.EventHandler(this.pool_SelectedIndexChanged_1);
+            this.cboPool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPool.FormattingEnabled = true;
+            resources.ApplyResources(this.cboPool, "cboPool");
+            this.cboPool.Name = "cboPool";
+            this.cboPool.SelectedIndexChanged += new System.EventHandler(this.pool_SelectedIndexChanged_1);
             // 
-            // custom_pool
+            // txtCustomPool
             // 
-            resources.ApplyResources(this.custom_pool, "custom_pool");
-            this.custom_pool.Name = "custom_pool";
+            resources.ApplyResources(this.txtCustomPool, "txtCustomPool");
+            this.txtCustomPool.Name = "txtCustomPool";
+            this.txtCustomPool.TextChanged += new System.EventHandler(this.txtCustomPool_TextChanged);
             // 
             // Label9
             // 
@@ -599,11 +589,11 @@
         internal System.Windows.Forms.TextBox wallet_address;
         internal System.Windows.Forms.RichTextBox status;
         internal System.Windows.Forms.TextBox threads;
-        internal System.Windows.Forms.TextBox custom_pool;
+        internal System.Windows.Forms.TextBox txtCustomPool;
         internal System.Windows.Forms.TextBox port;
         internal System.Windows.Forms.Button BtnCheckBalance;
         internal System.Windows.Forms.Button BtnClearWallet;
-        internal System.Windows.Forms.ComboBox pool;
+        internal System.Windows.Forms.ComboBox cboPool;
         internal System.Windows.Forms.ComboBox gpubrand;
         internal System.Windows.Forms.Button StartMining;
         internal System.Windows.Forms.Label Label9;
