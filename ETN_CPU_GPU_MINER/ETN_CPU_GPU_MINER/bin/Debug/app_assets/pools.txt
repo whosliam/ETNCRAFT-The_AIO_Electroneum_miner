@@ -1,3 +1,5 @@
-1,Space Pools,pool.etn.spacepools.org,https://etn.spacepools.org,0.5% Pool fee 10 ETN Minimum Cashout
+1,Space Pool,pool.etn.spacepools.org,https://etn.spacepools.org,0.5% Pool fee 10 ETN Minimum Cashout
 2,Hash Party,us-etn-pool.hashparty.io,http://us-etn-stats.hashparty.io,1.5% Pool fee 10 ETN Minimum Cashout
 3,US Offical,uspool.electroneum.com,https://uspool.electroneum.com/,4% Pool fee 20 ETN Minimum Cashout
+4,EU Offical,eupool.electroneum.com,https://eupool.electroneum.com/,4% Pool fee 20 ETN Minimum Cashout
+5,Asia Offical,asiapool.electroneum.com,https://asiapool.electroneum.com/,4% Pool fee 20 ETN Minimum Cashout
