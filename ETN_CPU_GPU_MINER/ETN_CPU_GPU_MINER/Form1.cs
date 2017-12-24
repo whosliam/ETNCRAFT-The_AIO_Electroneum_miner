@@ -14,7 +14,7 @@ namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
     {
-        public static string m_Version = "(V1.6)";
+        public static string m_Version = "(V1.6.1)";
         public bool b_FormLoaded = false;
         public static string m_sAggHashData = "";
         public static string m_MiningURL = "";
