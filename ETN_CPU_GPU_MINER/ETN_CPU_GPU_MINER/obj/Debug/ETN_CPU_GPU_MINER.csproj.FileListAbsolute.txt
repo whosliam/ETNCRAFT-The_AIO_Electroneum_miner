@@ -67,3 +67,14 @@ C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_G
 C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
 C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\OpenHardwareMonitorLib.dll
 C:\Users\Randall\source\repos\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\OpenHardwareMonitorLib.dll
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe.config
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\OpenHardwareMonitorLib.dll
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Form1.resources
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Properties.Resources.resources
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.GenerateResource.Cache
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.CoreCompileInputs.cache
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.exe
+C:\Users\Randall\Source\Repos\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb
