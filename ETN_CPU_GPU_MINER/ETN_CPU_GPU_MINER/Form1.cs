@@ -65,9 +65,6 @@ namespace ETN_CPU_GPU_MINER
 
         private void BtnStartMining_Click(object sender, EventArgs e)
         {
-            //Auto Save 
-            //if (chkAutoLoadConfig.Checked)
-
             SaveConfig();
 
             if (!IsWalletValid())
@@ -89,12 +86,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 });
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data + "\r\n");
-                // Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data + "\r\n");
-                // Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
@@ -114,12 +109,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data);
-                // Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data);
-                // Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
@@ -165,12 +158,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data);
-                // Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data);
-                // Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
@@ -216,12 +207,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("output>>" + eOut.Data);
-                // Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("error>>" + eErr.Data);
-                // Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
@@ -267,12 +256,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                    Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                    Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
@@ -318,12 +305,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                    Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                    Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
@@ -370,12 +355,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardError = true
                 });
 
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) =>
-                    Console.WriteLine("output>>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) =>
-                    Console.WriteLine("error>>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
