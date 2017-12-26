@@ -21,9 +21,9 @@ namespace ETN_CPU_GPU_MINER
         public static string m_PoolWebsiteURL = "";
         public bool m_bStartTime = false;
         private Stopwatch stopwatch = new Stopwatch();
-        private Logger Logger = new Logger();
+        private Logger Logger = new Logger("ETN_Craft");
         private Messager Messager = new Messager();
-        RegistryKey localMachine = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry64);
+        RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
 
         #region Form Initialization
 
@@ -960,7 +960,6 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
                 p.Kill();
             }
-
             PushStatusMessage("All Processes Killed!");
         }
 

@@ -7,51 +7,39 @@ namespace ETNCRAFT
 {
     public class Logger
     {
-        private string DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
-        private string LogFileDateTimeFormat = "yyyy-MM-dd";
-        private string LogFileDir = "logs";
-        private string LogFilePre = "ETN_Craft_";
-        private string LogFileExt = ".log";
-        private string LogFilePath;
-
-        /// <summary>
-        /// Contruct a new instance of Logger.                
-        /// </summary>
-        /// <param name="append">True to append to existing log file, False to overwrite and create new log file</param>
-        public Logger(bool append = true)
+        private static string dateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
+        private static string logFileNameDateTimeFormat = "yyyy-MM-dd";
+        private static string logFileDir = "logs";
+        private static string logFileExt = ".log";
+        private static string logFilePath;
+   
+        public Logger(string logFileName,bool append = true)
         {
-            InitializeLogger(append);
+            InitializeLogger(logFileName, append);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="append"></param>
-        public void InitializeLogger(bool append)
+       
+        public void InitializeLogger(string logFileName, bool append)
         {
-            Directory.CreateDirectory(LogFileDir);
+            if (!Directory.Exists(logFileDir))
+                Directory.CreateDirectory(logFileDir);
 
-            LogFilePath = Path.Combine(LogFileDir, LogFilePre + DateTime.Now.ToString(LogFileDateTimeFormat) + LogFileExt);
+            logFilePath = Path.Combine(logFileDir, logFileName + "_" + DateTime.Now.ToString(logFileNameDateTimeFormat) + logFileExt);
 
-            if (!File.Exists(LogFilePath) || !append)
-            {
+            if (!File.Exists(logFilePath) || !append)
                 CreateLogFile();
-                Debug("ETN_Craft Logging Enabled");
-            }
-            else
-                Debug("ETN_Craft Logging Enabled");
+
+            Debug("ETN_Craft Logging Started");
         }
 
         private void CreateLogFile()
         {
-            FileStream LogFileStream = File.Create(LogFilePath);
+            FileStream LogFileStream = File.Create(logFilePath);
             LogFileStream.Close();
-
         }
 
         public string GetLogFilePath()
         {            
-            return LogFilePath;
+            return logFilePath;
         }
 
 
@@ -100,7 +88,6 @@ namespace ETNCRAFT
             Log(LEVEL.FATAL, text);
         }
 
-
         /// <summary>
         /// Log message according to LogLevel
         /// </summary>
@@ -112,19 +99,19 @@ namespace ETNCRAFT
             switch (LogLevel)
             {
                 case LEVEL.INFO:
-                    PreText = DateTime.Now.ToString(DateTimeFormat) + " [INFO] ";
+                    PreText = DateTime.Now.ToString(dateTimeFormat) + " [INFO] ";
                     break;
                 case LEVEL.DEBUG:
-                    PreText = DateTime.Now.ToString(DateTimeFormat) + " [DEBUG] ";
+                    PreText = DateTime.Now.ToString(dateTimeFormat) + " [DEBUG] ";
                     break;
                 case LEVEL.WARN:
-                    PreText = DateTime.Now.ToString(DateTimeFormat) + " [WARN]  ";
+                    PreText = DateTime.Now.ToString(dateTimeFormat) + " [WARN]  ";
                     break;
                 case LEVEL.ERROR:
-                    PreText = DateTime.Now.ToString(DateTimeFormat) + " [ERROR] ";
+                    PreText = DateTime.Now.ToString(dateTimeFormat) + " [ERROR] ";
                     break;
                 case LEVEL.FATAL:
-                    PreText = DateTime.Now.ToString(DateTimeFormat) + " [FATAL] ";
+                    PreText = DateTime.Now.ToString(dateTimeFormat) + " [FATAL] ";
                     break;
                 default: PreText = ""; break;
             }
@@ -140,7 +127,7 @@ namespace ETNCRAFT
         {
             try
             {
-                using (StreamWriter Writer = new StreamWriter(LogFilePath, true, Encoding.UTF8))
+                using (StreamWriter Writer = new StreamWriter(logFilePath, true, Encoding.UTF8))
                 {
                     if (Line != "") Writer.WriteLine(Line);
                 }
