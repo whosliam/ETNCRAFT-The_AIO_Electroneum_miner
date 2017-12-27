@@ -291,13 +291,13 @@ namespace ETN_CPU_GPU_MINER
                 int index = System.Convert.ToInt32((double.Parse(threads.Text) * 2) - 1);
                 while (index <= 14)
                 {
-                    fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
+                        fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : false, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
                     index++;
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
                 #region XMR STAK CPU MINER
-                PushStatusMessage("Spawning xmr-stak-cpu miner");
+                PushStatusMessage("Spawning ETNCRAFT-xmr-stak-cpu miner");
                 Process process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
@@ -337,23 +337,23 @@ namespace ETN_CPU_GPU_MINER
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
                 fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-                int index = System.Convert.ToInt32(threads.Text);
+                int index = System.Convert.ToInt32(threads.Text) + 1;
                 while (index <= 14)
                 {
-                    fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : true, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
+                        fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : false, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
                     index++;
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
 
                 #region XMR STAK CPU MINER
-                PushStatusMessage("Spawning xmr-stak-cpu miner");
+                PushStatusMessage("Spawning  miner");
                 Process process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
-                    CreateNoWindow = true,
+                   CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 });
@@ -387,9 +387,9 @@ namespace ETN_CPU_GPU_MINER
         {
             string string1 = "";
             string1 = miner_type.SelectedItem.ToString();
-            if (string1 == "xmr-stak-cpu")
+            if (string1 == "ETNCRAFT xmr-stak-cpu" || string1 == "xmr-stak-cpu")
             {
-                PushStatusMessage("xmr-stak-cpu miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
+                PushStatusMessage("ETNCRAFT xmr-stak-cpu miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
                 PushStatusMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
                 PushStatusMessage("   ERROR HELP 3: If it still doesn't work, switch the miner backend to cpuminer-multi");
                 PushStatusMessage("   ERROR HELP 4: Perhaps you have too many threads");
@@ -453,7 +453,7 @@ namespace ETN_CPU_GPU_MINER
         }
 
         private void BtnOpenLog_Click(object sender, EventArgs e)
-        {            
+        {
             Process.Start(new ProcessStartInfo()
             {
                 UseShellExecute = true,
@@ -886,18 +886,18 @@ namespace ETN_CPU_GPU_MINER
                 status.Text = messager.PushMessage(message);
                 status.SelectionStart = status.Text.Length;
                 status.ScrollToCaret();
-            }            
+            }
         }
 
         private void PushWorkStatusMessage(string message)
-        {            
+        {
             if (message != null)
             {
                 string cleanMessage = RemoveAnsiEscapes(message);
                 m_sAggHashData += cleanMessage + "\r\n";
                 ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
                 loggerPool.Debug(cleanMessage);
-            }                
+            }
         }
 
         /// <summary>
@@ -945,9 +945,10 @@ namespace ETN_CPU_GPU_MINER
             Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd");
             Process[] ArrProcessNVXMR = Process.GetProcessesByName("xmr-stak-nvidia");
             Process[] ArrProcessCPUXMR = Process.GetProcessesByName("xmr-stak-cpu");
+            Process[] ArrProcessCPUXMRETNCRAFT = Process.GetProcessesByName("ETNCRAFT xmr-stak-cpu");
 
             // Build Aggregate Process Array
-            int ProcessCount = ArrProcessCPU.Length + ArrProcessNV.Length + ArrProcessAMD.Length + ArrProcessNVXMR.Length + ArrProcessCPUXMR.Length;
+            int ProcessCount = ArrProcessCPU.Length + ArrProcessNV.Length + ArrProcessAMD.Length + ArrProcessNVXMR.Length + ArrProcessCPUXMR.Length + ArrProcessCPUXMRETNCRAFT.Length;
             Process[] ArrProcesses = new Process[ProcessCount];
             int CopyStartInd = 0;
             ArrProcessCPU.CopyTo(ArrProcesses, CopyStartInd);
@@ -960,6 +961,8 @@ namespace ETN_CPU_GPU_MINER
             CopyStartInd += ArrProcessNVXMR.Length;
             ArrProcessCPUXMR.CopyTo(ArrProcesses, CopyStartInd);
             CopyStartInd += ArrProcessCPUXMR.Length;
+            ArrProcessCPUXMRETNCRAFT.CopyTo(ArrProcesses, CopyStartInd);
+            CopyStartInd += ArrProcessCPUXMRETNCRAFT.Length;
 
             // Kill Processes
             foreach (Process p in ArrProcesses)
@@ -983,7 +986,7 @@ namespace ETN_CPU_GPU_MINER
             foreach (var citem in cAllPools)
                 cboPool.Items.Add(new PoolComboBoxItems(citem.sPoolMiningURL, citem.sDisplayName));
             //Force selected item in dropdown list and fire the onselected change event which sets some global vars
-           cboPool.SelectedIndex = 0;
+            cboPool.SelectedIndex = 0;
             //pool_SelectedIndexChanged_1(cboPool, new EventArgs());
         }
 
