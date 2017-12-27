@@ -4,10 +4,10 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
 using System.IO;
+using System.Text.RegularExpressions;
 using OpenHardwareMonitor.Hardware;
 using ETNCRAFT;
 using Microsoft.Win32;
-using System.Linq;
 using System.Net;
 
 namespace ETN_CPU_GPU_MINER
@@ -20,16 +20,18 @@ namespace ETN_CPU_GPU_MINER
         public static string m_MiningURL = "";
         public static string m_PoolWebsiteURL = "";
         public bool m_bStartTime = false;
+
         private Stopwatch stopwatch = new Stopwatch();
-        private Logger Logger = new Logger("ETN_Craft");
-        private Messager Messager = new Messager();
+        private Logger logger = new Logger("ETN_Craft");
+        private Messager messager = new Messager();
+        private Logger loggerPool = new Logger("ETN_Craft_Pool");
         RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
 
         #region Form Initialization
 
         public Form1()
         {
-            Messager.InitializeMessager(Logger);
+            messager.InitializeMessager(logger);
             InitializeComponent();
             LoadPoolListFromWebsite();
 
@@ -38,6 +40,7 @@ namespace ETN_CPU_GPU_MINER
                 LoadConfig("config_templates/ENTCRAFT.mcf");
             else
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
+
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             gpubrand.Visible = false;
@@ -45,14 +48,14 @@ namespace ETN_CPU_GPU_MINER
             gpubrand.SelectedItem = gpubrand.Items[0];
             //Spool up timers
             GetTemps();
-            //This is to keep the event handlers from fireing when the form load. Just wrapp functions in this.
+            //This is to keep the event handlers from firing when the form load. Just wrap functions in this.
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
         }
 
         private void CloseForm(object sender, FormClosingEventArgs e)
         {
-            Messager.PushMessage("ETNCRAFT window closed, beginning process cleanup.");
+            logger.Warn("ETNCRAFT window closed, beginning process cleanup.");
             EndProcesses();
         }
 
@@ -86,10 +89,10 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 });
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
                 process.BeginOutputReadLine();
 
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
                 process.BeginErrorReadLine();
                 #endregion
             }
@@ -446,19 +449,22 @@ namespace ETN_CPU_GPU_MINER
         private void BtnClearWallet_Click(object sender, EventArgs e)
         {
             wallet_address.Text = "";
-            status.Text = Messager.ClearMessages();
+            status.Text = messager.ClearMessages();
         }
 
         private void BtnOpenLog_Click(object sender, EventArgs e)
-        {
-            var process = new Process();
-            process.StartInfo = new ProcessStartInfo()
+        {            
+            Process.Start(new ProcessStartInfo()
             {
                 UseShellExecute = true,
-                FileName = Logger.GetLogFilePath()
-            };
+                FileName = logger.GetLogFilePath()
+            });
 
-            process.Start();
+            Process.Start(new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = loggerPool.GetLogFilePath()
+            });
         }
 
         private void BtnLoadConfig_Click(object sender, EventArgs e)
@@ -582,6 +588,7 @@ namespace ETN_CPU_GPU_MINER
                 //PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!");
             }
         }
+
         private void miner_type_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0])
@@ -672,6 +679,7 @@ namespace ETN_CPU_GPU_MINER
             }
 
         }
+
         private void SaveConfig()
         {
             File.Delete("config_templates\\ENTCRAFT.mcf");
@@ -687,6 +695,7 @@ namespace ETN_CPU_GPU_MINER
             PushStatusMessage("ENTCRAFT.mcf deleted & recreated");
 
         }
+
         private bool CheckRegistry(string sKey)
         {
             PushStatusMessage("Checking for ETNCRAFT registry keys");
@@ -715,6 +724,7 @@ namespace ETN_CPU_GPU_MINER
             }
             return bAutoLoad;
         }
+
         private void CreateOrEditRegistryKey(string sKey, bool bValue)
         {
             var reg = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
@@ -866,20 +876,28 @@ namespace ETN_CPU_GPU_MINER
         #region Logger/Messager
 
         /// <summary>
-        /// Push a Message to the Message Area
+        /// 
         /// </summary>
-        /// <param name="Message"></param>
-        private void PushStatusMessage(string Message)
+        /// <param name="message"></param>
+        private void PushStatusMessage(string message)
         {
-            status.Text = Messager.PushMessage(Message);
-            status.SelectionStart = status.Text.Length;
-            status.ScrollToCaret();
+            if (message != null)
+            {
+                status.Text = messager.PushMessage(message);
+                status.SelectionStart = status.Text.Length;
+                status.ScrollToCaret();
+            }            
         }
 
-        private void PushWorkStatusMessage(string Message)
-        {
-            m_sAggHashData += Message + "\r\n";
-            ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
+        private void PushWorkStatusMessage(string message)
+        {            
+            if (message != null)
+            {
+                string cleanMessage = RemoveAnsiEscapes(message);
+                m_sAggHashData += cleanMessage + "\r\n";
+                ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
+                loggerPool.Debug(cleanMessage);
+            }                
         }
 
         /// <summary>
@@ -889,10 +907,16 @@ namespace ETN_CPU_GPU_MINER
         /// <param name="e"></param>
         private void ClearMessagesButton_Click(object sender, EventArgs e)
         {
-            status.Text = Messager.ClearMessages();
+            status.Text = messager.ClearMessages();
         }
 
         #endregion
+
+        private string RemoveAnsiEscapes(string message)
+        {
+            //string cleanMessage = Regex.Replace(message, @"\\u(?<Value>[a-zA-Z0-9]{4})", "");
+            return message;
+        }
 
         private bool IsWalletValid()
         {

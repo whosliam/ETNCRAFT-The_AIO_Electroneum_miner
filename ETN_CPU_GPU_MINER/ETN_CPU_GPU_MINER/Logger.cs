@@ -11,7 +11,7 @@ namespace ETNCRAFT
         private static string logFileNameDateTimeFormat = "yyyy-MM-dd";
         private static string logFileDir = "logs";
         private static string logFileExt = ".log";
-        private static string logFilePath;
+        private string logFilePath;
    
         public Logger(string logFileName,bool append = true)
         {
@@ -134,7 +134,7 @@ namespace ETNCRAFT
             }
             catch
             {
-                throw;
+                //throw;
             }
         }
 

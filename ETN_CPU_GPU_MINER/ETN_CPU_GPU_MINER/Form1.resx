@@ -503,7 +503,7 @@
     <value>50</value>
   </data>
   <data name="BtnOpenLog.Text" xml:space="preserve">
-    <value>Open Log</value>
+    <value>Open Logs</value>
   </data>
   <data name="&gt;&gt;BtnOpenLog.Name" xml:space="preserve">
     <value>BtnOpenLog</value>
