@@ -75,9 +75,9 @@ namespace ETN_CPU_GPU_MINER
             if (double.Parse(threads.Text) <= 1)
                 threads.Text = "1";
 
+            #region CPU MINER
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
             {
-                #region CPU MINER
                 PushStatusMessage("Spawning cpuminer");
                 if (m_bDebugging)
                 {
@@ -106,12 +106,12 @@ namespace ETN_CPU_GPU_MINER
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
                     process.BeginErrorReadLine();
                 }
-                #endregion
             }
+            #endregion
 
+            #region CC MINER
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
             {
-                #region CC MINER
                 PushStatusMessage("Spawning ccminer");
                 if (m_bDebugging)
                 {
@@ -142,9 +142,10 @@ namespace ETN_CPU_GPU_MINER
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
-                #endregion
             }
+            #endregion
 
+            #region XMR STAK AMD MINER
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[1])
             {
                 #region UPDATE CONFIG
@@ -174,7 +175,6 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-                #region XMR STAK AMD MINER
                 PushStatusMessage("Spawning xmr-stak-amd miner");
                 if (m_bDebugging)
                 {
@@ -203,9 +203,10 @@ namespace ETN_CPU_GPU_MINER
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
-                #endregion
             }
+            #endregion 
 
+            #region XMR STAK NVIDIA MINER with standard PERF
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[0])
             {
                 #region UPDATE CONFIG
@@ -235,7 +236,6 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-                #region XMR STAK NVIDIA MINER
                 PushStatusMessage("Spawning xmr-stak-nvidia miner");
                 if (m_bDebugging)
                 {
@@ -264,9 +264,10 @@ namespace ETN_CPU_GPU_MINER
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
-                #endregion
             }
+            #endregion
 
+            #region XMR STAK NVIDIA MINER with High PERF 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[1])
             {
                 #region UPDATE CONFIG
@@ -296,8 +297,7 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-                #region XMR STAK NVIDIA MINER
-                PushStatusMessage("Spawning xmr-stak-nvidia miner");
+                PushStatusMessage("Spawning xmr-stak-nvidia miner with high perf.");
                 if (m_bDebugging)
                 {
                     Process process = Process.Start(new ProcessStartInfo()
@@ -325,9 +325,10 @@ namespace ETN_CPU_GPU_MINER
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
-                #endregion
             }
+            #endregion
 
+            #region ETNCRAFT XMR STAK CPU MINER with hyper threading
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == true)
             {
                 #region UPDATE CONFIG
@@ -357,8 +358,7 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-                #region XMR STAK CPU MINER
-                PushStatusMessage("Spawning ETNCRAFT-xmr-stak-cpu miner");
+                PushStatusMessage("Spawning ETNCRAFT-xmr-stak-cpu miner with hyper threading");
                 if (m_bDebugging)
                 {
                     Process process = Process.Start(new ProcessStartInfo()
@@ -386,9 +386,10 @@ namespace ETN_CPU_GPU_MINER
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
-                #endregion
             }
+            #endregion
 
+            #region ETNCRAFT XMR STAK CPU MINER
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == false)
             {
                 #region UPDATE CONFIG
@@ -419,7 +420,6 @@ namespace ETN_CPU_GPU_MINER
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
 
-                #region XMR STAK CPU MINER
                 PushStatusMessage("Spawning ETNCRAFT miner");
                 if (m_bDebugging)
                 {
@@ -446,10 +446,10 @@ namespace ETN_CPU_GPU_MINER
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
-                #endregion
             }
-            PushStatusMessage("config.txt updated");
+            #endregion
 
+            PushStatusMessage("config.txt updated");
             //Start header Timer for app run time
             m_bStartTime = true;
             stopwatch.Start();

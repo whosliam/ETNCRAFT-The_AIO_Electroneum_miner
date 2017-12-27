@@ -66,6 +66,7 @@
             this.lbl_threads = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
+            this.chkDebug = new System.Windows.Forms.CheckBox();
             this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
             this.hyperthread = new System.Windows.Forms.CheckBox();
@@ -91,7 +92,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.chkDebug = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -393,6 +393,12 @@
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
             // 
+            // chkDebug
+            // 
+            resources.ApplyResources(this.chkDebug, "chkDebug");
+            this.chkDebug.Name = "chkDebug";
+            this.chkDebug.UseVisualStyleBackColor = true;
+            // 
             // BtnLoadDefaultConfig
             // 
             resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
@@ -544,12 +550,6 @@
             // open_config_dialog
             // 
             this.open_config_dialog.FileName = "File name";
-            // 
-            // chkDebug
-            // 
-            resources.ApplyResources(this.chkDebug, "chkDebug");
-            this.chkDebug.Name = "chkDebug";
-            this.chkDebug.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
