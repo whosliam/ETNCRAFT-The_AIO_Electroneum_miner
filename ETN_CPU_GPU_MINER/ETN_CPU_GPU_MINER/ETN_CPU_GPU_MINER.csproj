@@ -99,6 +99,9 @@
     <Compile Include="GetTemperature.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Messager.cs" />
+    <Compile Include="PoolComboBoxItems.cs" />
+    <Compile Include="Pools.cs" />
+    <Compile Include="PoolsCollection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThreadHelperClass.cs" />
