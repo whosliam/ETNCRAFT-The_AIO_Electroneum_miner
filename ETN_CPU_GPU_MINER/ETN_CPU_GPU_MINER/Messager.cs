@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 
-namespace ETNCRAFT
+namespace ETN_CPU_GPU_MINER
 {    
     class Messager
     {

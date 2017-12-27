@@ -6,7 +6,6 @@ using Microsoft.VisualBasic;
 using System.IO;
 using System.Text.RegularExpressions;
 using OpenHardwareMonitor.Hardware;
-using ETNCRAFT;
 using Microsoft.Win32;
 using System.Net;
 

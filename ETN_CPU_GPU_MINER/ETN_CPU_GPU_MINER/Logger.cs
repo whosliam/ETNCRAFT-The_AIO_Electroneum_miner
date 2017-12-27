@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace ETNCRAFT
+namespace ETN_CPU_GPU_MINER
 {
     public class Logger
     {
