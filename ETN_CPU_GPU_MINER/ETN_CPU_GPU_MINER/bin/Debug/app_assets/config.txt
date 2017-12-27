@@ -1,37 +1,33 @@
-﻿     "gpu_thread_num" : 1,
-     "gpu_threads_conf" : [ 
-       { "index" : 0, "intensity" : 1000, "worksize" : 8, "affine_to_cpu" : false },
-	   
-       
-       
-       
-       
-	   
-       
-	   
-	   
-       
-       
-       
-       
-	   
-       
-     ],
-     "platform_index" : 0,
-     "use_tls" : false,
-     "tls_secure_algo" : true,
-     "tls_fingerprint" : "",
-     "pool_address" : "pool.etn.spacepools.org:5555",
-     "wallet_address" : "etnkLKPeTqjii2XbLHkqzy31MSx4Hqxa1XEf3mmGCBGq1khC65PpBicQZ56ukCkoTSDJwLaKHmbH5UR1zcr6ijVF8UrxnniNUP",
-     "pool_password" : "x",
-     "call_timeout" : 10,
-     "retry_time" : 10,
-     "giveup_limit" : 0,
-     "verbose_level" : 3,
-     "h_print_time" : 60,
-     "daemon_mode" : false,
-     "output_file" : "",
-     "httpd_port" : 0,
-     "prefer_ipv4" : true,
-     
-      
+﻿"cpu_thread_num" : 2,
+"cpu_threads_conf" : [ 
+	{ "low_power_mode" : false, "no_prefetch" : false, "affine_to_cpu" : 0 },
+	{ "low_power_mode" : false, "no_prefetch" : false, "affine_to_cpu" : 1 },
+],
+"use_slow_memory" : "warn",
+"nicehash_nonce" : false,
+
+"use_tls" : false,
+"tls_secure_algo" : true,
+"tls_fingerprint" : "",
+
+"pool_address" : "pool.etn.spacepools.org:5555",
+"wallet_address" : "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT",
+"pool_password" : "x",
+"call_timeout" : 10,
+"retry_time" : 10,
+"giveup_limit" : 0,
+
+"verbose_level" : 3,
+
+"h_print_time" : 60,
+
+"output_file" : "",
+
+"httpd_port" : 0,
+
+"prefer_ipv4" : true,
+
+"donate_percent" : 1.0,
+"donate_pool_address" : "pool.etn.spacepools.org:5555",
+"donate_wallet_address" : "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT",
+"donate_pool_password" : "x",

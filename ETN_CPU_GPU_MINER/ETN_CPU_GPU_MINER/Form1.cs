@@ -14,7 +14,7 @@ namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
     {
-        public static string m_Version = "(V1.6.1)";
+        public static string m_Version = "(V1.6.2)";
         public bool b_FormLoaded = false;
         public static string m_sAggHashData = "";
         public static string m_MiningURL = "";
@@ -283,7 +283,7 @@ namespace ETN_CPU_GPU_MINER
                     File.Create(FILE_NAME_CPU).Dispose();
                     PushStatusMessage("config.txt created");
                 }
-                File.Copy(@"config_templates/config-template-cpu.txt", @"app_assets/config.txt", true);
+                File.Copy(@"config_templates/config-template-etncraft-cpu.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
@@ -300,7 +300,7 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("Spawning xmr-stak-cpu miner");
                 Process process = Process.Start(new ProcessStartInfo()
                 {
-                    FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu.exe",
+                    FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -332,7 +332,7 @@ namespace ETN_CPU_GPU_MINER
                     File.Create(FILE_NAME_CPU).Dispose();
                     PushStatusMessage("config.txt created");
                 }
-                File.Copy(@"config_templates/config-template-cpu-le.txt", @"app_assets/config.txt", true);
+                File.Copy(@"config_templates/config-template-etncraft-cpu.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
@@ -350,7 +350,7 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("Spawning xmr-stak-cpu miner");
                 Process process = Process.Start(new ProcessStartInfo()
                 {
-                    FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu.exe",
+                    FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
                     WorkingDirectory = Application.StartupPath + "\\app_assets",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -510,7 +510,7 @@ namespace ETN_CPU_GPU_MINER
                 miner_type.Items.Clear();
                 miner_type.Items.Add("xmr-stak-nvidia");
                 miner_type.Items.Add("ccminer");
-                miner_type.SelectedItem = miner_type.Items[1];
+                miner_type.SelectedItem = miner_type.Items[0];
                 xmr_stak_perf_box.Visible = false;
                 xmr_notice.Visible = false;
                 stak_nvidia_perf.Visible = false;
@@ -526,9 +526,9 @@ namespace ETN_CPU_GPU_MINER
                 gpubrand.Visible = false;
                 miner_type.Enabled = true;
                 miner_type.Items.Clear();
-                miner_type.Items.Add("xmr-stak-cpu");
+                miner_type.Items.Add("ETNCRAFT xmr-stak-cpu");
                 miner_type.Items.Add("cpuminer-multi");
-                miner_type.SelectedItem = miner_type.Items[1];
+                miner_type.SelectedItem = miner_type.Items[0];
                 xmr_stak_perf_box.Visible = false;
                 stak_nvidia_perf.Visible = false;
                 xmr_notice.Visible = false;
@@ -920,7 +920,7 @@ namespace ETN_CPU_GPU_MINER
 
         private bool IsWalletValid()
         {
-            if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals(""))
+            if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals("") || wallet_address.Text.Equals("EnterPublicWalletHere"))
             {
                 DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
                 if (UserInput.Equals(DialogResult.Cancel))
