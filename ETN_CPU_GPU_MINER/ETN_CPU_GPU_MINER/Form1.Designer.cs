@@ -91,6 +91,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.chkDebug = new System.Windows.Forms.CheckBox();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -375,6 +376,7 @@
             // 
             // tab_as
             // 
+            this.tab_as.Controls.Add(this.chkDebug);
             this.tab_as.Controls.Add(this.BtnLoadDefaultConfig);
             this.tab_as.Controls.Add(this.chkAutoLoadConfig);
             this.tab_as.Controls.Add(this.hyperthread);
@@ -543,6 +545,12 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // chkDebug
+            // 
+            resources.ApplyResources(this.chkDebug, "chkDebug");
+            this.chkDebug.Name = "chkDebug";
+            this.chkDebug.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -638,6 +646,7 @@
         private System.Windows.Forms.TextBox WorkStatus;
         private System.Windows.Forms.Label lblCPUUsage;
         private System.Windows.Forms.Label lblGPUUsage;
+        internal System.Windows.Forms.CheckBox chkDebug;
     }
 }
 

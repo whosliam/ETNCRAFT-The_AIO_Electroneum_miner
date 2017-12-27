@@ -1117,6 +1117,39 @@
   <data name="&gt;&gt;tab_miner.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="chkDebug.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkDebug.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkDebug.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 552</value>
+  </data>
+  <data name="chkDebug.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="chkDebug.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 17</value>
+  </data>
+  <data name="chkDebug.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="chkDebug.Text" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="&gt;&gt;chkDebug.Name" xml:space="preserve">
+    <value>chkDebug</value>
+  </data>
+  <data name="&gt;&gt;chkDebug.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkDebug.Parent" xml:space="preserve">
+    <value>tab_as</value>
+  </data>
+  <data name="&gt;&gt;chkDebug.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="BtnLoadDefaultConfig.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
   </data>
@@ -1142,7 +1175,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;BtnLoadDefaultConfig.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="chkAutoLoadConfig.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1169,13 +1202,13 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;chkAutoLoadConfig.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="hyperthread.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="hyperthread.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 152</value>
+    <value>7, 153</value>
   </data>
   <data name="hyperthread.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -1199,7 +1232,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;hyperthread.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1232,7 +1265,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="Label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1265,13 +1298,13 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;Label10.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="xmr_notice.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="xmr_notice.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 210</value>
+    <value>4, 210</value>
   </data>
   <data name="xmr_notice.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -1295,7 +1328,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;xmr_notice.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="xmr_stak_perf_box.Items" xml:space="preserve">
     <value>Standard</value>
@@ -1328,13 +1361,13 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;xmr_stak_perf_box.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="stak_nvidia_perf.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="stak_nvidia_perf.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 188</value>
+    <value>4, 187</value>
   </data>
   <data name="stak_nvidia_perf.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -1361,13 +1394,13 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;stak_nvidia_perf.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 172</value>
+    <value>4, 171</value>
   </data>
   <data name="Label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -1391,7 +1424,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="miner_type.Location" type="System.Drawing.Point, System.Drawing">
     <value>286, 168</value>
@@ -1400,7 +1433,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="miner_type.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 21</value>
+    <value>140, 21</value>
   </data>
   <data name="miner_type.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -1415,7 +1448,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;miner_type.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="BtnLoadConfig.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
@@ -1445,7 +1478,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;BtnLoadConfig.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="BtnSaveConfig.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
@@ -1475,7 +1508,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;BtnSaveConfig.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="tab_as.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
