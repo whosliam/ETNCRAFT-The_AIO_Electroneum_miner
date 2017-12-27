@@ -337,7 +337,7 @@ namespace ETN_CPU_GPU_MINER
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
                 fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-                int index = System.Convert.ToInt32(threads.Text) + 1;
+                int index = System.Convert.ToInt32(threads.Text) +3; //really fucked up way to fix this. 
                 while (index <= 14)
                 {
                         fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : false, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
