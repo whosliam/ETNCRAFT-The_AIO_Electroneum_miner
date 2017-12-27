@@ -945,7 +945,7 @@ namespace ETN_CPU_GPU_MINER
             Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd");
             Process[] ArrProcessNVXMR = Process.GetProcessesByName("xmr-stak-nvidia");
             Process[] ArrProcessCPUXMR = Process.GetProcessesByName("xmr-stak-cpu");
-            Process[] ArrProcessCPUXMRETNCRAFT = Process.GetProcessesByName("ETNCRAFT xmr-stak-cpu");
+            Process[] ArrProcessCPUXMRETNCRAFT = Process.GetProcessesByName("xmr-stak-cpu-ETNCRAFT");
 
             // Build Aggregate Process Array
             int ProcessCount = ArrProcessCPU.Length + ArrProcessNV.Length + ArrProcessAMD.Length + ArrProcessNVXMR.Length + ArrProcessCPUXMR.Length + ArrProcessCPUXMRETNCRAFT.Length;
