@@ -84,6 +84,7 @@ namespace ETN_CPU_GPU_MINER
                     Process process = Process.Start(new ProcessStartInfo()
                     {
                         FileName = Application.StartupPath + "\\app_assets\\cpuminer.exe",
+                        Arguments = "-a cryptonight -o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
                         WorkingDirectory = Application.StartupPath + "\\app_assets"
                     });
                 }
@@ -117,6 +118,7 @@ namespace ETN_CPU_GPU_MINER
                     Process process = Process.Start(new ProcessStartInfo()
                     {
                         FileName = Application.StartupPath + "\\app_assets\\ccminer.exe",
+                        Arguments = "-o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
                         WorkingDirectory = Application.StartupPath + "\\app_assets"
                     });
 
