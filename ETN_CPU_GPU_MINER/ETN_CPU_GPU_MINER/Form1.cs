@@ -13,7 +13,8 @@ namespace ETN_CPU_GPU_MINER
 {
     public partial class Form1 : Form
     {
-        public static string m_Version = "(V1.6.2)";
+        #region Global vars
+        public static string m_Version = "(V1.6.3)";
         public bool b_FormLoaded = false;
         public static string m_sAggHashData = "";
         public static string m_MiningURL = "";
@@ -25,6 +26,7 @@ namespace ETN_CPU_GPU_MINER
         private Messager messager = new Messager();
         private Logger loggerPool = new Logger("ETN_Craft_Pool");
         RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+        #endregion
 
         #region Form Initialization
 
@@ -99,16 +101,16 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardOutput = true,
                         RedirectStandardError = true
                     });
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out> " + eOut.Data);
                     process.BeginOutputReadLine();
 
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err> " + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
             #endregion
 
-            #region CC MINER
+            #region CC MINER - GPU Nvidia
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
             {
                 PushStatusMessage("Spawning ccminer");
@@ -135,10 +137,10 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardError = true
                     });
 
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
 
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
@@ -196,10 +198,10 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardError = true
                     });
 
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
 
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
@@ -257,10 +259,10 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardError = true
                     });
 
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
 
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
@@ -318,10 +320,10 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardError = true
                     });
 
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
 
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
@@ -379,10 +381,10 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardError = true
                     });
 
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
 
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
@@ -440,9 +442,9 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardError = true
                     });
 
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("out>" + eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("err>" + eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
