@@ -23,9 +23,11 @@ namespace ETN_CPU_GPU_MINER
         public bool m_bDebugging = false;
         private Stopwatch stopwatch = new Stopwatch();
         private Logger logger = new Logger("ETN_Craft");
-        private Messager messager = new Messager();
         private Logger loggerPool = new Logger("ETN_Craft_Pool");
-        RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+        private Messager messager = new Messager();
+
+        RegistryManager registryManager = new RegistryManager();
+        //RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
         #endregion
 
         #region Form Initialization
@@ -35,12 +37,30 @@ namespace ETN_CPU_GPU_MINER
             messager.InitializeMessager(logger);
             InitializeComponent();
             LoadPoolListFromWebsite();
-            //Check Registry for autoload & if user is new
-            if (CheckRegistry("AutoLoad"))
-                LoadConfig("config_templates/ENTCRAFT.mcf");
-            else
-                LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
 
+            // Check Registry for AutoLoad
+            PushStatusMessage("Checking for ETNCRAFT registry keys");            
+            if (registryManager.GetAutoLoad())
+            {
+                PushStatusMessage("AutoLoad registry key found!");
+                LoadConfig("config_templates/ENTCRAFT.mcf");
+            }                
+            else
+            {
+                PushStatusMessage("AutoLoad registry key not found!");
+                LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
+            }
+            chkAutoLoadConfig.Checked = registryManager.GetAutoLoad();
+
+            // Check Registry for NewMiner
+            if (registryManager.GetIsNewMiner())
+            {
+                PushStatusMessage("NewMiner key created");
+                DialogResult UserInput = MessageBox.Show("Welcome new miner!\r\nThe help tab has been pre selected.\r\nPlease read and follow the directions.", "WELCOME!", MessageBoxButtons.OK);
+                //Load Help tab
+                tabs.SelectedTab = tbHelp;
+            }
+                
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             gpubrand.Visible = false;
@@ -57,6 +77,7 @@ namespace ETN_CPU_GPU_MINER
         {
             logger.Warn("ETNCRAFT window closed, beginning process cleanup.");
             EndProcesses();
+            registryManager.CloseRegistryKeys();
         }
 
 
@@ -69,10 +90,12 @@ namespace ETN_CPU_GPU_MINER
         private void BtnStartMining_Click(object sender, EventArgs e)
         {
             SaveConfig();
+            registryManager.SetIsNewMiner(false);
             m_bDebugging = chkDebug.Checked;
 
             if (!IsWalletValid())
                 return;
+
             if (double.Parse(threads.Text) <= 1)
                 threads.Text = "1";
 
@@ -711,18 +734,18 @@ namespace ETN_CPU_GPU_MINER
                     UserInput = MessageBox.Show("Make sure your wallet information has been entered!\r\nThis will save your info and also setup auto config when the app restarts\r\nClick yes to continue", "ALERT", MessageBoxButtons.YesNo);
                     if (UserInput == DialogResult.No)
                     {
-                        CreateOrEditRegistryKey("AutoLoad", false);
+                        registryManager.SetAutoLoad(false);
                         chkAutoLoadConfig.Checked = false;
                     }
                     else
                     {
                         SaveConfig();
-                        CreateOrEditRegistryKey("AutoLoad", chkAutoLoadConfig.Checked);
+                        registryManager.SetAutoLoad(chkAutoLoadConfig.Checked);
 
                     }
                 }
                 else
-                    CreateOrEditRegistryKey("AutoLoad", false);
+                    registryManager.SetAutoLoad(false);
             }
 
 
@@ -780,56 +803,56 @@ namespace ETN_CPU_GPU_MINER
 
         }
 
-        private bool CheckRegistry(string sKey)
-        {
-            PushStatusMessage("Checking for ETNCRAFT registry keys");
-            bool bAutoLoad = false;
-            var key = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
-            if (key != null)
-            {
-                PushStatusMessage(sKey + " registry key found!");
-                object keyValue = key.GetValue(sKey);
-                //Set Return value
-                bAutoLoad = Convert.ToBoolean(keyValue);
-                //Set Check box on advanced setting tab
-                chkAutoLoadConfig.Checked = bAutoLoad;
-            }
-            else
-            {
-                PushStatusMessage("No registry keys found.");
-                PushStatusMessage("First run detected");
-                //Added miner here since they wouldnt have a key prior to running so it will throw a null value which falls in here.
-                CreateOrEditRegistryKey("NewMiner", true);
-                PushStatusMessage("NewMiner key created");
-                //Push Message
-                DialogResult UserInput = MessageBox.Show("Welcome new miner!\r\nThe help tab has been pre selected.\r\nPlease read and follow the directions.", "WELCOME!", MessageBoxButtons.OK);
-                //Load Help tab
-                tabs.SelectedTab = tbHelp;
-            }
-            return bAutoLoad;
-        }
+        //private bool CheckRegistry(string sKey)
+        //{
+        //    //PushStatusMessage("Checking for ETNCRAFT registry keys");
+        //    bool bAutoLoad = false;
+        //    var key = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
+        //    if (key != null)
+        //    {
+        //        PushStatusMessage(sKey + " registry key found!");
+        //        object keyValue = key.GetValue(sKey);
+        //        //Set Return value
+        //        bAutoLoad = Convert.ToBoolean(keyValue);
+        //        //Set Check box on advanced setting tab
+        //        chkAutoLoadConfig.Checked = bAutoLoad;
+        //    }
+        //    else
+        //    {
+        //        PushStatusMessage("No registry keys found.");
+        //        PushStatusMessage("First run detected");
+        //        //Added miner here since they wouldnt have a key prior to running so it will throw a null value which falls in here.
+        //        CreateOrEditRegistryKey("NewMiner", true);
+        //        PushStatusMessage("NewMiner key created");
+        //        //Push Message
+        //        DialogResult UserInput = MessageBox.Show("Welcome new miner!\r\nThe help tab has been pre selected.\r\nPlease read and follow the directions.", "WELCOME!", MessageBoxButtons.OK);
+        //        //Load Help tab
+        //        tabs.SelectedTab = tbHelp;
+        //    }
+        //    return bAutoLoad;
+        //}
 
-        private void CreateOrEditRegistryKey(string sKey, bool bValue)
-        {
-            var reg = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
-            if (reg == null)
-            {
-                PushStatusMessage("creating ETNCRAFT " + sKey + " registry key. Set to " + bValue);
-                reg = localMachine.CreateSubKey("SOFTWARE\\ETNCRAFT");
-            }
-            if (chkAutoLoadConfig.Checked && reg.GetValue("") != null)
-            {
-                // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"TRUE\"");
-                reg.SetValue(sKey, bValue);
-            }
-            else
-            {
-                // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"FALSE\"");
-                reg.SetValue(sKey, bValue);
-            }
-            reg.Close();
+        //private void CreateOrEditRegistryKey(string sKey, bool bValue)
+        //{
+        //    var reg = localMachine.OpenSubKey("SOFTWARE\\ETNCRAFT", true);
+        //    if (reg == null)
+        //    {
+        //        PushStatusMessage("creating ETNCRAFT " + sKey + " registry key. Set to " + bValue);
+        //        reg = localMachine.CreateSubKey("SOFTWARE\\ETNCRAFT");
+        //    }
+        //    if (chkAutoLoadConfig.Checked && reg.GetValue("") != null)
+        //    {
+        //        // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"TRUE\"");
+        //        reg.SetValue(sKey, bValue);
+        //    }
+        //    else
+        //    {
+        //        // PushStatusMessage("Setting ETNCRAFT autoload registry value to \"FALSE\"");
+        //        reg.SetValue(sKey, bValue);
+        //    }
+        //    reg.Close();
 
-        }
+        //}
 
         #endregion
 
