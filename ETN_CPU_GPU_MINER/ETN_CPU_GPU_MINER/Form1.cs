@@ -39,12 +39,12 @@ namespace ETN_CPU_GPU_MINER
             LoadPoolListFromWebsite();
 
             // Check Registry for AutoLoad
-            PushStatusMessage("Checking for ETNCRAFT registry keys");            
+            PushStatusMessage("Checking for ETNCRAFT registry keys");
             if (registryManager.GetAutoLoad())
             {
                 PushStatusMessage("AutoLoad registry key loaded (true)");
                 LoadConfig("config_templates/ENTCRAFT.mcf");
-            }                
+            }
             else
             {
                 PushStatusMessage("AutoLoad registry key loaded (false)");
@@ -60,7 +60,7 @@ namespace ETN_CPU_GPU_MINER
                 //Load Help tab
                 tabs.SelectedTab = tbHelp;
             }
-                
+
             xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             gpubrand.Visible = false;
@@ -574,6 +574,13 @@ namespace ETN_CPU_GPU_MINER
             });
         }
 
+        private void ClearMessagesButton_Click(object sender, EventArgs e)
+        {
+            status.Text = messager.ClearMessages();
+            WorkStatus.Text = "";
+            m_sAggHashData = "";
+        }
+
         private void BtnLoadConfig_Click(object sender, EventArgs e)
         {
             open_config_dialog.Filter = "Miner Configuration Files (*.mcf*)|*.mcf";
@@ -597,6 +604,7 @@ namespace ETN_CPU_GPU_MINER
         {
             Process.Start("https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html");
         }
+
 
 
         #endregion
@@ -801,7 +809,7 @@ namespace ETN_CPU_GPU_MINER
             PushStatusMessage("ENTCRAFT.mcf deleted & recreated");
 
         }
-        
+
         #endregion
 
         #region Timers/Temperature Data
@@ -900,6 +908,7 @@ namespace ETN_CPU_GPU_MINER
         private void Hashtxt_Tick(object sender, EventArgs e)
         {
             WorkStatus.Text = "Log Cleared!";
+            m_sAggHashData = "";
         }
 
         Computer myComputer;
@@ -953,16 +962,6 @@ namespace ETN_CPU_GPU_MINER
                 ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
                 loggerPool.Debug(cleanMessage);
             }
-        }
-
-        /// <summary>
-        /// Clear existing messages from the Message Area
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ClearMessagesButton_Click(object sender, EventArgs e)
-        {
-            status.Text = messager.ClearMessages();
         }
 
         #endregion
@@ -1046,5 +1045,6 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
+
     }
 }

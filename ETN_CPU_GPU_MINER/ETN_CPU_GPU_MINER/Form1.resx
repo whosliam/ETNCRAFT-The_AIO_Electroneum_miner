@@ -445,40 +445,31 @@
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="BtnDiagnostics.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="BtnDiagnostics.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="ClearMessagesButton.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
-  <data name="BtnDiagnostics.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="ClearMessagesButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>588, 18</value>
   </data>
-  <data name="BtnDiagnostics.Location" type="System.Drawing.Point, System.Drawing">
-    <value>600, 18</value>
+  <data name="ClearMessagesButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 26</value>
   </data>
-  <data name="BtnDiagnostics.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="ClearMessagesButton.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
   </data>
-  <data name="BtnDiagnostics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 25</value>
+  <data name="ClearMessagesButton.Text" xml:space="preserve">
+    <value>Clear Logs</value>
   </data>
-  <data name="BtnDiagnostics.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
+  <data name="&gt;&gt;ClearMessagesButton.Name" xml:space="preserve">
+    <value>ClearMessagesButton</value>
   </data>
-  <data name="BtnDiagnostics.Text" xml:space="preserve">
-    <value>Diagnostics</value>
-  </data>
-  <data name="&gt;&gt;BtnDiagnostics.Name" xml:space="preserve">
-    <value>BtnDiagnostics</value>
-  </data>
-  <data name="&gt;&gt;BtnDiagnostics.Type" xml:space="preserve">
+  <data name="&gt;&gt;ClearMessagesButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;BtnDiagnostics.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ClearMessagesButton.Parent" xml:space="preserve">
     <value>groupBox4</value>
   </data>
-  <data name="&gt;&gt;BtnDiagnostics.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ClearMessagesButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="BtnOpenLog.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">

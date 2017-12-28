@@ -44,7 +44,7 @@
             this.lblGPUUsage = new System.Windows.Forms.Label();
             this.lblGPUTemp = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.BtnDiagnostics = new System.Windows.Forms.Button();
+            this.ClearMessagesButton = new System.Windows.Forms.Button();
             this.BtnOpenLog = new System.Windows.Forms.Button();
             this.StartMining = new System.Windows.Forms.Button();
             this.BtnStopMining = new System.Windows.Forms.Button();
@@ -209,7 +209,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.BtnDiagnostics);
+            this.groupBox4.Controls.Add(this.ClearMessagesButton);
             this.groupBox4.Controls.Add(this.BtnOpenLog);
             this.groupBox4.Controls.Add(this.StartMining);
             this.groupBox4.Controls.Add(this.BtnStopMining);
@@ -218,13 +218,12 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
-            // BtnDiagnostics
+            // ClearMessagesButton
             // 
-            this.BtnDiagnostics.BackColor = System.Drawing.SystemColors.ControlLight;
-            resources.ApplyResources(this.BtnDiagnostics, "BtnDiagnostics");
-            this.BtnDiagnostics.Name = "BtnDiagnostics";
-            this.BtnDiagnostics.UseVisualStyleBackColor = false;
-            this.BtnDiagnostics.Click += new System.EventHandler(this.BtnDiagnostics_Click);
+            resources.ApplyResources(this.ClearMessagesButton, "ClearMessagesButton");
+            this.ClearMessagesButton.Name = "ClearMessagesButton";
+            this.ClearMessagesButton.UseVisualStyleBackColor = true;
+            this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
             // 
             // BtnOpenLog
             // 
@@ -587,7 +586,6 @@
         internal System.Windows.Forms.TabControl tabs;
         internal System.Windows.Forms.TabPage tab_miner;
         internal System.Windows.Forms.Button BtnStopMining;
-        internal System.Windows.Forms.Button BtnDiagnostics;
         internal System.Windows.Forms.TextBox wallet_address;
         internal System.Windows.Forms.RichTextBox status;
         internal System.Windows.Forms.TextBox threads;
@@ -647,6 +645,7 @@
         private System.Windows.Forms.Label lblCPUUsage;
         private System.Windows.Forms.Label lblGPUUsage;
         internal System.Windows.Forms.CheckBox chkDebug;
+        private System.Windows.Forms.Button ClearMessagesButton;
     }
 }
 
