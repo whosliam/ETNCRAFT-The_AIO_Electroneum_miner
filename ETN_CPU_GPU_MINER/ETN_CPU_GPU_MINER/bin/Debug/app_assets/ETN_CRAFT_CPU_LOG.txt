@@ -1,0 +1,24 @@
+[2017-12-29 13:59:41] : Starting single thread, affinity: 0.
+[2017-12-29 13:59:41] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 13:59:41] : Starting single thread, affinity: 1.
+[2017-12-29 13:59:41] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 13:59:41] : Starting single thread, affinity: 2.
+[2017-12-29 13:59:41] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 13:59:41] : Starting single thread, affinity: 3.
+[2017-12-29 13:59:41] : Connecting to pool pool.etn.spacepools.org:5555 ...
+[2017-12-29 13:59:41] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 13:59:41] : Connected. Logging in...
+[2017-12-29 13:59:42] : Difficulty changed. Now: 100001.
+[2017-12-29 13:59:42] : New block detected.
+[2017-12-29 14:32:51] : Starting single thread, affinity: 0.
+[2017-12-29 14:32:51] : Starting single thread, affinity: 1.
+[2017-12-29 14:32:51] : Starting single thread, affinity: 2.
+[2017-12-29 14:32:51] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 14:32:51] : Starting single thread, affinity: 3.
+[2017-12-29 14:32:51] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 14:32:51] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 14:32:51] : Connecting to pool pool.etn.spacepools.org:5555 ...
+[2017-12-29 14:32:51] : MEMORY ALLOC FAILED: VirtualAlloc failed.
+[2017-12-29 14:32:51] : Connected. Logging in...
+[2017-12-29 14:32:51] : Difficulty changed. Now: 100001.
+[2017-12-29 14:32:51] : New block detected.
