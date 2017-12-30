@@ -18,9 +18,8 @@ namespace ETN_CPU_GPU_MINER
 
             PushMessage("Original Fork by ParthK117");
             PushMessage("Current cpuminer multi and ccminer by tpruvot.");
-            PushMessage("Current xmr-stak-amd and nvidia and cpu by fireice-uk");
-            PushMessage("xmr-stak miners do take a 1% fee, keep this in mind if you choose to use them.");
-            PushMessage("Make sure to use your own wallet address.");
+            PushMessage("Current xmr-stak-amd-ETNCRAFT and nvidia and cpu by fireice-uk");
+            PushMessage("!!Make sure to use your own wallet address!!");
         }
         
         public string PushMessage(string Message, bool WriteToLog = true)

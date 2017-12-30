@@ -25,7 +25,8 @@ namespace ETN_CPU_GPU_MINER
         private Logger logger = new Logger("ETN_Craft");
         private Logger loggerPool = new Logger("ETN_Craft_Pool");
         private Messager messager = new Messager();
-
+        public bool m_bReadETNCRAFTULog = false;
+        public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
         RegistryManager registryManager = new RegistryManager();
         //RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
         #endregion
@@ -186,7 +187,7 @@ namespace ETN_CPU_GPU_MINER
                     File.Create(FILE_NAME_AMD).Dispose();
                     PushStatusMessage("config.txt created");
                 }
-                File.Copy(@"config_templates/config-template.txt", @"app_assets/config.txt", true);
+                File.Copy(@"config_templates/config-template-amd.txt", @"app_assets/config.txt", true);
                 //This can done way better but i can't be assed
                 string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
                 fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
@@ -199,12 +200,12 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-                PushStatusMessage("Spawning xmr-stak-amd miner");
+                PushStatusMessage("Spawning xmr-stak-amd-ETNCRAFT miner");
                 if (m_bDebugging)
                 {
                     Process process = Process.Start(new ProcessStartInfo()
                     {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd.exe",
+                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd-ETNCRAFT.exe",
                         WorkingDirectory = Application.StartupPath + "\\app_assets"
                     });
 
@@ -213,7 +214,7 @@ namespace ETN_CPU_GPU_MINER
                 {
                     Process process = Process.Start(new ProcessStartInfo()
                     {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd.exe",
+                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd-ETNCRAFT.exe",
                         WorkingDirectory = Application.StartupPath + "\\app_assets",
                         UseShellExecute = false,
                         CreateNoWindow = true,
@@ -221,10 +222,10 @@ namespace ETN_CPU_GPU_MINER
                         RedirectStandardError = true
                     });
 
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out>" + eOut.Data);
+                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
 
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err>" + eErr.Data);
+                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
             }
@@ -467,6 +468,7 @@ namespace ETN_CPU_GPU_MINER
 
                     process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out>" + eOut.Data);
                     process.BeginOutputReadLine();
+
                     process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err>" + eErr.Data);
                     process.BeginErrorReadLine();
                 }
@@ -486,8 +488,9 @@ namespace ETN_CPU_GPU_MINER
             //Stop Timer
             m_bStartTime = false;
             stopwatch.Stop();
-
+            //Kill mining
             EndProcesses();
+
         }
 
         private void BtnDiagnostics_Click(object sender, EventArgs e)
@@ -517,11 +520,11 @@ namespace ETN_CPU_GPU_MINER
                 xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
 
             }
-            if (string1 == "xmr-stak-amd")
+            if (string1 == "xmr-stak-amd-ETNCRAFT")
             {
-                PushStatusMessage("xmr-stak-amd miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
+                PushStatusMessage("xmr-stak-amd-ETNCRAFT miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
                 PushStatusMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
-                PushStatusMessage("   ERROR HELP 3:If it still doesn't work, reduce the number of GPUs xmr-stak-amd does not support more than 16 GPUs");
+                PushStatusMessage("   ERROR HELP 3:If it still doesn't work, reduce the number of GPUs xmr-stak-amd-ETNCRAFT does not support more than 16 GPUs");
             }
             if (string1 == "ccminer")
             {
@@ -667,8 +670,8 @@ namespace ETN_CPU_GPU_MINER
             if (gpubrand.SelectedItem == gpubrand.Items[1] && cpuorgpu.SelectedItem == cpuorgpu.Items[1])
             {
                 miner_type.Items.Clear();
-                miner_type.Items.Add("xmr-stak-amd");
-                miner_type.Items.Add("xmr-stak-amd");
+                miner_type.Items.Add("xmr-stak-amd-ETNCRAFT");
+                miner_type.Items.Add("xmr-stak-amd-ETNCRAFT");
                 miner_type.SelectedItem = miner_type.Items[0];
                 miner_type.Enabled = false;
                 xmr_stak_perf_box.Visible = false;
@@ -812,8 +815,24 @@ namespace ETN_CPU_GPU_MINER
 
         #endregion
 
-        #region Timers/Temperature Data
-        //System usage timer
+        #region Timers/Temperature Data/CPU LOG READ
+        #region Hash Timers & Miner log parse
+        private void HashTimer()
+        {
+            Timer HashTxtTimer = new Timer();
+            HashTxtTimer.Interval = 300000;//5 minutes
+            HashTxtTimer.Tick += new System.EventHandler(Hashtxt_Tick);
+            HashTxtTimer.Start();
+
+        }
+        private void Hashtxt_Tick(object sender, EventArgs e)
+        {
+            WorkStatus.Text = "Log Cleared!";
+            m_sAggHashData = "";
+        }
+        #endregion
+
+        #region Temp/Uptime Timers etc
         void timer_Tick(object sender, EventArgs e)
         {
             #region Temp Interval
@@ -896,21 +915,6 @@ namespace ETN_CPU_GPU_MINER
             }
             #endregion
         }
-        //clear hash data text field
-        private void HashTimer()
-        {
-            Timer HashTxtTimer = new Timer();
-            HashTxtTimer.Interval = 300000;//5 minutes
-            HashTxtTimer.Tick += new System.EventHandler(Hashtxt_Tick);
-            HashTxtTimer.Start();
-
-        }
-        private void Hashtxt_Tick(object sender, EventArgs e)
-        {
-            WorkStatus.Text = "Log Cleared!";
-            m_sAggHashData = "";
-        }
-
         Computer myComputer;
         Timer timer = new Timer { Enabled = true, Interval = 1000 };
         public void GetTemps()
@@ -936,6 +940,7 @@ namespace ETN_CPU_GPU_MINER
             myComputer.Open();
         }
         #endregion
+        #endregion
 
         #region Logger/Messager
 
@@ -955,7 +960,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void PushWorkStatusMessage(string message)
         {
-            if (message != null)
+            if (message != null && !message.Equals(""))
             {
                 string cleanMessage = RemoveAnsiEscapes(message);
                 m_sAggHashData += cleanMessage + "\r\n";
@@ -996,7 +1001,7 @@ namespace ETN_CPU_GPU_MINER
             // Get Process Arrays
             Process[] ArrProcessCPU = Process.GetProcessesByName("cpuminer");
             Process[] ArrProcessNV = Process.GetProcessesByName("ccminer");
-            Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd");
+            Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd-ETNCRAFT");
             Process[] ArrProcessNVXMR = Process.GetProcessesByName("xmr-stak-nvidia");
             Process[] ArrProcessCPUXMR = Process.GetProcessesByName("xmr-stak-cpu");
             Process[] ArrProcessCPUXMRETNCRAFT = Process.GetProcessesByName("xmr-stak-cpu-ETNCRAFT");
@@ -1043,6 +1048,7 @@ namespace ETN_CPU_GPU_MINER
             cboPool.SelectedIndex = 0;
             //pool_SelectedIndexChanged_1(cboPool, new EventArgs());
         }
+
 
         #endregion
 
