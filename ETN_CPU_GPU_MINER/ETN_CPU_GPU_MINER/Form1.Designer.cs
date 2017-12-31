@@ -100,6 +100,7 @@
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -484,6 +485,7 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Controls.Add(this.label18);
             this.groupBox9.Controls.Add(this.label17);
             this.groupBox9.Controls.Add(this.label16);
@@ -618,6 +620,11 @@
             resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
             // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -732,6 +739,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label19;
     }
 }
 
