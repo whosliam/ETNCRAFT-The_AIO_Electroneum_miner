@@ -70,8 +70,6 @@
             this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
             this.hyperthread = new System.Windows.Forms.CheckBox();
-            this.Label3 = new System.Windows.Forms.Label();
-            this.Label10 = new System.Windows.Forms.Label();
             this.xmr_notice = new System.Windows.Forms.Label();
             this.xmr_stak_perf_box = new System.Windows.Forms.ComboBox();
             this.stak_nvidia_perf = new System.Windows.Forms.Label();
@@ -92,6 +90,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.btnDeleteRegKeys = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -105,6 +113,11 @@
             this.tab_as.SuspendLayout();
             this.tbHelp.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -375,19 +388,13 @@
             // 
             // tab_as
             // 
-            this.tab_as.Controls.Add(this.chkDebug);
+            this.tab_as.Controls.Add(this.groupBox12);
+            this.tab_as.Controls.Add(this.label1);
             this.tab_as.Controls.Add(this.BtnLoadDefaultConfig);
-            this.tab_as.Controls.Add(this.chkAutoLoadConfig);
-            this.tab_as.Controls.Add(this.hyperthread);
-            this.tab_as.Controls.Add(this.Label3);
-            this.tab_as.Controls.Add(this.Label10);
-            this.tab_as.Controls.Add(this.xmr_notice);
-            this.tab_as.Controls.Add(this.xmr_stak_perf_box);
-            this.tab_as.Controls.Add(this.stak_nvidia_perf);
-            this.tab_as.Controls.Add(this.Label4);
-            this.tab_as.Controls.Add(this.miner_type);
             this.tab_as.Controls.Add(this.BtnLoadConfig);
             this.tab_as.Controls.Add(this.BtnSaveConfig);
+            this.tab_as.Controls.Add(this.groupBox10);
+            this.tab_as.Controls.Add(this.groupBox11);
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
@@ -417,16 +424,6 @@
             resources.ApplyResources(this.hyperthread, "hyperthread");
             this.hyperthread.Name = "hyperthread";
             this.hyperthread.UseVisualStyleBackColor = true;
-            // 
-            // Label3
-            // 
-            resources.ApplyResources(this.Label3, "Label3");
-            this.Label3.Name = "Label3";
-            // 
-            // Label10
-            // 
-            resources.ApplyResources(this.Label10, "Label10");
-            this.Label10.Name = "Label10";
             // 
             // xmr_notice
             // 
@@ -478,6 +475,8 @@
             // 
             // tbHelp
             // 
+            this.tbHelp.Controls.Add(this.groupBox14);
+            this.tbHelp.Controls.Add(this.groupBox13);
             this.tbHelp.Controls.Add(this.groupBox9);
             resources.ApplyResources(this.tbHelp, "tbHelp");
             this.tbHelp.Name = "tbHelp";
@@ -550,6 +549,75 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // btnDeleteRegKeys
+            // 
+            resources.ApplyResources(this.btnDeleteRegKeys, "btnDeleteRegKeys");
+            this.btnDeleteRegKeys.Name = "btnDeleteRegKeys";
+            this.btnDeleteRegKeys.UseVisualStyleBackColor = true;
+            this.btnDeleteRegKeys.Click += new System.EventHandler(this.btnDeleteRegKeys_Click);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.chkAutoLoadConfig);
+            resources.ApplyResources(this.groupBox10, "groupBox10");
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.TabStop = false;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.hyperthread);
+            this.groupBox11.Controls.Add(this.stak_nvidia_perf);
+            this.groupBox11.Controls.Add(this.Label4);
+            this.groupBox11.Controls.Add(this.xmr_notice);
+            this.groupBox11.Controls.Add(this.xmr_stak_perf_box);
+            this.groupBox11.Controls.Add(this.miner_type);
+            resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.TabStop = false;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
+            this.groupBox12.Controls.Add(this.chkDebug);
+            resources.ApplyResources(this.groupBox12, "groupBox12");
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.TabStop = false;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label3);
+            resources.ApplyResources(this.groupBox13, "groupBox13");
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.TabStop = false;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.label10);
+            this.groupBox14.Controls.Add(this.label8);
+            resources.ApplyResources(this.groupBox14, "groupBox14");
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.TabStop = false;
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -577,6 +645,16 @@
             this.tbHelp.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -601,8 +679,6 @@
         internal System.Windows.Forms.ComboBox cpuorgpu;
         internal System.Windows.Forms.TabPage tab_as;
         internal System.Windows.Forms.CheckBox hyperthread;
-        internal System.Windows.Forms.Label Label3;
-        internal System.Windows.Forms.Label Label10;
         internal System.Windows.Forms.Label xmr_notice;
         internal System.Windows.Forms.ComboBox xmr_stak_perf_box;
         internal System.Windows.Forms.Label stak_nvidia_perf;
@@ -646,6 +722,16 @@
         private System.Windows.Forms.Label lblGPUUsage;
         internal System.Windows.Forms.CheckBox chkDebug;
         private System.Windows.Forms.Button ClearMessagesButton;
+        private System.Windows.Forms.Button btnDeleteRegKeys;
+        internal System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.Label label3;
     }
 }
 

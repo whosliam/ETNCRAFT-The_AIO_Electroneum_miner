@@ -14,7 +14,7 @@ namespace ETN_CPU_GPU_MINER
     public partial class Form1 : Form
     {
         #region Global vars
-        public static string m_Version = "(V1.6.3)";
+        public static string m_Version = "(V1.7)";
         public bool b_FormLoaded = false;
         public static string m_sAggHashData = "";
         public static string m_MiningURL = "";
@@ -28,6 +28,8 @@ namespace ETN_CPU_GPU_MINER
         public bool m_bReadETNCRAFTULog = false;
         public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
         RegistryManager registryManager = new RegistryManager();
+        public int m_iTemperatureAlert = 90;
+        public bool m_bTempWarningModalIsOpen = false;
         //RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
         #endregion
 
@@ -37,8 +39,10 @@ namespace ETN_CPU_GPU_MINER
         {
             messager.InitializeMessager(logger);
             InitializeComponent();
+            //Set version in window header
+            this.Text = "ETNCRAFT" + m_Version;
+            this.Update();
             LoadPoolListFromWebsite();
-
             // Check Registry for AutoLoad
             PushStatusMessage("Checking for ETNCRAFT registry keys");
             if (registryManager.GetAutoLoad())
@@ -68,7 +72,7 @@ namespace ETN_CPU_GPU_MINER
             lbl_gpubrand.Visible = false;
             gpubrand.SelectedItem = gpubrand.Items[0];
             //Spool up timers
-            GetTemps();
+            InitTemps();
             //This is to keep the event handlers from firing when the form load. Just wrap functions in this.
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
@@ -81,7 +85,6 @@ namespace ETN_CPU_GPU_MINER
             registryManager.CloseRegistryKeys();
         }
 
-
         #endregion
 
         #region Control Handlers
@@ -90,6 +93,9 @@ namespace ETN_CPU_GPU_MINER
 
         private void BtnStartMining_Click(object sender, EventArgs e)
         {
+            //Init Registry Keys just in case dude man decided to delete them.
+            registryManager.Initialize();
+
             SaveConfig();
             registryManager.SetIsNewMiner(false);
             m_bDebugging = chkDebug.Checked;
@@ -383,7 +389,7 @@ namespace ETN_CPU_GPU_MINER
                 }
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
-                PushStatusMessage("Spawning ETNCRAFT-xmr-stak-cpu miner with hyper threading");
+                PushStatusMessage("Spawning ETNCRAFT CPU miner with hyper threading");
                 if (m_bDebugging)
                 {
                     Process process = Process.Start(new ProcessStartInfo()
@@ -445,7 +451,7 @@ namespace ETN_CPU_GPU_MINER
                 (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
                 #endregion
 
-                PushStatusMessage("Spawning ETNCRAFT miner");
+                PushStatusMessage("Spawning ETNCRAFT CPU miner");
                 if (m_bDebugging)
                 {
                     Process process = Process.Start(new ProcessStartInfo()
@@ -835,7 +841,46 @@ namespace ETN_CPU_GPU_MINER
         #region Temp/Uptime Timers etc
         void timer_Tick(object sender, EventArgs e)
         {
-            #region Temp Interval
+
+            GetSysTemp();
+            #region Timer in window header
+            //DONT BE LAZY LIAM! MAKE THIS WORK ELSEWHERE
+            WorkStatus.SelectionStart = WorkStatus.Text.Length;
+            WorkStatus.ScrollToCaret();
+
+            if (m_bStartTime)
+            {
+                this.Text = "ETNCRAFT" + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
+                this.Update();
+            }
+            #endregion
+        }
+        Computer myComputer;
+        Timer timer = new Timer { Enabled = true, Interval = 1000 };
+        public void InitTemps()
+        {
+
+            timer.Tick += new EventHandler(timer_Tick);
+
+            GetTemperature.System settings = new GetTemperature.System(new Dictionary<string, string>
+            {
+                { "/intelcpu/0/temperature/0/values", "H4sIAAAAAAAEAOy9B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcplVmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/Iu6//MH37x79i9/+NX6N3/TJm9/5f/01fw1+fosnv+A/+OlfS37/jZ/s/Lpv9fff6Ml/NTef/yZPnozc5679b+i193//TQZ+/w2Dd+P9/sZeX/67v/GTf/b3iP3u4/ObBL//73+i+f039+D8Zk/+xz/e/P6beu2TQZju8yH8f6OgzcvPv/U3/Rb8+z/0f/9b/+yfaOn8079X6fr6Cws7ln/iHzNwflPv99/wyS/+xY4+v/evcJ+733+jJ5//Cw7/4ndy9Im3+U2e/Fbnrk31C93vrt/fyPvdb+N//hsF7/4/AQAA//9NLZZ8WAIAAA==" },
+                { "/intelcpu/0/load/0/values", "H4sIAAAAAAAEAOy9B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcplVmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/Iu6//MH37x79i9++mpwcv/md/9df89egZ/xX/ym/5y/4D37618Lv7ya//u+58+u+5d9/z7/5t/w9/6u5fP5bH/6av+eTkXyefXxp26ONaf/v/dG/sf39D/rvnv4e5vc/0IP56/waK/vuHzf5I38P8/tv+mv8Rbb9f0pwTF9/zr/1X9vP/8I//+/6Pf7Z30N+/zdf/HX29zd/859q4aCNP5b//U+U3/+7f+zXOjZwfqvDX/V7/o9/vPz+a1G/pv0f+fGlhfk7eZ//N3/0v28//5X0u/n8Cxq7+f1X/tHft20A5x8a/W5/02+BP36Nf+j/nv8XfzrT+c2//Ob4p3+vktvUhNs/+xcWikP6e/4T/5jS5M8/sL8vP/5ff49f/Ivl9//sHzv6PX/vXyG//9R/94/9HuZ34P/5vyC//3W/5e/1exa/k+Bw4bUBnU2bP4Xg/1bn0uafeTH6PatfKL//N3/0t2y/gG9+/8+IzqYNxmU+/+jwX7afY67/nwAAAP//GYSA31gCAAA=" },
+            });
+
+            myComputer = new Computer(settings)
+            {
+                GPUEnabled = true,
+                CPUEnabled = true
+                //MainboardEnabled = true,
+                //RAMEnabled = true,
+                // FanControllerEnabled = true,
+                //HDDEnabled = true
+            };
+            myComputer.Open();
+        }
+        public void GetSysTemp()
+        {
             lblCPUTemp.Text = "";
             lblCPUUsage.Text = "";
             lblGPUTemp.Text = "";
@@ -853,7 +898,11 @@ namespace ETN_CPU_GPU_MINER
                     foreach (var sensor in hardwareItem.Sensors)
                     {
                         if (sensor.SensorType.Equals(SensorType.Temperature))
+                        {
                             lblCPUTemp.Text += (String.Format("{0} = {1}C", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
+                            if (sensor.Value > m_iTemperatureAlert)
+                                HighTempAlert(sensor.Name);
+                        }
                         else if (sensor.SensorType.Equals(SensorType.Load))
                             lblCPUUsage.Text += (String.Format("{0} = {1}%", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
 
@@ -867,7 +916,11 @@ namespace ETN_CPU_GPU_MINER
                     foreach (var sensor in hardwareItem.Sensors)
                     {
                         if (sensor.SensorType.Equals(SensorType.Temperature))
+                        {
                             lblGPUTemp.Text += (String.Format("{0} = {1}C", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
+                            if (sensor.Value > m_iTemperatureAlert)
+                                HighTempAlert(sensor.Name);
+                        }
                         else if (sensor.SensorType.Equals(SensorType.Load))
                             lblGPUUsage.Text += (String.Format("{0} = {1}%", sensor.Name, sensor.Value.HasValue ? sensor.Value.Value.ToString() : "no value") + "\r\n");
                     }
@@ -900,46 +953,22 @@ namespace ETN_CPU_GPU_MINER
             //        }
             //    }
             //}
-            #endregion
-
-            #endregion
-            #region Timer in window header
-            //DONT BE LAZY LIAM! MAKE THIS WORK ELSEWHERE
-            WorkStatus.SelectionStart = WorkStatus.Text.Length;
-            WorkStatus.ScrollToCaret();
-
-            if (m_bStartTime)
-            {
-                this.Text = "ETNCRAFT" + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
-                this.Update();
-            }
-            #endregion
-        }
-        Computer myComputer;
-        Timer timer = new Timer { Enabled = true, Interval = 1000 };
-        public void GetTemps()
-        {
-
-            timer.Tick += new EventHandler(timer_Tick);
-
-            GetTemperature.System settings = new GetTemperature.System(new Dictionary<string, string>
-            {
-                { "/intelcpu/0/temperature/0/values", "H4sIAAAAAAAEAOy9B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcplVmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/Iu6//MH37x79i9/+NX6N3/TJm9/5f/01fw1+fosnv+A/+OlfS37/jZ/s/Lpv9fff6Ml/NTef/yZPnozc5679b+i193//TQZ+/w2Dd+P9/sZeX/67v/GTf/b3iP3u4/ObBL//73+i+f039+D8Zk/+xz/e/P6beu2TQZju8yH8f6OgzcvPv/U3/Rb8+z/0f/9b/+yfaOn8079X6fr6Cws7ln/iHzNwflPv99/wyS/+xY4+v/evcJ+733+jJ5//Cw7/4ndy9Im3+U2e/Fbnrk31C93vrt/fyPvdb+N//hsF7/4/AQAA//9NLZZ8WAIAAA==" },
-                { "/intelcpu/0/load/0/values", "H4sIAAAAAAAEAOy9B2AcSZYlJi9tynt/SvVK1+B0oQiAYBMk2JBAEOzBiM3mkuwdaUcjKasqgcplVmVdZhZAzO2dvPfee++999577733ujudTif33/8/XGZkAWz2zkrayZ4hgKrIHz9+fB8/Iu6//MH37x79i9++mpwcv/md/9df89egZ/xX/ym/5y/4D37618Lv7ya//u+58+u+5d9/z7/5t/w9/6u5fP5bH/6av+eTkXyefXxp26ONaf/v/dG/sf39D/rvnv4e5vc/0IP56/waK/vuHzf5I38P8/tv+mv8Rbb9f0pwTF9/zr/1X9vP/8I//+/6Pf7Z30N+/zdf/HX29zd/859q4aCNP5b//U+U3/+7f+zXOjZwfqvDX/V7/o9/vPz+a1G/pv0f+fGlhfk7eZ//N3/0v28//5X0u/n8Cxq7+f1X/tHft20A5x8a/W5/02+BP36Nf+j/nv8XfzrT+c2//Ob4p3+vktvUhNs/+xcWikP6e/4T/5jS5M8/sL8vP/5ff49f/Ivl9//sHzv6PX/vXyG//9R/94/9HuZ34P/5vyC//3W/5e/1exa/k+Bw4bUBnU2bP4Xg/1bn0uafeTH6PatfKL//N3/0t2y/gG9+/8+IzqYNxmU+/+jwX7afY67/nwAAAP//GYSA31gCAAA=" },
-            });
-
-            myComputer = new Computer(settings)
-            {
-                GPUEnabled = true,
-                CPUEnabled = true
-                //MainboardEnabled = true,
-                //RAMEnabled = true,
-                // FanControllerEnabled = true,
-                //HDDEnabled = true
-            };
-            myComputer.Open();
         }
         #endregion
+
+        private void HighTempAlert(string sDevice)
+        {
+            if (!m_bTempWarningModalIsOpen && !registryManager.ReturnIgnoreTempWarnings())
+            {
+                m_bTempWarningModalIsOpen = true;
+                DialogResult UserInput = MessageBox.Show(sDevice + " Temps are above " + m_iTemperatureAlert.ToString() + " degrees!\r\nConsider turning fan speeds higher.\r\nIgnore warnings?", "WARNING!", MessageBoxButtons.YesNo);
+                if (UserInput.Equals(DialogResult.Yes))
+                    registryManager.SetIgnoreTempWarnings(true);
+                else
+                    registryManager.SetIgnoreTempWarnings(false);
+            }
+
+        }
         #endregion
 
         #region Logger/Messager
@@ -1049,8 +1078,14 @@ namespace ETN_CPU_GPU_MINER
             //pool_SelectedIndexChanged_1(cboPool, new EventArgs());
         }
 
+        #endregion
 
         #endregion
 
+        private void btnDeleteRegKeys_Click(object sender, EventArgs e)
+        {
+            string sTest = registryManager.DeleteRegistryKey();
+            MessageBox.Show(sTest,"ETNCRAFT Services");
+        }
     }
 }
