@@ -1,10 +1,10 @@
-## Welcome to ETNCRAFT - The AIO Electroneum miner 
+# Welcome to ETNCRAFT - The AIO Electroneum miner 
 
 This is an ongoing project that we hope to spawn into something bigger!
 We are hard at work making this GUI as user friendly as possible.
 Feel free to send us a message if you have any ideas or features you would like to see.
 
-FEATURES
+## FEATURES
 * Hardware temperature monitoring with alerts above 90 degrees
 * Pool/Hash information embedded into application
 * Auto load configuration
