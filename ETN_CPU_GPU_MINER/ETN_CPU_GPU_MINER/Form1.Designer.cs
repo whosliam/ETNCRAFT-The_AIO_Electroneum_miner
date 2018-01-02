@@ -66,19 +66,30 @@
             this.lbl_threads = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.btnDeleteRegKeys = new System.Windows.Forms.Button();
             this.chkDebug = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
-            this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
-            this.hyperthread = new System.Windows.Forms.CheckBox();
-            this.xmr_notice = new System.Windows.Forms.Label();
-            this.xmr_stak_perf_box = new System.Windows.Forms.ComboBox();
-            this.stak_nvidia_perf = new System.Windows.Forms.Label();
-            this.Label4 = new System.Windows.Forms.Label();
-            this.miner_type = new System.Windows.Forms.ComboBox();
             this.BtnLoadConfig = new System.Windows.Forms.Button();
             this.BtnSaveConfig = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.hyperthread = new System.Windows.Forms.CheckBox();
+            this.stak_nvidia_perf = new System.Windows.Forms.Label();
+            this.Label4 = new System.Windows.Forms.Label();
+            this.xmr_notice = new System.Windows.Forms.Label();
+            this.xmr_stak_perf_box = new System.Windows.Forms.ComboBox();
+            this.miner_type = new System.Windows.Forms.ComboBox();
             this.tbHelp = new System.Windows.Forms.TabPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -90,17 +101,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.btnDeleteRegKeys = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -112,13 +112,13 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tab_as.SuspendLayout();
-            this.tbHelp.SuspendLayout();
-            this.groupBox9.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox11.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.groupBox13.SuspendLayout();
+            this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -400,11 +400,31 @@
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
             // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
+            this.groupBox12.Controls.Add(this.chkDebug);
+            resources.ApplyResources(this.groupBox12, "groupBox12");
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.TabStop = false;
+            // 
+            // btnDeleteRegKeys
+            // 
+            resources.ApplyResources(this.btnDeleteRegKeys, "btnDeleteRegKeys");
+            this.btnDeleteRegKeys.Name = "btnDeleteRegKeys";
+            this.btnDeleteRegKeys.UseVisualStyleBackColor = true;
+            this.btnDeleteRegKeys.Click += new System.EventHandler(this.btnDeleteRegKeys_Click);
+            // 
             // chkDebug
             // 
             resources.ApplyResources(this.chkDebug, "chkDebug");
             this.chkDebug.Name = "chkDebug";
             this.chkDebug.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // BtnLoadDefaultConfig
             // 
@@ -413,6 +433,27 @@
             this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
             this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
             // 
+            // BtnLoadConfig
+            // 
+            resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
+            this.BtnLoadConfig.Name = "BtnLoadConfig";
+            this.BtnLoadConfig.UseVisualStyleBackColor = true;
+            this.BtnLoadConfig.Click += new System.EventHandler(this.BtnLoadConfig_Click);
+            // 
+            // BtnSaveConfig
+            // 
+            resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
+            this.BtnSaveConfig.Name = "BtnSaveConfig";
+            this.BtnSaveConfig.UseVisualStyleBackColor = true;
+            this.BtnSaveConfig.Click += new System.EventHandler(this.BtnSaveConfig_Click);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.chkAutoLoadConfig);
+            resources.ApplyResources(this.groupBox10, "groupBox10");
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.TabStop = false;
+            // 
             // chkAutoLoadConfig
             // 
             resources.ApplyResources(this.chkAutoLoadConfig, "chkAutoLoadConfig");
@@ -420,11 +461,33 @@
             this.chkAutoLoadConfig.UseVisualStyleBackColor = true;
             this.chkAutoLoadConfig.CheckedChanged += new System.EventHandler(this.chkAutoLoadConfig_CheckedChanged);
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.hyperthread);
+            this.groupBox11.Controls.Add(this.stak_nvidia_perf);
+            this.groupBox11.Controls.Add(this.Label4);
+            this.groupBox11.Controls.Add(this.xmr_notice);
+            this.groupBox11.Controls.Add(this.xmr_stak_perf_box);
+            this.groupBox11.Controls.Add(this.miner_type);
+            resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.TabStop = false;
+            // 
             // hyperthread
             // 
             resources.ApplyResources(this.hyperthread, "hyperthread");
             this.hyperthread.Name = "hyperthread";
             this.hyperthread.UseVisualStyleBackColor = true;
+            // 
+            // stak_nvidia_perf
+            // 
+            resources.ApplyResources(this.stak_nvidia_perf, "stak_nvidia_perf");
+            this.stak_nvidia_perf.Name = "stak_nvidia_perf";
+            // 
+            // Label4
+            // 
+            resources.ApplyResources(this.Label4, "Label4");
+            this.Label4.Name = "Label4";
             // 
             // xmr_notice
             // 
@@ -442,16 +505,6 @@
             this.xmr_stak_perf_box.Name = "xmr_stak_perf_box";
             this.xmr_stak_perf_box.SelectedIndexChanged += new System.EventHandler(this.xmr_stak_perf_box_SelectedIndexChanged);
             // 
-            // stak_nvidia_perf
-            // 
-            resources.ApplyResources(this.stak_nvidia_perf, "stak_nvidia_perf");
-            this.stak_nvidia_perf.Name = "stak_nvidia_perf";
-            // 
-            // Label4
-            // 
-            resources.ApplyResources(this.Label4, "Label4");
-            this.Label4.Name = "Label4";
-            // 
             // miner_type
             // 
             this.miner_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -459,20 +512,6 @@
             resources.ApplyResources(this.miner_type, "miner_type");
             this.miner_type.Name = "miner_type";
             this.miner_type.SelectedIndexChanged += new System.EventHandler(this.miner_type_SelectedIndexChanged_1);
-            // 
-            // BtnLoadConfig
-            // 
-            resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
-            this.BtnLoadConfig.Name = "BtnLoadConfig";
-            this.BtnLoadConfig.UseVisualStyleBackColor = true;
-            this.BtnLoadConfig.Click += new System.EventHandler(this.BtnLoadConfig_Click);
-            // 
-            // BtnSaveConfig
-            // 
-            resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
-            this.BtnSaveConfig.Name = "BtnSaveConfig";
-            this.BtnSaveConfig.UseVisualStyleBackColor = true;
-            this.BtnSaveConfig.Click += new System.EventHandler(this.BtnSaveConfig_Click);
             // 
             // tbHelp
             // 
@@ -482,6 +521,36 @@
             resources.ApplyResources(this.tbHelp, "tbHelp");
             this.tbHelp.Name = "tbHelp";
             this.tbHelp.UseVisualStyleBackColor = true;
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.label10);
+            this.groupBox14.Controls.Add(this.label8);
+            resources.ApplyResources(this.groupBox14, "groupBox14");
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.TabStop = false;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label3);
+            resources.ApplyResources(this.groupBox13, "groupBox13");
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.TabStop = false;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
             // 
             // groupBox9
             // 
@@ -498,6 +567,11 @@
             resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.TabStop = false;
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
             // 
             // label18
             // 
@@ -551,80 +625,6 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
-            // btnDeleteRegKeys
-            // 
-            resources.ApplyResources(this.btnDeleteRegKeys, "btnDeleteRegKeys");
-            this.btnDeleteRegKeys.Name = "btnDeleteRegKeys";
-            this.btnDeleteRegKeys.UseVisualStyleBackColor = true;
-            this.btnDeleteRegKeys.Click += new System.EventHandler(this.btnDeleteRegKeys_Click);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.chkAutoLoadConfig);
-            resources.ApplyResources(this.groupBox10, "groupBox10");
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.TabStop = false;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.hyperthread);
-            this.groupBox11.Controls.Add(this.stak_nvidia_perf);
-            this.groupBox11.Controls.Add(this.Label4);
-            this.groupBox11.Controls.Add(this.xmr_notice);
-            this.groupBox11.Controls.Add(this.xmr_stak_perf_box);
-            this.groupBox11.Controls.Add(this.miner_type);
-            resources.ApplyResources(this.groupBox11, "groupBox11");
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.TabStop = false;
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
-            this.groupBox12.Controls.Add(this.chkDebug);
-            resources.ApplyResources(this.groupBox12, "groupBox12");
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.TabStop = false;
-            // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBox13, "groupBox13");
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.TabStop = false;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.label10);
-            this.groupBox14.Controls.Add(this.label8);
-            resources.ApplyResources(this.groupBox14, "groupBox14");
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.TabStop = false;
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // label19
-            // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -649,19 +649,19 @@
             this.groupBox2.PerformLayout();
             this.tab_as.ResumeLayout(false);
             this.tab_as.PerformLayout();
-            this.tbHelp.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
+            this.tbHelp.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
 
         }

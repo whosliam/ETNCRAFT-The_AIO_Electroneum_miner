@@ -1027,38 +1027,18 @@ namespace ETN_CPU_GPU_MINER
 
         private void EndProcesses()
         {
-            // Get Process Arrays
-            Process[] ArrProcessCPU = Process.GetProcessesByName("cpuminer");
-            Process[] ArrProcessNV = Process.GetProcessesByName("ccminer");
-            Process[] ArrProcessAMD = Process.GetProcessesByName("xmr-stak-amd-ETNCRAFT");
-            Process[] ArrProcessNVXMR = Process.GetProcessesByName("xmr-stak-nvidia");
-            Process[] ArrProcessCPUXMR = Process.GetProcessesByName("xmr-stak-cpu");
-            Process[] ArrProcessCPUXMRETNCRAFT = Process.GetProcessesByName("xmr-stak-cpu-ETNCRAFT");
-
-            // Build Aggregate Process Array
-            int ProcessCount = ArrProcessCPU.Length + ArrProcessNV.Length + ArrProcessAMD.Length + ArrProcessNVXMR.Length + ArrProcessCPUXMR.Length + ArrProcessCPUXMRETNCRAFT.Length;
-            Process[] ArrProcesses = new Process[ProcessCount];
-            int CopyStartInd = 0;
-            ArrProcessCPU.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessCPU.Length;
-            ArrProcessNV.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessNV.Length;
-            ArrProcessAMD.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessAMD.Length;
-            ArrProcessNVXMR.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessNVXMR.Length;
-            ArrProcessCPUXMR.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessCPUXMR.Length;
-            ArrProcessCPUXMRETNCRAFT.CopyTo(ArrProcesses, CopyStartInd);
-            CopyStartInd += ArrProcessCPUXMRETNCRAFT.Length;
-
-            // Kill Processes
-            foreach (Process p in ArrProcesses)
+            Process[] localAll = Process.GetProcesses();
+            foreach (Process p in localAll)
             {
-                PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
-                p.Kill();
+                //Kill XMR miners, ccminer & cpuminer
+                if (p.ProcessName.Contains("xmr") || p.ProcessName.Contains("miner"))
+                {
+                    PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
+                    p.Kill();
+                    PushStatusMessage(p.ProcessName + " Process Killed!");
+
+                }
             }
-            PushStatusMessage("All Processes Killed!");
         }
 
         private void LoadPoolListFromWebsite()
@@ -1087,5 +1067,6 @@ namespace ETN_CPU_GPU_MINER
             string sTest = registryManager.DeleteRegistryKey();
             MessageBox.Show(sTest,"ETNCRAFT Services");
         }
+
     }
 }
