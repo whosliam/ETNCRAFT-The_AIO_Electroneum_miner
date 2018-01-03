@@ -14,22 +14,25 @@ namespace ETN_CPU_GPU_MINER
     public partial class Form1 : Form
     {
         #region Global vars
-        public static string m_Version = "(V1.7.1)";
-        public bool b_FormLoaded = false;
+        public static string m_Version; //= "(V1.7.1)";        
         public static string m_sAggHashData = "";
         public static string m_MiningURL = "";
         public static string m_PoolWebsiteURL = "";
+        public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
+
+        public bool b_FormLoaded = false;
         public bool m_bStartTime = false;
         public bool m_bDebugging = false;
+        public bool m_bReadETNCRAFTULog = false;
+        public bool m_bTempWarningModalIsOpen = false;
+
         private Stopwatch stopwatch = new Stopwatch();
         private Logger logger = new Logger("ETN_Craft");
         private Logger loggerPool = new Logger("ETN_Craft_Pool");
-        private Messager messager = new Messager();
-        public bool m_bReadETNCRAFTULog = false;
-        public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
-        RegistryManager registryManager = new RegistryManager();
+        private Messager messager = new Messager();             
+        private RegistryManager registryManager = new RegistryManager();
         public int m_iTemperatureAlert = 90;
-        public bool m_bTempWarningModalIsOpen = false;
+        
         //RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
         #endregion
 
@@ -37,28 +40,31 @@ namespace ETN_CPU_GPU_MINER
 
         public Form1()
         {
+            m_Version = registryManager.GetVersion();
             messager.InitializeMessager(logger);
             InitializeComponent();
+
             //Set version in window header
-            this.Text = "ETNCRAFT" + m_Version;
+            this.Text = "ETNCRAFT (" + m_Version + ")";
             this.Update();
             LoadPoolListFromWebsite();
+
             // Check Registry for AutoLoad
             PushStatusMessage("Checking for ETNCRAFT registry keys");
             if (registryManager.GetAutoLoad())
             {
                 PushStatusMessage("AutoLoad registry key loaded (true)");
                 LoadConfig("config_templates/ENTCRAFT.mcf");
+                LoadRegistryConfig();
             }
             else
             {
                 PushStatusMessage("AutoLoad registry key loaded (false)");
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
             }
-            chkAutoLoadConfig.Checked = registryManager.GetAutoLoad();
-
+            
             // Check Registry for NewMiner
-            if (registryManager.GetIsNewMiner())
+            if (registryManager.GetNewMiner())
             {
                 PushStatusMessage("Welcome New Miner!");
                 DialogResult UserInput = MessageBox.Show("Welcome new miner!\r\nThe help tab has been pre selected.\r\nPlease read and follow the directions.", "WELCOME!", MessageBoxButtons.OK);
@@ -97,7 +103,7 @@ namespace ETN_CPU_GPU_MINER
             registryManager.Initialize();
 
             SaveConfig();
-            registryManager.SetIsNewMiner(false);
+            registryManager.SetNewMiner(false);
             m_bDebugging = chkDebug.Checked;
 
             if (!IsWalletValid())
@@ -766,6 +772,7 @@ namespace ETN_CPU_GPU_MINER
             }
             PushStatusMessage("AutoLoad registry key updated.");
         }
+    
         #endregion
 
         #endregion
@@ -774,9 +781,17 @@ namespace ETN_CPU_GPU_MINER
 
         #region Config/Registry
 
+        private void LoadRegistryConfig()
+        {
+            PushStatusMessage("Loading ETNCRAFT config from registry");
+            wallet_address.Text = registryManager.GetWalletId();
+
+            chkAutoLoadConfig.Checked = registryManager.GetAutoLoad();
+        }
+
         private void LoadConfig(string sConfigFilePath)
         {
-            PushStatusMessage("Loading ETNCRAFT config");
+            PushStatusMessage("Loading ETNCRAFT config from " + sConfigFilePath);
             try
             {
                 string[] config_contents_load = File.ReadAllLines(sConfigFilePath);
@@ -785,12 +800,13 @@ namespace ETN_CPU_GPU_MINER
                 txtCustomPool.Text = config_contents_load[2];
                 cboPool.SelectedValue = config_contents_load[3];
                 port.Text = config_contents_load[4];
+                threads.Text = config_contents_load[5];
                 cpuorgpu.SelectedItem = config_contents_load[6];
                 gpubrand.SelectedItem = config_contents_load[7];
-                miner_type.SelectedItem = config_contents_load[10];
                 xmr_stak_perf_box.SelectedItem = config_contents_load[8];
-                threads.Text = config_contents_load[5];
                 string ht_checkstate = config_contents_load[9];
+                miner_type.SelectedItem = config_contents_load[10];
+
                 if (ht_checkstate == "yes")
                     hyperthread.Checked = true;
                 else if (ht_checkstate == "no")
@@ -805,6 +821,8 @@ namespace ETN_CPU_GPU_MINER
 
         private void SaveConfig()
         {
+            registryManager.SetWalletId(wallet_address.Text);
+
             File.Delete("config_templates\\ENTCRAFT.mcf");
             File.Create("config_templates\\ENTCRAFT.mcf").Dispose();
 
@@ -813,7 +831,8 @@ namespace ETN_CPU_GPU_MINER
                 ht_checkstate = "yes";
             else if (hyperthread.Checked == false)
                 ht_checkstate = "no";
-            string config_contents_save = wallet_address.Text.Replace(" ", "") + Constants.vbNewLine + System.Convert.ToString(cboPool.SelectedItem) + Constants.vbNewLine + txtCustomPool.Text + Constants.vbNewLine + m_MiningURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
+            string config_contents_save = "" + Constants.vbNewLine + 
+                System.Convert.ToString(cboPool.SelectedItem) + Constants.vbNewLine + txtCustomPool.Text + Constants.vbNewLine + m_MiningURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
             (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config_templates\\ENTCRAFT.mcf", config_contents_save, true);
             PushStatusMessage("ENTCRAFT.mcf deleted & recreated");
 

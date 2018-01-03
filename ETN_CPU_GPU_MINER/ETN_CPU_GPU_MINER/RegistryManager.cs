@@ -10,7 +10,7 @@ namespace ETN_CPU_GPU_MINER
         private RegistryKey localMachine;
         private RegistryKey etnCraftAppKey;
 
-        private string versionNum                       = "1.7.1";
+        private string VERSION_NUM                      = "1.7.1";
 
         private string AUTO_LOAD_KEY_NAME               = "AutoLoad";
         private string NEW_MINER_KEY_NAME               = "NewMiner";
@@ -49,7 +49,7 @@ namespace ETN_CPU_GPU_MINER
                 etnCraftAppKey.SetValue(WALLET_ID_KEY_NAME, walletIdDefault);
 
             if (etnCraftAppKey.GetValue(VERSION_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(VERSION_KEY_NAME, versionNum);
+                etnCraftAppKey.SetValue(VERSION_KEY_NAME, VERSION_NUM);
 
             etnCraftAppKey.Close();
             etnCraftAppKey = localMachine.OpenSubKey(SUBKEY_TREE, true);
@@ -77,12 +77,12 @@ namespace ETN_CPU_GPU_MINER
             etnCraftAppKey.SetValue(IGNORE_TEMP_WARNINGS_KEY_NAME, Ignore);
         }
 
-        public bool GetIsNewMiner()
+        public bool GetNewMiner()
         {
             return Convert.ToBoolean(etnCraftAppKey.GetValue(NEW_MINER_KEY_NAME));
         }
 
-        public void SetIsNewMiner(bool isNewMiner)
+        public void SetNewMiner(bool isNewMiner)
         {
             etnCraftAppKey.SetValue(NEW_MINER_KEY_NAME, isNewMiner);
         }
