@@ -14,7 +14,7 @@ namespace ETN_CPU_GPU_MINER
     public partial class Form1 : Form
     {
         #region Global vars
-        public static string m_Version = "(V1.7)";
+        public static string m_Version = "(V1.7.1)";
         public bool b_FormLoaded = false;
         public static string m_sAggHashData = "";
         public static string m_MiningURL = "";
@@ -958,7 +958,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void HighTempAlert(string sDevice)
         {
-            if (!m_bTempWarningModalIsOpen && !registryManager.ReturnIgnoreTempWarnings())
+            if (!m_bTempWarningModalIsOpen && !registryManager.GetIgnoreTempWarnings())
             {
                 m_bTempWarningModalIsOpen = true;
                 DialogResult UserInput = MessageBox.Show(sDevice + " Temps are above " + m_iTemperatureAlert.ToString() + " degrees!\r\nConsider turning fan speeds higher.\r\nIgnore warnings?", "WARNING!", MessageBoxButtons.YesNo);
