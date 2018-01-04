@@ -15,7 +15,10 @@ namespace ETN_CPU_GPU_MINER
         private string AUTO_LOAD_KEY_NAME               = "AutoLoad";
         private string NEW_MINER_KEY_NAME               = "NewMiner";
         private string VERSION_KEY_NAME                 = "Version";
+
         private string WALLET_ID_KEY_NAME               = "WalletId";
+        private string PORT_KEY_NAME                    = "Port";
+        private string POOL_KEY_NAME                    = "Pool";
         private string IGNORE_TEMP_WARNINGS_KEY_NAME    = "IgnoreTempWarnings";
         private string SUBKEY_TREE                      = "SOFTWARE\\ETNCRAFT";
 
