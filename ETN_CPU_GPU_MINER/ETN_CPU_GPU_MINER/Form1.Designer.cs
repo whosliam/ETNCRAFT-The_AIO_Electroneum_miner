@@ -315,10 +315,10 @@
             this.cpuorgpu.FormattingEnabled = true;
             this.cpuorgpu.Items.AddRange(new object[] {
             resources.GetString("cpuorgpu.Items"),
-            resources.GetString("cpuorgpu.Items1")});
+            resources.GetString("cpuorgpu.Items1"),
+            resources.GetString("cpuorgpu.Items2")});
             resources.ApplyResources(this.cpuorgpu, "cpuorgpu");
             this.cpuorgpu.Name = "cpuorgpu";
-            this.cpuorgpu.SelectedIndexChanged += new System.EventHandler(this.cpuorgpu_SelectedIndexChanged_1);
             // 
             // label11
             // 

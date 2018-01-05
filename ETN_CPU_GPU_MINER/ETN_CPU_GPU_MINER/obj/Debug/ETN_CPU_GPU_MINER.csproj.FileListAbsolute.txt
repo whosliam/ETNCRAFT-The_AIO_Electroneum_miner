@@ -51,7 +51,6 @@ C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER
 C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb
 C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe
 C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
-C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\OpenHardwareMonitorLib.dll
 C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
 C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Form1.resources
 C:\Projects\Liam\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Properties.Resources.resources

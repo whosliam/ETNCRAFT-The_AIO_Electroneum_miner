@@ -800,6 +800,9 @@
   <data name="cpuorgpu.Items1" xml:space="preserve">
     <value>GPU</value>
   </data>
+  <data name="cpuorgpu.Items2" xml:space="preserve">
+    <value>CPU &amp; GPU</value>
+  </data>
   <data name="cpuorgpu.Location" type="System.Drawing.Point, System.Drawing">
     <value>75, 14</value>
   </data>

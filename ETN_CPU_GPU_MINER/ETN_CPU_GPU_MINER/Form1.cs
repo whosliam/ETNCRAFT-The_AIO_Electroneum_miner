@@ -124,7 +124,7 @@ namespace ETN_CPU_GPU_MINER
                 File.Create(sConfig_File_Name).Dispose();
             #endregion
             #region push msg
-            PushStatusMessage(sComponent + " config.txt created");
+            PushStatusMessage("config created for " + sComponent);
             #endregion
             #region  copy template to new config.txt
             File.Copy(sConfig_Template_File_Name, sConfig_File_Name, true);
@@ -139,14 +139,23 @@ namespace ETN_CPU_GPU_MINER
             //ADD THREAD MODIFICATIONS HERE FOR CPU & GPU -- If we decide to make this configurable again with new miner stak
             #endregion
             #region Spawn miner
-            PushStatusMessage("Spawning ETNCRAFT " + sComponent + " miner");
-            string sFileName = Application.StartupPath + "\\app_assets\\ETNCRAFT_" + sComponent + ".exe";
+            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent);
+            #region Arguments
+            string sArgs = "";
+            if (sComponent.Equals("CPU"))
+                sArgs = "--noGPU";
+            else if (sComponent.Equals("GPU"))
+                sArgs = "--noCPU";
+            #endregion
+
+            string sFileName = Application.StartupPath + "\\app_assets\\etncraft-xmr.exe";
             string sWorkingDirectory = Application.StartupPath + "\\app_assets";
             if (m_bDebugging)
             {
                 Process process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = sFileName,
+                    Arguments = sArgs,
                     WorkingDirectory = sWorkingDirectory
                 });
             }
@@ -157,16 +166,19 @@ namespace ETN_CPU_GPU_MINER
                     FileName = sFileName,
                     WorkingDirectory = sWorkingDirectory,
                     UseShellExecute = false,
+                    Arguments = sArgs,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 });
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(sComponent + "> " + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
                 process.BeginOutputReadLine();
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(sComponent + "> " + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
                 process.BeginErrorReadLine();
             }
             #endregion
+            StartMining.Enabled = false;
+            //BtnStopMining.Enabled = true;
         }
         private void BtnStopMining_Click(object sender, EventArgs e)
         {
@@ -237,24 +249,24 @@ namespace ETN_CPU_GPU_MINER
 
         #region DropDown Handlers
 
-        private void cpuorgpu_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1])
-            {
-                //change threadcount to gpu count
-                //lbl_threads.Text = "GPU Count:";
-                //threads.Text = "1";
-                port.Text = "5555";
-            }
+        //private void cpuorgpu_SelectedIndexChanged_1(object sender, EventArgs e)
+        //{
+        //    if (cpuorgpu.SelectedItem == cpuorgpu.Items[1])
+        //    {
+        //        //change threadcount to gpu count
+        //        //lbl_threads.Text = "GPU Count:";
+        //        //threads.Text = "1";
+        //        port.Text = "5555";
+        //    }
 
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[0])
-            {
-                //change threadcount to gpu count
-                //lbl_threads.Text = "Thread Count:";
-                //threads.Text = "4";
-            }
+        //    if (cpuorgpu.SelectedItem == cpuorgpu.Items[0])
+        //    {
+        //        //change threadcount to gpu count
+        //        //lbl_threads.Text = "Thread Count:";
+        //        //threads.Text = "4";
+        //    }
 
-        }
+        //}
 
         private void pool_SelectedIndexChanged_1(object sender, EventArgs e)
         {
