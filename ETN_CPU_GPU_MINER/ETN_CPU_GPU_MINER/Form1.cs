@@ -29,10 +29,10 @@ namespace ETN_CPU_GPU_MINER
         private Stopwatch stopwatch = new Stopwatch();
         private Logger logger = new Logger("ETN_Craft");
         private Logger loggerPool = new Logger("ETN_Craft_Pool");
-        private Messager messager = new Messager();             
+        private Messager messager = new Messager();
         private RegistryManager registryManager = new RegistryManager();
         public int m_iTemperatureAlert = 90;
-        
+
         //RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
         #endregion
 
@@ -62,7 +62,7 @@ namespace ETN_CPU_GPU_MINER
                 PushStatusMessage("AutoLoad registry key loaded (false)");
                 LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
             }
-            
+
             // Check Registry for NewMiner
             if (registryManager.GetNewMiner())
             {
@@ -72,11 +72,7 @@ namespace ETN_CPU_GPU_MINER
                 tabs.SelectedTab = tbHelp;
             }
 
-            xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
             cpuorgpu.SelectedItem = cpuorgpu.Items[0];
-            gpubrand.Visible = false;
-            lbl_gpubrand.Visible = false;
-            gpubrand.SelectedItem = gpubrand.Items[0];
             //Spool up timers
             InitTemps();
             //This is to keep the event handlers from firing when the form load. Just wrap functions in this.
@@ -101,392 +97,12 @@ namespace ETN_CPU_GPU_MINER
         {
             //Init Registry Keys just in case dude man decided to delete them.
             registryManager.Initialize();
-
             SaveConfig();
             registryManager.SetNewMiner(false);
             m_bDebugging = chkDebug.Checked;
-
             if (!IsWalletValid())
                 return;
-
-            if (double.Parse(threads.Text) <= 1)
-                threads.Text = "1";
-
-            #region CPU MINER
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
-            {
-                PushStatusMessage("Spawning cpuminer");
-                if (m_bDebugging)
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\cpuminer.exe",
-                        Arguments = "-a cryptonight -o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets"
-                    });
-                }
-                else
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\cpuminer.exe",
-                        Arguments = "-a cryptonight -o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out> " + eOut.Data);
-                    process.BeginOutputReadLine();
-
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err> " + eErr.Data);
-                    process.BeginErrorReadLine();
-                }
-            }
-            #endregion
-
-            #region CC MINER - GPU Nvidia
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[1])
-            {
-                PushStatusMessage("Spawning ccminer");
-                if (m_bDebugging)
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\ccminer.exe",
-                        Arguments = "-o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets"
-                    });
-
-                }
-                else
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\ccminer.exe",
-                        Arguments = "-o stratum+tcp://" + m_MiningURL + ":" + port.Text + " -u " + wallet_address.Text.Replace(" ", "") + " -p x -t " + threads.Text + "pause",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
-                    process.BeginOutputReadLine();
-
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
-                    process.BeginErrorReadLine();
-                }
-            }
-            #endregion
-
-            #region XMR STAK AMD MINER
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[1])
-            {
-                #region UPDATE CONFIG
-                string FILE_NAME_AMD = "app_assets/config.txt";
-                if (File.Exists(FILE_NAME_AMD) == false)
-                {
-                    File.Create(FILE_NAME_AMD).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                else
-                {
-                    File.Delete(FILE_NAME_AMD);
-                    PushStatusMessage("old config.txt deleted");
-                    File.Create(FILE_NAME_AMD).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                File.Copy(@"config_templates/config-template-amd.txt", @"app_assets/config.txt", true);
-                //This can done way better but i can't be assed
-                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-                int index = System.Convert.ToInt32(threads.Text);
-                while (index <= 15)
-                {
-                    fileReader = fileReader.Replace("{ \"index\" : " + Convert.ToString(index) + ", \"intensity\" : 1000, \"worksize\" : 8, \"affine_to_cpu\" : false },", "");
-                    index++;
-                }
-                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-                #endregion
-                PushStatusMessage("Spawning xmr-stak-amd-ETNCRAFT miner");
-                if (m_bDebugging)
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd-ETNCRAFT.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets"
-                    });
-
-                }
-                else
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-amd-ETNCRAFT.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
-                    process.BeginOutputReadLine();
-
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
-                    process.BeginErrorReadLine();
-                }
-            }
-            #endregion 
-
-            #region XMR STAK NVIDIA MINER with standard PERF
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[0])
-            {
-                #region UPDATE CONFIG
-                string FILE_NAME_NV = "app_assets/config.txt";
-                if (File.Exists(FILE_NAME_NV) == false)
-                {
-                    File.Create(FILE_NAME_NV).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                else
-                {
-                    File.Delete(FILE_NAME_NV);
-                    PushStatusMessage("old config.txt deleted");
-                    File.Create(FILE_NAME_NV).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                File.Copy(@"config_templates/config-template-nv.txt", @"app_assets/config.txt", true);
-                //This can done way better but i can't be assed
-                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-                int index = System.Convert.ToInt32(threads.Text);
-                while (index <= 15)
-                {
-                    fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ",\"threads\" : 16, \"blocks\" : 14,\"bfactor\" : 6, \"bsleep\" :  25,\"affine_to_cpu\" : false,},", "");
-                    index++;
-                }
-                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-                #endregion
-                PushStatusMessage("Spawning xmr-stak-nvidia miner");
-                if (m_bDebugging)
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-nvidia.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets"
-                    });
-
-                }
-                else
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-nvidia.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
-                    process.BeginOutputReadLine();
-
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
-                    process.BeginErrorReadLine();
-                }
-            }
-            #endregion
-
-            #region XMR STAK NVIDIA MINER with High PERF 
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && xmr_stak_perf_box.SelectedItem == xmr_stak_perf_box.Items[1])
-            {
-                #region UPDATE CONFIG
-                string FILE_NAME_NV = "app_assets/config.txt";
-                if (File.Exists(FILE_NAME_NV) == false)
-                {
-                    File.Create(FILE_NAME_NV).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                else
-                {
-                    File.Delete(FILE_NAME_NV);
-                    PushStatusMessage("old config.txt deleted");
-                    File.Create(FILE_NAME_NV).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                File.Copy(@"config_templates/config-template-nv-hp.txt", @"app_assets/config.txt", true);
-                //This can done way better but i can't be assed
-                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-                int index = System.Convert.ToInt32(threads.Text);
-                while (index <= 15)
-                {
-                    fileReader = fileReader.Replace("{ \"index\" : " + System.Convert.ToString(index) + ",\"threads\" : 32, \"blocks\" : 27,\"bfactor\" : 6, \"bsleep\" :  25,\"affine_to_cpu\" : false,},", "");
-                    index++;
-                }
-                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-                #endregion
-                PushStatusMessage("Spawning xmr-stak-nvidia miner with high perf.");
-                if (m_bDebugging)
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-nvidia.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets"
-                    });
-
-                }
-                else
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-nvidia.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("gpu out>" + eOut.Data);
-                    process.BeginOutputReadLine();
-
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("gpu err>" + eErr.Data);
-                    process.BeginErrorReadLine();
-                }
-            }
-            #endregion
-
-            #region ETNCRAFT XMR STAK CPU MINER with hyper threading
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == true)
-            {
-                #region UPDATE CONFIG
-                string FILE_NAME_CPU = "app_assets/config.txt";
-                if (File.Exists(FILE_NAME_CPU) == false)
-                {
-                    File.Create(FILE_NAME_CPU).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                else
-                {
-                    File.Delete(FILE_NAME_CPU);
-                    PushStatusMessage("old config.txt deleted");
-                    File.Create(FILE_NAME_CPU).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                File.Copy(@"config_templates/config-template-etncraft-cpu.txt", @"app_assets/config.txt", true);
-                //This can done way better but i can't be assed
-                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-                int index = System.Convert.ToInt32((double.Parse(threads.Text) * 2) - 1);
-                while (index <= 14)
-                {
-                    fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : false, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
-                    index++;
-                }
-                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-                #endregion
-                PushStatusMessage("Spawning ETNCRAFT CPU miner with hyper threading");
-                if (m_bDebugging)
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets"
-                    });
-
-                }
-                else
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out>" + eOut.Data);
-                    process.BeginOutputReadLine();
-
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err>" + eErr.Data);
-                    process.BeginErrorReadLine();
-                }
-            }
-            #endregion
-
-            #region ETNCRAFT XMR STAK CPU MINER
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[0] && miner_type.SelectedItem == miner_type.Items[0] && hyperthread.Checked == false)
-            {
-                #region UPDATE CONFIG
-                string FILE_NAME_CPU = "app_assets/config.txt";
-                if (File.Exists(FILE_NAME_CPU) == false)
-                {
-                    File.Create(FILE_NAME_CPU).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                else
-                {
-                    File.Delete(FILE_NAME_CPU);
-                    PushStatusMessage("old config.txt deleted");
-                    File.Create(FILE_NAME_CPU).Dispose();
-                    PushStatusMessage("config.txt created");
-                }
-                File.Copy(@"config_templates/config-template-etncraft-cpu.txt", @"app_assets/config.txt", true);
-                //This can done way better but i can't be assed
-                string fileReader = System.Convert.ToString((new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.ReadAllText(@"app_assets/config.txt").Replace("threads_replace", threads.Text));
-                fileReader = fileReader.Replace("address_replace", m_MiningURL + ":" + port.Text);
-                fileReader = fileReader.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-                int index = System.Convert.ToInt32(threads.Text);
-                while (index <= 14)
-                {
-                    fileReader = fileReader.Replace("{ \"low_power_mode\" : false, \"no_prefetch\" : false, \"affine_to_cpu\" : " + System.Convert.ToString(index) + " },", "");
-                    index++;
-                }
-                (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText(@"app_assets/config.txt", fileReader, false);
-                #endregion
-
-                PushStatusMessage("Spawning ETNCRAFT CPU miner");
-                if (m_bDebugging)
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets"
-                    });
-                }
-                else
-                {
-                    Process process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = Application.StartupPath + "\\app_assets\\xmr-stak-cpu-ETNCRAFT.exe",
-                        WorkingDirectory = Application.StartupPath + "\\app_assets",
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    });
-
-                    process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu out>" + eOut.Data);
-                    process.BeginOutputReadLine();
-
-                    process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu err>" + eErr.Data);
-                    process.BeginErrorReadLine();
-                }
-            }
-            #endregion
-
+            SpawnMiner(cpuorgpu.SelectedItem.ToString());
             PushStatusMessage("config.txt updated");
             //Start header Timer for app run time
             m_bStartTime = true;
@@ -494,7 +110,63 @@ namespace ETN_CPU_GPU_MINER
             //Start Hash textbox reset timer
             HashTimer();
         }
-
+        private void SpawnMiner(string sComponent)
+        {
+            #region UPDATE CONFIG
+            #region House Keeping
+            string sConfig_Template_File_Name = "config_templates/config-etncraft.txt";
+            string sConfig_File_Name = "app_assets/config.txt";
+#endregion
+            #region Delete and recreate config.txt
+            if (File.Exists(sConfig_File_Name))
+                File.Delete(sConfig_File_Name);
+            else
+                File.Create(sConfig_File_Name).Dispose();
+            #endregion
+            #region push msg
+            PushStatusMessage(sComponent + " config.txt created");
+#endregion
+            #region  copy template to new config.txt
+            File.Copy(sConfig_Template_File_Name, sConfig_File_Name, true);
+#endregion
+            #region  replace vars in new config.txt with GUI info
+            var CONFIG_CONTENTS = File.ReadAllText(sConfig_File_Name);
+            CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("address_replace", m_MiningURL + ":" + port.Text);
+            CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
+            System.IO.File.WriteAllText(Application.StartupPath, sConfig_File_Name);
+#endregion
+            //ADD THREAD MODIFICATIONS HERE FOR CPU & GPU -- If we decide to make this configurable again with new miner stak
+            #endregion
+            #region Spawn miner
+            PushStatusMessage("Spawning ETNCRAFT " + sComponent + " miner");
+            string sFileName = Application.StartupPath + "\\app_assets\\" + sComponent + ".exe";
+            string sWorkingDirectory = Application.StartupPath + "\\app_assets";
+            if (m_bDebugging)
+            {
+                Process process = Process.Start(new ProcessStartInfo()
+                {
+                    FileName = sFileName,
+                    WorkingDirectory = sWorkingDirectory
+                });
+            }
+            else
+            {
+                Process process = Process.Start(new ProcessStartInfo()
+                {
+                    FileName = sFileName,
+                    WorkingDirectory = sWorkingDirectory,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                });
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu>" + eOut.Data);
+                process.BeginOutputReadLine();
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu>" + eErr.Data);
+                process.BeginErrorReadLine();
+            }
+            #endregion
+        }
         private void BtnStopMining_Click(object sender, EventArgs e)
         {
             //Stop Timer
@@ -502,64 +174,6 @@ namespace ETN_CPU_GPU_MINER
             stopwatch.Stop();
             //Kill mining
             EndProcesses();
-
-        }
-
-        private void BtnDiagnostics_Click(object sender, EventArgs e)
-        {
-            string string1 = "";
-            string1 = miner_type.SelectedItem.ToString();
-            if (string1 == "ETNCRAFT xmr-stak-cpu" || string1 == "xmr-stak-cpu")
-            {
-                PushStatusMessage("ETNCRAFT xmr-stak-cpu miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
-                PushStatusMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
-                PushStatusMessage("   ERROR HELP 3: If it still doesn't work, switch the miner backend to cpuminer-multi");
-                PushStatusMessage("   ERROR HELP 4: Perhaps you have too many threads");
-                PushStatusMessage("Thread count halved");
-                threads.Text = System.Convert.ToString(double.Parse(threads.Text) / 2);
-            }
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && double.Parse(threads.Text) >= 2)
-            {
-                port.Text = "7777";
-                PushStatusMessage("gpu mining with 2+GPUs detected, setting port to 7777");
-            }
-            if (string1 == "xmr-stak-nvidia")
-            {
-                PushStatusMessage("xmr-stak-nvidia miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
-                PushStatusMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
-                PushStatusMessage("   ERROR HELP 3: If it still doesn't work, switch the miner backend to ccminer, xmr-stak-nvidia does not support more than 16 GPUs");
-                PushStatusMessage("   ERROR HELP 4: Are you using High Performance mode? Switching to standard mode for compatibility");
-                xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
-
-            }
-            if (string1 == "xmr-stak-amd-ETNCRAFT")
-            {
-                PushStatusMessage("xmr-stak-amd-ETNCRAFT miner detected" + Constants.vbNewLine + "   ERROR HELP 1: If receiving a 'MEMORY ALLOC FAILED: VirtualAlloc failed' error, disable all auto-starting applications and run the miner after a reboot. You do not have enough free ram.");
-                PushStatusMessage("   ERROR HELP 2: If receiving msvcp140.dll and vcruntime140.dll not available errors, download and install the following runtime package: https://www.microsoft.com/en-us/download/details.aspx?id=17657");
-                PushStatusMessage("   ERROR HELP 3:If it still doesn't work, reduce the number of GPUs xmr-stak-amd-ETNCRAFT does not support more than 16 GPUs");
-            }
-            if (string1 == "ccminer")
-            {
-                PushStatusMessage("ccminer detected" + Constants.vbNewLine + "   ERROR HELP 1: Your GPU is probably not supported (some GTX x80 Series and 10xx series not supported. Switch to xmr-stak-nvidia");
-            }
-            if (string1 == "cpuminer-multi")
-            {
-                PushStatusMessage("cpuminer-multi detected" + Constants.vbNewLine + "   ERROR HELP 1: Your CPU is probably not supported (This build it built for Intel Core-I series, Switch to xmr-stak-cpu");
-                PushStatusMessage("   ERROR HELP 2: Perhaps you have too many threads");
-                PushStatusMessage("Thread count halved");
-                threads.Text = System.Convert.ToString(double.Parse(threads.Text) / 2);
-            }
-            if (!(cboPool.SelectedItem == cboPool.Items[0] || cboPool.SelectedItem == cboPool.Items[1] || cboPool.SelectedItem == cboPool.Items[2] || cboPool.SelectedItem == cboPool.Items[3] || cboPool.SelectedItem == cboPool.Items[4] || cboPool.SelectedItem == cboPool.Items[5] || cboPool.SelectedItem == cboPool.Items[6] || cboPool.SelectedItem == cboPool.Items[7] || cboPool.SelectedItem == cboPool.Items[8] || cboPool.SelectedItem == cboPool.Items[9]))
-            {
-                PushStatusMessage("custom pool detected");
-                PushStatusMessage("   ERROR HELP 1: Custom pool detected, is it the correct address?");
-                PushStatusMessage("   ERROR HELP 2: Did you accidentally add the port number in the config file?");
-            }
-            if (cboPool.SelectedItem == cboPool.Items[9])
-            {
-                PushStatusMessage("custom pool detected");
-                PushStatusMessage("   ERROR HELP 1: Custom pool detected, is it the correct address?");
-            }
         }
 
         private void BtnCheckBalance_Click(object sender, EventArgs e)
@@ -581,7 +195,6 @@ namespace ETN_CPU_GPU_MINER
                 UseShellExecute = true,
                 FileName = logger.GetLogFilePath()
             });
-
             Process.Start(new ProcessStartInfo()
             {
                 UseShellExecute = true,
@@ -619,9 +232,6 @@ namespace ETN_CPU_GPU_MINER
         {
             Process.Start("https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html");
         }
-
-
-
         #endregion
 
         #region DropDown Handlers
@@ -631,64 +241,16 @@ namespace ETN_CPU_GPU_MINER
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[1])
             {
                 //change threadcount to gpu count
-                lbl_threads.Text = "GPU Count:";
-                threads.Text = "1";
+                //lbl_threads.Text = "GPU Count:";
+                //threads.Text = "1";
                 port.Text = "5555";
-                lbl_gpubrand.Visible = true;
-                gpubrand.Visible = true;
-                miner_type.Enabled = true;
-                miner_type.Items.Clear();
-                miner_type.Items.Add("xmr-stak-nvidia");
-                miner_type.Items.Add("ccminer");
-                miner_type.SelectedItem = miner_type.Items[0];
-                xmr_stak_perf_box.Visible = false;
-                xmr_notice.Visible = false;
-                stak_nvidia_perf.Visible = false;
             }
 
             if (cpuorgpu.SelectedItem == cpuorgpu.Items[0])
             {
                 //change threadcount to gpu count
-                lbl_threads.Text = "Thread Count:";
-                threads.Text = "4";
-                lbl_gpubrand.Visible = false;
-                gpubrand.SelectedItem = gpubrand.Items[0];
-                gpubrand.Visible = false;
-                miner_type.Enabled = true;
-                miner_type.Items.Clear();
-                miner_type.Items.Add("ETNCRAFT xmr-stak-cpu");
-                miner_type.Items.Add("cpuminer-multi");
-                miner_type.SelectedItem = miner_type.Items[0];
-                xmr_stak_perf_box.Visible = false;
-                stak_nvidia_perf.Visible = false;
-                xmr_notice.Visible = false;
-            }
-
-        }
-
-        private void gpubrand_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (gpubrand.SelectedItem == gpubrand.Items[0] && cpuorgpu.SelectedItem == cpuorgpu.Items[1])
-            {
-                miner_type.Enabled = true;
-                miner_type.Items.Clear();
-                miner_type.Items.Add("xmr-stak-nvidia");
-                miner_type.Items.Add("ccminer");
-                miner_type.SelectedItem = miner_type.Items[1];
-                xmr_stak_perf_box.Visible = false;
-                stak_nvidia_perf.Visible = false;
-                xmr_notice.Visible = false;
-            }
-            if (gpubrand.SelectedItem == gpubrand.Items[1] && cpuorgpu.SelectedItem == cpuorgpu.Items[1])
-            {
-                miner_type.Items.Clear();
-                miner_type.Items.Add("xmr-stak-amd-ETNCRAFT");
-                miner_type.Items.Add("xmr-stak-amd-ETNCRAFT");
-                miner_type.SelectedItem = miner_type.Items[0];
-                miner_type.Enabled = false;
-                xmr_stak_perf_box.Visible = false;
-                stak_nvidia_perf.Visible = false;
-                xmr_notice.Visible = false;
+                //lbl_threads.Text = "Thread Count:";
+                //threads.Text = "4";
             }
 
         }
@@ -717,29 +279,6 @@ namespace ETN_CPU_GPU_MINER
                 m_MiningURL = txtCustomPool.Text;
                 //PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!");
             }
-        }
-
-        private void miner_type_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (cpuorgpu.SelectedItem == cpuorgpu.Items[1] && gpubrand.SelectedItem == gpubrand.Items[0] && miner_type.SelectedItem == miner_type.Items[0])
-            {
-                xmr_stak_perf_box.Visible = true;
-                stak_nvidia_perf.Visible = true;
-                xmr_stak_perf_box.SelectedItem = xmr_stak_perf_box.Items[0];
-                xmr_notice.Visible = true;
-            }
-            else
-            {
-                xmr_stak_perf_box.Visible = false;
-                stak_nvidia_perf.Visible = false;
-                xmr_notice.Visible = false;
-            }
-
-        }
-
-        private void xmr_stak_perf_box_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         #endregion
@@ -772,7 +311,7 @@ namespace ETN_CPU_GPU_MINER
             }
             PushStatusMessage("AutoLoad registry key updated.");
         }
-    
+
         #endregion
 
         #endregion
@@ -800,17 +339,9 @@ namespace ETN_CPU_GPU_MINER
                 txtCustomPool.Text = config_contents_load[2];
                 cboPool.SelectedValue = config_contents_load[3];
                 port.Text = config_contents_load[4];
-                threads.Text = config_contents_load[5];
+                //threads.Text = config_contents_load[5];
                 cpuorgpu.SelectedItem = config_contents_load[6];
-                gpubrand.SelectedItem = config_contents_load[7];
-                xmr_stak_perf_box.SelectedItem = config_contents_load[8];
                 string ht_checkstate = config_contents_load[9];
-                miner_type.SelectedItem = config_contents_load[10];
-
-                if (ht_checkstate == "yes")
-                    hyperthread.Checked = true;
-                else if (ht_checkstate == "no")
-                    hyperthread.Checked = false;
             }
             catch (Exception e)
             {
@@ -827,12 +358,8 @@ namespace ETN_CPU_GPU_MINER
             File.Create("config_templates\\ENTCRAFT.mcf").Dispose();
 
             string ht_checkstate = "no";
-            if (hyperthread.Checked == true)
-                ht_checkstate = "yes";
-            else if (hyperthread.Checked == false)
-                ht_checkstate = "no";
-            string config_contents_save = "" + Constants.vbNewLine + 
-                System.Convert.ToString(cboPool.SelectedItem) + Constants.vbNewLine + txtCustomPool.Text + Constants.vbNewLine + m_MiningURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + threads.Text + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(gpubrand.SelectedItem) + Constants.vbNewLine + System.Convert.ToString(xmr_stak_perf_box.SelectedItem) + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + System.Convert.ToString(miner_type.SelectedItem);
+            string config_contents_save = "" + Constants.vbNewLine +
+                System.Convert.ToString(cboPool.SelectedItem) + Constants.vbNewLine + txtCustomPool.Text + Constants.vbNewLine + m_MiningURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + "" + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + "" + Constants.vbNewLine + "" + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + "";
             (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config_templates\\ENTCRAFT.mcf", config_contents_save, true);
             PushStatusMessage("ENTCRAFT.mcf deleted & recreated");
 
@@ -1083,8 +610,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void btnDeleteRegKeys_Click(object sender, EventArgs e)
         {
-            string sTest = registryManager.DeleteRegistryKey();
-            MessageBox.Show(sTest,"ETNCRAFT Services");
+            MessageBox.Show(registryManager.DeleteRegistryKey(), "ETNCRAFT Services");
         }
 
     }

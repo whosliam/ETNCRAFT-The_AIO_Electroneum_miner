@@ -53,35 +53,20 @@
             this.WorkStatus = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtCustomPool = new System.Windows.Forms.TextBox();
             this.port = new System.Windows.Forms.TextBox();
-            this.Label9 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cboPool = new System.Windows.Forms.ComboBox();
-            this.gpubrand = new System.Windows.Forms.ComboBox();
-            this.Label5 = new System.Windows.Forms.Label();
-            this.lbl_gpubrand = new System.Windows.Forms.Label();
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
-            this.threads = new System.Windows.Forms.TextBox();
-            this.lbl_threads = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnDeleteRegKeys = new System.Windows.Forms.Button();
             this.chkDebug = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.BtnLoadConfig = new System.Windows.Forms.Button();
             this.BtnSaveConfig = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.hyperthread = new System.Windows.Forms.CheckBox();
-            this.stak_nvidia_perf = new System.Windows.Forms.Label();
-            this.Label4 = new System.Windows.Forms.Label();
-            this.xmr_notice = new System.Windows.Forms.Label();
-            this.xmr_stak_perf_box = new System.Windows.Forms.ComboBox();
-            this.miner_type = new System.Windows.Forms.ComboBox();
             this.tbHelp = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -101,6 +86,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.txtCustomPool = new System.Windows.Forms.TextBox();
+            this.Label9 = new System.Windows.Forms.Label();
+            this.Label5 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -114,11 +103,11 @@
             this.tab_as.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.groupBox11.SuspendLayout();
             this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -288,17 +277,10 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.txtCustomPool);
             this.groupBox2.Controls.Add(this.port);
-            this.groupBox2.Controls.Add(this.Label9);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.cboPool);
-            this.groupBox2.Controls.Add(this.gpubrand);
-            this.groupBox2.Controls.Add(this.Label5);
-            this.groupBox2.Controls.Add(this.lbl_gpubrand);
             this.groupBox2.Controls.Add(this.cpuorgpu);
-            this.groupBox2.Controls.Add(this.threads);
-            this.groupBox2.Controls.Add(this.lbl_threads);
             this.groupBox2.Controls.Add(this.label11);
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
@@ -310,21 +292,10 @@
             this.label6.CausesValidation = false;
             this.label6.Name = "label6";
             // 
-            // txtCustomPool
-            // 
-            resources.ApplyResources(this.txtCustomPool, "txtCustomPool");
-            this.txtCustomPool.Name = "txtCustomPool";
-            this.txtCustomPool.TextChanged += new System.EventHandler(this.txtCustomPool_TextChanged);
-            // 
             // port
             // 
             resources.ApplyResources(this.port, "port");
             this.port.Name = "port";
-            // 
-            // Label9
-            // 
-            resources.ApplyResources(this.Label9, "Label9");
-            this.Label9.Name = "Label9";
             // 
             // label2
             // 
@@ -339,27 +310,6 @@
             this.cboPool.Name = "cboPool";
             this.cboPool.SelectedIndexChanged += new System.EventHandler(this.pool_SelectedIndexChanged_1);
             // 
-            // gpubrand
-            // 
-            this.gpubrand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.gpubrand.FormattingEnabled = true;
-            this.gpubrand.Items.AddRange(new object[] {
-            resources.GetString("gpubrand.Items"),
-            resources.GetString("gpubrand.Items1")});
-            resources.ApplyResources(this.gpubrand, "gpubrand");
-            this.gpubrand.Name = "gpubrand";
-            this.gpubrand.SelectedIndexChanged += new System.EventHandler(this.gpubrand_SelectedIndexChanged_1);
-            // 
-            // Label5
-            // 
-            resources.ApplyResources(this.Label5, "Label5");
-            this.Label5.Name = "Label5";
-            // 
-            // lbl_gpubrand
-            // 
-            resources.ApplyResources(this.lbl_gpubrand, "lbl_gpubrand");
-            this.lbl_gpubrand.Name = "lbl_gpubrand";
-            // 
             // cpuorgpu
             // 
             this.cpuorgpu.BackColor = System.Drawing.SystemColors.Info;
@@ -372,16 +322,6 @@
             this.cpuorgpu.Name = "cpuorgpu";
             this.cpuorgpu.SelectedIndexChanged += new System.EventHandler(this.cpuorgpu_SelectedIndexChanged_1);
             // 
-            // threads
-            // 
-            resources.ApplyResources(this.threads, "threads");
-            this.threads.Name = "threads";
-            // 
-            // lbl_threads
-            // 
-            resources.ApplyResources(this.lbl_threads, "lbl_threads");
-            this.lbl_threads.Name = "lbl_threads";
-            // 
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
@@ -389,13 +329,12 @@
             // 
             // tab_as
             // 
+            this.tab_as.Controls.Add(this.groupBox11);
             this.tab_as.Controls.Add(this.groupBox12);
-            this.tab_as.Controls.Add(this.label1);
             this.tab_as.Controls.Add(this.BtnLoadDefaultConfig);
             this.tab_as.Controls.Add(this.BtnLoadConfig);
             this.tab_as.Controls.Add(this.BtnSaveConfig);
             this.tab_as.Controls.Add(this.groupBox10);
-            this.tab_as.Controls.Add(this.groupBox11);
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
@@ -420,11 +359,6 @@
             resources.ApplyResources(this.chkDebug, "chkDebug");
             this.chkDebug.Name = "chkDebug";
             this.chkDebug.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
             // 
             // BtnLoadDefaultConfig
             // 
@@ -460,58 +394,6 @@
             this.chkAutoLoadConfig.Name = "chkAutoLoadConfig";
             this.chkAutoLoadConfig.UseVisualStyleBackColor = true;
             this.chkAutoLoadConfig.CheckedChanged += new System.EventHandler(this.chkAutoLoadConfig_CheckedChanged);
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.hyperthread);
-            this.groupBox11.Controls.Add(this.stak_nvidia_perf);
-            this.groupBox11.Controls.Add(this.Label4);
-            this.groupBox11.Controls.Add(this.xmr_notice);
-            this.groupBox11.Controls.Add(this.xmr_stak_perf_box);
-            this.groupBox11.Controls.Add(this.miner_type);
-            resources.ApplyResources(this.groupBox11, "groupBox11");
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.TabStop = false;
-            // 
-            // hyperthread
-            // 
-            resources.ApplyResources(this.hyperthread, "hyperthread");
-            this.hyperthread.Name = "hyperthread";
-            this.hyperthread.UseVisualStyleBackColor = true;
-            // 
-            // stak_nvidia_perf
-            // 
-            resources.ApplyResources(this.stak_nvidia_perf, "stak_nvidia_perf");
-            this.stak_nvidia_perf.Name = "stak_nvidia_perf";
-            // 
-            // Label4
-            // 
-            resources.ApplyResources(this.Label4, "Label4");
-            this.Label4.Name = "Label4";
-            // 
-            // xmr_notice
-            // 
-            resources.ApplyResources(this.xmr_notice, "xmr_notice");
-            this.xmr_notice.Name = "xmr_notice";
-            // 
-            // xmr_stak_perf_box
-            // 
-            this.xmr_stak_perf_box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.xmr_stak_perf_box.FormattingEnabled = true;
-            this.xmr_stak_perf_box.Items.AddRange(new object[] {
-            resources.GetString("xmr_stak_perf_box.Items"),
-            resources.GetString("xmr_stak_perf_box.Items1")});
-            resources.ApplyResources(this.xmr_stak_perf_box, "xmr_stak_perf_box");
-            this.xmr_stak_perf_box.Name = "xmr_stak_perf_box";
-            this.xmr_stak_perf_box.SelectedIndexChanged += new System.EventHandler(this.xmr_stak_perf_box_SelectedIndexChanged);
-            // 
-            // miner_type
-            // 
-            this.miner_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.miner_type.FormattingEnabled = true;
-            resources.ApplyResources(this.miner_type, "miner_type");
-            this.miner_type.Name = "miner_type";
-            this.miner_type.SelectedIndexChanged += new System.EventHandler(this.miner_type_SelectedIndexChanged_1);
             // 
             // tbHelp
             // 
@@ -625,6 +507,30 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.txtCustomPool);
+            this.groupBox11.Controls.Add(this.Label9);
+            this.groupBox11.Controls.Add(this.Label5);
+            resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.TabStop = false;
+            // 
+            // txtCustomPool
+            // 
+            resources.ApplyResources(this.txtCustomPool, "txtCustomPool");
+            this.txtCustomPool.Name = "txtCustomPool";
+            // 
+            // Label9
+            // 
+            resources.ApplyResources(this.Label9, "Label9");
+            this.Label9.Name = "Label9";
+            // 
+            // Label5
+            // 
+            resources.ApplyResources(this.Label5, "Label5");
+            this.Label5.Name = "Label5";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -648,13 +554,10 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tab_as.ResumeLayout(false);
-            this.tab_as.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
             this.tbHelp.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
@@ -662,6 +565,8 @@
             this.groupBox13.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -673,34 +578,21 @@
         internal System.Windows.Forms.Button BtnStopMining;
         internal System.Windows.Forms.TextBox wallet_address;
         internal System.Windows.Forms.RichTextBox status;
-        internal System.Windows.Forms.TextBox threads;
-        internal System.Windows.Forms.TextBox txtCustomPool;
         internal System.Windows.Forms.TextBox port;
         internal System.Windows.Forms.Button BtnCheckBalance;
         internal System.Windows.Forms.Button BtnClearWallet;
         internal System.Windows.Forms.ComboBox cboPool;
-        internal System.Windows.Forms.ComboBox gpubrand;
         internal System.Windows.Forms.Button StartMining;
-        internal System.Windows.Forms.Label Label9;
-        internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.ComboBox cpuorgpu;
         internal System.Windows.Forms.TabPage tab_as;
-        internal System.Windows.Forms.CheckBox hyperthread;
-        internal System.Windows.Forms.Label xmr_notice;
-        internal System.Windows.Forms.ComboBox xmr_stak_perf_box;
-        internal System.Windows.Forms.Label stak_nvidia_perf;
-        internal System.Windows.Forms.Label Label4;
-        internal System.Windows.Forms.ComboBox miner_type;
         internal System.Windows.Forms.Button BtnLoadConfig;
         internal System.Windows.Forms.Button BtnSaveConfig;
         internal System.Windows.Forms.OpenFileDialog open_config_dialog;
         internal System.Windows.Forms.SaveFileDialog save_config_dialog;
         private System.Windows.Forms.Label lblCPUTemp;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lbl_gpubrand;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lbl_threads;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -730,16 +622,18 @@
         internal System.Windows.Forms.CheckBox chkDebug;
         private System.Windows.Forms.Button ClearMessagesButton;
         private System.Windows.Forms.Button btnDeleteRegKeys;
-        internal System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.GroupBox groupBox11;
+        internal System.Windows.Forms.TextBox txtCustomPool;
+        internal System.Windows.Forms.Label Label9;
+        internal System.Windows.Forms.Label Label5;
     }
 }
 
