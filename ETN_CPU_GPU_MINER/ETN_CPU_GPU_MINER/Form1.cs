@@ -278,7 +278,7 @@ namespace ETN_CPU_GPU_MINER
             if (!txtCustomPool.Equals(""))
             {
                 m_MiningURL = txtCustomPool.Text;
-                //PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!");
+                PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!");
             }
         }
 

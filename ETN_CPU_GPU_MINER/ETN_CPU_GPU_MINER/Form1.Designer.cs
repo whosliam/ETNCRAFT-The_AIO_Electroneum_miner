@@ -75,8 +75,6 @@
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -106,7 +104,6 @@
             this.groupBox10.SuspendLayout();
             this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
-            this.groupBox13.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -423,7 +420,6 @@
             // tbHelp
             // 
             this.tbHelp.Controls.Add(this.groupBox14);
-            this.tbHelp.Controls.Add(this.groupBox13);
             this.tbHelp.Controls.Add(this.groupBox9);
             resources.ApplyResources(this.tbHelp, "tbHelp");
             this.tbHelp.Name = "tbHelp";
@@ -446,18 +442,6 @@
             // 
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBox13, "groupBox13");
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.TabStop = false;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
             // 
             // groupBox9
             // 
@@ -564,8 +548,6 @@
             this.tbHelp.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
@@ -628,8 +610,6 @@
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.GroupBox groupBox11;
         internal System.Windows.Forms.TextBox txtCustomPool;
