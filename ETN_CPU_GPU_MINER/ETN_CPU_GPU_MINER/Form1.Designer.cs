@@ -59,6 +59,10 @@
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.txtCustomPool = new System.Windows.Forms.TextBox();
+            this.Label9 = new System.Windows.Forms.Label();
+            this.Label5 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnDeleteRegKeys = new System.Windows.Forms.Button();
             this.chkDebug = new System.Windows.Forms.CheckBox();
@@ -86,10 +90,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.txtCustomPool = new System.Windows.Forms.TextBox();
-            this.Label9 = new System.Windows.Forms.Label();
-            this.Label5 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -101,13 +101,13 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tab_as.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -273,6 +273,7 @@
             // 
             resources.ApplyResources(this.WorkStatus, "WorkStatus");
             this.WorkStatus.Name = "WorkStatus";
+            this.WorkStatus.ReadOnly = true;
             // 
             // groupBox2
             // 
@@ -338,6 +339,30 @@
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.txtCustomPool);
+            this.groupBox11.Controls.Add(this.Label9);
+            this.groupBox11.Controls.Add(this.Label5);
+            resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.TabStop = false;
+            // 
+            // txtCustomPool
+            // 
+            resources.ApplyResources(this.txtCustomPool, "txtCustomPool");
+            this.txtCustomPool.Name = "txtCustomPool";
+            // 
+            // Label9
+            // 
+            resources.ApplyResources(this.Label9, "Label9");
+            this.Label9.Name = "Label9";
+            // 
+            // Label5
+            // 
+            resources.ApplyResources(this.Label5, "Label5");
+            this.Label5.Name = "Label5";
             // 
             // groupBox12
             // 
@@ -507,30 +532,6 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.txtCustomPool);
-            this.groupBox11.Controls.Add(this.Label9);
-            this.groupBox11.Controls.Add(this.Label5);
-            resources.ApplyResources(this.groupBox11, "groupBox11");
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.TabStop = false;
-            // 
-            // txtCustomPool
-            // 
-            resources.ApplyResources(this.txtCustomPool, "txtCustomPool");
-            this.txtCustomPool.Name = "txtCustomPool";
-            // 
-            // Label9
-            // 
-            resources.ApplyResources(this.Label9, "Label9");
-            this.Label9.Name = "Label9";
-            // 
-            // Label5
-            // 
-            resources.ApplyResources(this.Label5, "Label5");
-            this.Label5.Name = "Label5";
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -554,6 +555,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tab_as.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.groupBox10.ResumeLayout(false);
@@ -565,8 +568,6 @@
             this.groupBox13.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
 
         }
