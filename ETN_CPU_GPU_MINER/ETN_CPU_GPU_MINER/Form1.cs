@@ -116,7 +116,7 @@ namespace ETN_CPU_GPU_MINER
             #region House Keeping
             string sConfig_Template_File_Name = "config_templates/config-etncraft.txt";
             string sConfig_File_Name = "app_assets/config.txt";
-#endregion
+            #endregion
             #region Delete and recreate config.txt
             if (File.Exists(sConfig_File_Name))
                 File.Delete(sConfig_File_Name);
@@ -125,21 +125,22 @@ namespace ETN_CPU_GPU_MINER
             #endregion
             #region push msg
             PushStatusMessage(sComponent + " config.txt created");
-#endregion
+            #endregion
             #region  copy template to new config.txt
             File.Copy(sConfig_Template_File_Name, sConfig_File_Name, true);
-#endregion
+            #endregion
             #region  replace vars in new config.txt with GUI info
             var CONFIG_CONTENTS = File.ReadAllText(sConfig_File_Name);
             CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("address_replace", m_MiningURL + ":" + port.Text);
             CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
-            System.IO.File.WriteAllText(Application.StartupPath, sConfig_File_Name);
-#endregion
+            File.SetAttributes(Application.StartupPath + "\\" + sConfig_File_Name, FileAttributes.Normal);
+            File.WriteAllText(Application.StartupPath + "\\" + sConfig_File_Name, CONFIG_CONTENTS);
+            #endregion
             //ADD THREAD MODIFICATIONS HERE FOR CPU & GPU -- If we decide to make this configurable again with new miner stak
             #endregion
             #region Spawn miner
             PushStatusMessage("Spawning ETNCRAFT " + sComponent + " miner");
-            string sFileName = Application.StartupPath + "\\app_assets\\" + sComponent + ".exe";
+            string sFileName = Application.StartupPath + "\\app_assets\\ETNCRAFT_" + sComponent + ".exe";
             string sWorkingDirectory = Application.StartupPath + "\\app_assets";
             if (m_bDebugging)
             {
@@ -160,9 +161,9 @@ namespace ETN_CPU_GPU_MINER
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 });
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage("cpu>" + eOut.Data);
+                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(sComponent + "> " + eOut.Data);
                 process.BeginOutputReadLine();
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage("cpu>" + eErr.Data);
+                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(sComponent + "> " + eErr.Data);
                 process.BeginErrorReadLine();
             }
             #endregion
@@ -577,7 +578,7 @@ namespace ETN_CPU_GPU_MINER
             foreach (Process p in localAll)
             {
                 //Kill XMR miners, ccminer & cpuminer
-                if (p.ProcessName.Contains("xmr") || p.ProcessName.Contains("miner"))
+                if (p.ProcessName.Contains("ETNCRAFT"))
                 {
                     PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
                     p.Kill();
