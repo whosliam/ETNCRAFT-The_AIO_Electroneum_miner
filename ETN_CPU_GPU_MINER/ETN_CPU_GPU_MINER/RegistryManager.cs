@@ -21,6 +21,7 @@ namespace ETN_CPU_GPU_MINER
         private string POOL_KEY_NAME = "Pool";
         private string CUSTOM_POOL_KEY_NAME = "CustPool";
         private string MINER_COMPONENT = "MinerComp";
+        private string TEMP_LIMIT = "TempLimit";
         private string IGNORE_TEMP_WARNINGS_KEY_NAME = "IgnoreTempWarnings";
         private string SUBKEY_TREE = "SOFTWARE\\ETNCRAFT";
 
@@ -70,6 +71,10 @@ namespace ETN_CPU_GPU_MINER
 
             if (etnCraftAppKey.GetValue(MINER_COMPONENT) == null)
                 etnCraftAppKey.SetValue(MINER_COMPONENT, "CPU");
+
+            if (etnCraftAppKey.GetValue(TEMP_LIMIT) == null)
+                etnCraftAppKey.SetValue(TEMP_LIMIT, "90");
+
 
             etnCraftAppKey.Close();
             etnCraftAppKey = localMachine.OpenSubKey(SUBKEY_TREE, true);
@@ -170,6 +175,15 @@ namespace ETN_CPU_GPU_MINER
              
         }
 
+        public void SetTempLimit(string Limit)
+        {
+            etnCraftAppKey.SetValue(TEMP_LIMIT, Limit);
+        }
+
+        public string GetTempLimit()
+        {
+            return etnCraftAppKey.GetValue(TEMP_LIMIT).ToString();
+        }
 
         #endregion
 

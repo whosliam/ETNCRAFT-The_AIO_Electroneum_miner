@@ -88,6 +88,8 @@
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
             this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtTempLimit = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -338,6 +340,8 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.txtTempLimit);
+            this.groupBox11.Controls.Add(this.label1);
             this.groupBox11.Controls.Add(this.txtCustomPool);
             this.groupBox11.Controls.Add(this.Label9);
             this.groupBox11.Controls.Add(this.Label5);
@@ -515,6 +519,16 @@
             this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
             this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // txtTempLimit
+            // 
+            resources.ApplyResources(this.txtTempLimit, "txtTempLimit");
+            this.txtTempLimit.Name = "txtTempLimit";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -614,6 +628,8 @@
         internal System.Windows.Forms.Label Label9;
         internal System.Windows.Forms.Label Label5;
         private System.Windows.Forms.Button BtnLoadDefaultConfig;
+        private System.Windows.Forms.TextBox txtTempLimit;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -53,7 +53,7 @@ namespace ETN_CPU_GPU_MINER
             PushStatusMessage("Checking for ETNCRAFT registry keys");
             if (registryManager.GetAutoLoad())
                 LoadRegistryConfig();
-            PushStatusMessage("AutoLoad registry key loaded (" + registryManager.GetAutoLoad()+")");
+            PushStatusMessage("AutoLoad registry key loaded (" + registryManager.GetAutoLoad() + ")");
 
             // Check Registry for NewMiner
             if (registryManager.GetNewMiner())
@@ -223,7 +223,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void BtnSaveConfig_Click(object sender, EventArgs e)
         {
-                SaveConfig();
+            SaveConfig();
         }
 
         private void BtnLoadDefaultConfig_Click(object sender, EventArgs e)
@@ -315,6 +315,8 @@ namespace ETN_CPU_GPU_MINER
             chkAutoLoadConfig.Checked = registryManager.GetAutoLoad();
             txtCustomPool.Text = registryManager.GetCustomPool();
             cpuorgpu.SelectedItem = registryManager.GetComponent();
+            txtTempLimit.Text = CheckTempLimitEntry(registryManager.GetTempLimit());
+            m_iTemperatureAlert = int.Parse(txtTempLimit.Text);
             #region Get Pool and select drop down
             bool bFoundPool = false;
             //i know i know.... this is the wrong way to go about this. Just for quick testing of registry additions. Git blame Liam
@@ -344,7 +346,9 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetPool(m_IPoolID);
             registryManager.SetComponent(cpuorgpu.SelectedText);
             registryManager.SetWalletId(wallet_address.Text);
+            registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
             PushStatusMessage("Configuration Updated");
+            MessageBox.Show("Config saved.\r\nThese will be used after app restart","Saved");
         }
 
         #endregion
@@ -485,13 +489,12 @@ namespace ETN_CPU_GPU_MINER
             if (!m_bTempWarningModalIsOpen && !registryManager.GetIgnoreTempWarnings())
             {
                 m_bTempWarningModalIsOpen = true;
-                DialogResult UserInput = MessageBox.Show(sDevice + " Temps are above " + m_iTemperatureAlert.ToString() + " degrees!\r\nConsider turning fan speeds higher.\r\nIgnore warnings?", "WARNING!", MessageBoxButtons.YesNo);
+                DialogResult UserInput = MessageBox.Show(sDevice + " Temps are above " + m_iTemperatureAlert.ToString() + " degrees!\r\nConsider turning fan speeds higher.\r\n\r\nSave ignore warnings in config?", "WARNING!", MessageBoxButtons.YesNo);
                 if (UserInput.Equals(DialogResult.Yes))
                     registryManager.SetIgnoreTempWarnings(true);
                 else
                     registryManager.SetIgnoreTempWarnings(false);
             }
-
         }
         #endregion
 
@@ -592,5 +595,27 @@ namespace ETN_CPU_GPU_MINER
             MessageBox.Show(registryManager.DeleteRegistryKey(), "ETNCRAFT Services");
         }
 
+        private string CheckTempLimitEntry(string sText)
+        {
+            string sTemperature = "";
+            if (!string.IsNullOrWhiteSpace(sText))
+            {
+                int temp;
+                if (int.TryParse(sText, out temp))
+                    if (temp >= 0)
+                        sTemperature = sText;
+                    else
+                    {
+                        sTemperature = "90";
+                        PushStatusMessage("Temp field in not an int. Limit set to 90");
+                    }
+            }
+            else
+            {
+                sTemperature = "90";
+                PushStatusMessage("Temp field in not an int. Limit set to 90");
+            }
+            return sTemperature;
+        }
     }
 }
