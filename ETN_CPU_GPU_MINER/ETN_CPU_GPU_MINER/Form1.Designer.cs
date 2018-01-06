@@ -60,12 +60,15 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.txtTempLimit = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtCustomPool = new System.Windows.Forms.TextBox();
             this.Label9 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnDeleteRegKeys = new System.Windows.Forms.Button();
             this.chkDebug = new System.Windows.Forms.CheckBox();
+            this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.BtnLoadConfig = new System.Windows.Forms.Button();
             this.BtnSaveConfig = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -87,9 +90,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtTempLimit = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -349,6 +350,16 @@
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.TabStop = false;
             // 
+            // txtTempLimit
+            // 
+            resources.ApplyResources(this.txtTempLimit, "txtTempLimit");
+            this.txtTempLimit.Name = "txtTempLimit";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // txtCustomPool
             // 
             resources.ApplyResources(this.txtCustomPool, "txtCustomPool");
@@ -366,6 +377,7 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.button1);
             this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
             this.groupBox12.Controls.Add(this.chkDebug);
             resources.ApplyResources(this.groupBox12, "groupBox12");
@@ -384,6 +396,13 @@
             resources.ApplyResources(this.chkDebug, "chkDebug");
             this.chkDebug.Name = "chkDebug";
             this.chkDebug.UseVisualStyleBackColor = true;
+            // 
+            // BtnLoadDefaultConfig
+            // 
+            resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
+            this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
+            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
+            this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
             // 
             // BtnLoadConfig
             // 
@@ -512,22 +531,13 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
-            // BtnLoadDefaultConfig
+            // button1
             // 
-            resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
-            this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
-            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
-            this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // txtTempLimit
-            // 
-            resources.ApplyResources(this.txtTempLimit, "txtTempLimit");
-            this.txtTempLimit.Name = "txtTempLimit";
+            this.button1.BackColor = System.Drawing.Color.LightSeaGreen;
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -630,6 +640,7 @@
         private System.Windows.Forms.Button BtnLoadDefaultConfig;
         private System.Windows.Forms.TextBox txtTempLimit;
         private System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.Button button1;
     }
 }
 

@@ -71,6 +71,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1-beta3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OpenHardwareMonitorLib, Version=0.8.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\app_assets\OpenHardwareMonitorLib.dll</HintPath>
@@ -122,6 +125,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ETN_CPU_GPU_MINER_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Pools.datasource" />
     <None Include="Properties\DataSources\PoolsCollection.datasource" />
     <None Include="Properties\Settings.settings">

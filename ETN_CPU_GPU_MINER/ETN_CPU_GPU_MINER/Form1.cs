@@ -2,12 +2,10 @@
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.VisualBasic;
 using System.IO;
-using System.Text.RegularExpressions;
 using OpenHardwareMonitor.Hardware;
-using Microsoft.Win32;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace ETN_CPU_GPU_MINER
 {
@@ -33,6 +31,7 @@ namespace ETN_CPU_GPU_MINER
         private Messager messager = new Messager();
         private RegistryManager registryManager = new RegistryManager();
         public int m_iTemperatureAlert = 90;
+
         #endregion
 
         #region Form Initialization
@@ -348,7 +347,7 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetWalletId(wallet_address.Text);
             registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
             PushStatusMessage("Configuration Updated");
-            MessageBox.Show("Config saved.\r\nThese will be used after app restart","Saved");
+            MessageBox.Show("Config saved.\r\nThese will be used after app restart", "Saved");
         }
 
         #endregion
@@ -367,6 +366,7 @@ namespace ETN_CPU_GPU_MINER
         {
             WorkStatus.Text = "Log Cleared!";
             m_sAggHashData = "";
+           // PushStatusMessage(GetCurrentCoinPrice());
         }
         #endregion
 
@@ -617,5 +617,41 @@ namespace ETN_CPU_GPU_MINER
             }
             return sTemperature;
         }
+
+        private string GetCurrentCoinPrice()
+        {
+            string sETNUSD = "";
+            var json = new WebClient().DownloadString("https://api.nanopool.org/v1/etn/prices");
+            if (!json.Equals(""))
+            {
+                PRICE_Rootobject r = JsonConvert.DeserializeObject<PRICE_Rootobject>(json);
+                sETNUSD =  "ETN Price USD: " + r.data.price_usd + "\r\n";
+                sETNUSD += "ETN Price BTN: " + r.data.price_btc + "\r\n";
+                sETNUSD += "ETN Price EUR: " + r.data.price_eur + "\r\n";
+                sETNUSD += "ETN Price RUR: " + r.data.price_rur + "\r\n";
+                sETNUSD += "ETN Price CNY: " + r.data.price_cny + "\r\n";
+            }
+            return sETNUSD;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(GetCurrentCoinPrice(),"Current ETN Worth");
+        }
     }
+    public class PRICE_Rootobject
+    {
+        public bool status { get; set; }
+        public PRICE_Data data { get; set; }
+    }
+
+    public class PRICE_Data
+    {
+        public float price_btc { get; set; }
+        public float price_usd { get; set; }
+        public float price_eur { get; set; }
+        public float price_rur { get; set; }
+        public float price_cny { get; set; }
+    }
+
 }
