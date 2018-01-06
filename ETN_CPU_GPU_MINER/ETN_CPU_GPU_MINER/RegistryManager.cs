@@ -10,23 +10,25 @@ namespace ETN_CPU_GPU_MINER
         private RegistryKey localMachine;
         private RegistryKey etnCraftAppKey;
 
-        private string VERSION_NUM                      = "1.7.4";
+        private string VERSION_NUM = "1.7.4";
 
-        private string AUTO_LOAD_KEY_NAME               = "AutoLoad";
-        private string NEW_MINER_KEY_NAME               = "NewMiner";
-        private string VERSION_KEY_NAME                 = "Version";
+        private string AUTO_LOAD_KEY_NAME = "AutoLoad";
+        private string NEW_MINER_KEY_NAME = "NewMiner";
+        private string VERSION_KEY_NAME = "Version";
 
-        private string WALLET_ID_KEY_NAME               = "WalletId";
-        private string PORT_KEY_NAME                    = "Port";
-        private string POOL_KEY_NAME                    = "Pool";
-        private string IGNORE_TEMP_WARNINGS_KEY_NAME    = "IgnoreTempWarnings";
-        private string SUBKEY_TREE                      = "SOFTWARE\\ETNCRAFT";
+        private string WALLET_ID_KEY_NAME = "WalletId";
+        private string PORT_KEY_NAME = "Port";
+        private string POOL_KEY_NAME = "Pool";
+        private string CUSTOM_POOL_KEY_NAME = "CustPool";
+        private string MINER_COMPONENT = "MinerComp";
+        private string IGNORE_TEMP_WARNINGS_KEY_NAME = "IgnoreTempWarnings";
+        private string SUBKEY_TREE = "SOFTWARE\\ETNCRAFT";
 
         private bool autoLoadDefault = false;
         private bool newMinerDefault = true;
         private bool ignoreTempWarnDefault = false;
         private string walletIdDefault = "Enter Your Public Wallet Address";
-        
+
         #endregion
 
         public RegistryManager()
@@ -54,8 +56,20 @@ namespace ETN_CPU_GPU_MINER
             if (etnCraftAppKey.GetValue(VERSION_KEY_NAME) == null)
                 etnCraftAppKey.SetValue(VERSION_KEY_NAME, VERSION_NUM);
 
-            else if(!etnCraftAppKey.GetValue(VERSION_KEY_NAME).Equals(VERSION_NUM))
+            else if (!etnCraftAppKey.GetValue(VERSION_KEY_NAME).Equals(VERSION_NUM))
                 etnCraftAppKey.SetValue(VERSION_KEY_NAME, VERSION_NUM);
+
+            if (etnCraftAppKey.GetValue(PORT_KEY_NAME) == null)
+                etnCraftAppKey.SetValue(PORT_KEY_NAME, "5555");
+
+            if (etnCraftAppKey.GetValue(CUSTOM_POOL_KEY_NAME) == null)
+                etnCraftAppKey.SetValue(CUSTOM_POOL_KEY_NAME, "");
+
+            if (etnCraftAppKey.GetValue(POOL_KEY_NAME) == null)
+                etnCraftAppKey.SetValue(POOL_KEY_NAME, "1");
+
+            if (etnCraftAppKey.GetValue(MINER_COMPONENT) == null)
+                etnCraftAppKey.SetValue(MINER_COMPONENT, "CPU");
 
             etnCraftAppKey.Close();
             etnCraftAppKey = localMachine.OpenSubKey(SUBKEY_TREE, true);
@@ -112,6 +126,50 @@ namespace ETN_CPU_GPU_MINER
         {
             etnCraftAppKey.SetValue(WALLET_ID_KEY_NAME, walletId);
         }
+
+        public void SetPort(string Port)
+        {
+            etnCraftAppKey.SetValue(PORT_KEY_NAME, Port);
+        }
+
+        public string GetPortNumber()
+        {
+            return Convert.ToString(etnCraftAppKey.GetValue(PORT_KEY_NAME));
+        }
+
+        public void SetCustomPool(string CustPool)
+        {
+            etnCraftAppKey.SetValue(CUSTOM_POOL_KEY_NAME, CustPool);
+        }
+
+        public string GetCustomPool()
+        {
+            return Convert.ToString(etnCraftAppKey.GetValue(CUSTOM_POOL_KEY_NAME));
+        }
+
+        public void SetPool(int Pool)
+        {
+            etnCraftAppKey.SetValue(POOL_KEY_NAME, Pool);
+        }
+
+        public int GetPool()
+        {
+            int iID = 0;
+            int.TryParse(etnCraftAppKey.GetValue(POOL_KEY_NAME).ToString(), out iID);
+            return iID;
+        }
+
+        public void SetComponent(string Component)
+        {
+            etnCraftAppKey.SetValue(MINER_COMPONENT, Component);
+        }
+
+        public string GetComponent()
+        {
+           return etnCraftAppKey.GetValue(MINER_COMPONENT).ToString();
+             
+        }
+
 
         #endregion
 

@@ -136,9 +136,9 @@
     <value>0</value>
   </data>
   <data name="status.Text" xml:space="preserve">
-    <value>&gt;Original Fork by ParthK117
-&gt;Current xmr-stak by fireice-uk compiled by ETNCRAFT
-&gt;Make sure to use your own wallet address.</value>
+    <value>&gt; Original fork by ParthK117
+&gt; Current xmr-stak by fireice-uk
+&gt; GUI,Configuration &amp; miner compiled by ETNCRAFT</value>
   </data>
   <data name="&gt;&gt;status.Name" xml:space="preserve">
     <value>status</value>
@@ -1106,6 +1106,9 @@
   <data name="BtnLoadDefaultConfig.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9.75pt</value>
   </data>
+  <data name="BtnLoadDefaultConfig.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="BtnLoadDefaultConfig.Location" type="System.Drawing.Point, System.Drawing">
     <value>149, 32</value>
   </data>
@@ -1146,7 +1149,7 @@
     <value>32</value>
   </data>
   <data name="BtnLoadConfig.Text" xml:space="preserve">
-    <value>Load Configuration</value>
+    <value>Re-Init Configuration</value>
   </data>
   <data name="&gt;&gt;BtnLoadConfig.Name" xml:space="preserve">
     <value>BtnLoadConfig</value>

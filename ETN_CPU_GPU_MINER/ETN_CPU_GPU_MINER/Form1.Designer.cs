@@ -66,7 +66,6 @@
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.btnDeleteRegKeys = new System.Windows.Forms.Button();
             this.chkDebug = new System.Windows.Forms.CheckBox();
-            this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.BtnLoadConfig = new System.Windows.Forms.Button();
             this.BtnSaveConfig = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -88,6 +87,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -138,7 +138,6 @@
             // status
             // 
             this.status.BackColor = System.Drawing.SystemColors.Window;
-            this.status.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.status, "status");
             this.status.Name = "status";
             this.status.ReadOnly = true;
@@ -382,13 +381,6 @@
             this.chkDebug.Name = "chkDebug";
             this.chkDebug.UseVisualStyleBackColor = true;
             // 
-            // BtnLoadDefaultConfig
-            // 
-            resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
-            this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
-            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
-            this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
-            // 
             // BtnLoadConfig
             // 
             resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
@@ -516,6 +508,13 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // BtnLoadDefaultConfig
+            // 
+            resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
+            this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
+            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
+            this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -586,7 +585,6 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
         internal System.Windows.Forms.Button BtnOpenLog;
-        private System.Windows.Forms.Button BtnLoadDefaultConfig;
         private System.Windows.Forms.CheckBox chkAutoLoadConfig;
         private System.Windows.Forms.TabPage tbHelp;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -615,6 +613,7 @@
         internal System.Windows.Forms.TextBox txtCustomPool;
         internal System.Windows.Forms.Label Label9;
         internal System.Windows.Forms.Label Label5;
+        private System.Windows.Forms.Button BtnLoadDefaultConfig;
     }
 }
 

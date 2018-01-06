@@ -14,10 +14,11 @@ namespace ETN_CPU_GPU_MINER
     public partial class Form1 : Form
     {
         #region Global vars
-        public static string m_Version; //= "(V1.7.1)";        
+        public static string m_Version;
         public static string m_sAggHashData = "";
         public static string m_MiningURL = "";
         public static string m_PoolWebsiteURL = "";
+        public static int m_IPoolID = 0;
         public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
 
         public bool b_FormLoaded = false;
@@ -32,8 +33,6 @@ namespace ETN_CPU_GPU_MINER
         private Messager messager = new Messager();
         private RegistryManager registryManager = new RegistryManager();
         public int m_iTemperatureAlert = 90;
-
-        //RegistryKey localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
         #endregion
 
         #region Form Initialization
@@ -48,20 +47,13 @@ namespace ETN_CPU_GPU_MINER
             this.Text = "ETNCRAFT (" + m_Version + ")";
             this.Update();
             LoadPoolListFromWebsite();
-
+            //force first item in index -- just in case for new user.
+            cpuorgpu.SelectedIndex = 0;
             // Check Registry for AutoLoad
             PushStatusMessage("Checking for ETNCRAFT registry keys");
             if (registryManager.GetAutoLoad())
-            {
-                PushStatusMessage("AutoLoad registry key loaded (true)");
-                LoadConfig("config_templates/ENTCRAFT.mcf");
                 LoadRegistryConfig();
-            }
-            else
-            {
-                PushStatusMessage("AutoLoad registry key loaded (false)");
-                LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
-            }
+            PushStatusMessage("AutoLoad registry key loaded (" + registryManager.GetAutoLoad()+")");
 
             // Check Registry for NewMiner
             if (registryManager.GetNewMiner())
@@ -72,7 +64,7 @@ namespace ETN_CPU_GPU_MINER
                 tabs.SelectedTab = tbHelp;
             }
 
-            cpuorgpu.SelectedItem = cpuorgpu.Items[0];
+            // cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             //Spool up timers
             InitTemps();
             //This is to keep the event handlers from firing when the form load. Just wrap functions in this.
@@ -110,6 +102,7 @@ namespace ETN_CPU_GPU_MINER
             //Start Hash textbox reset timer
             HashTimer();
         }
+
         private void SpawnMiner(string sComponent)
         {
             #region UPDATE CONFIG
@@ -180,6 +173,7 @@ namespace ETN_CPU_GPU_MINER
             StartMining.Enabled = false;
             //BtnStopMining.Enabled = true;
         }
+
         private void BtnStopMining_Click(object sender, EventArgs e)
         {
             //Stop Timer
@@ -224,21 +218,20 @@ namespace ETN_CPU_GPU_MINER
 
         private void BtnLoadConfig_Click(object sender, EventArgs e)
         {
-            open_config_dialog.Filter = "Miner Configuration Files (*.mcf*)|*.mcf";
-            if (open_config_dialog.ShowDialog().Equals(System.Windows.Forms.DialogResult.OK))
-                LoadConfig(open_config_dialog.FileName);
+            registryManager.Initialize();
         }
 
         private void BtnSaveConfig_Click(object sender, EventArgs e)
         {
-            save_config_dialog.Filter = "Miner Configuration Files (*.mcf*)|*.mcf";
-            if (save_config_dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 SaveConfig();
         }
 
         private void BtnLoadDefaultConfig_Click(object sender, EventArgs e)
         {
-            LoadConfig("config_templates/ENTCRAFT-DEFAULT.mcf");
+            registryManager.DeleteRegistryKey();
+            registryManager.Initialize();
+            Application.Restart();
+            Environment.Exit(0);
         }
 
         private void LinkWalletGen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -249,28 +242,8 @@ namespace ETN_CPU_GPU_MINER
 
         #region DropDown Handlers
 
-        //private void cpuorgpu_SelectedIndexChanged_1(object sender, EventArgs e)
-        //{
-        //    if (cpuorgpu.SelectedItem == cpuorgpu.Items[1])
-        //    {
-        //        //change threadcount to gpu count
-        //        //lbl_threads.Text = "GPU Count:";
-        //        //threads.Text = "1";
-        //        port.Text = "5555";
-        //    }
-
-        //    if (cpuorgpu.SelectedItem == cpuorgpu.Items[0])
-        //    {
-        //        //change threadcount to gpu count
-        //        //lbl_threads.Text = "Thread Count:";
-        //        //threads.Text = "4";
-        //    }
-
-        //}
-
         private void pool_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            //Taking the lazy way out. Its still better than it was. Id rather not have this condition but the whole data binding with the cbo is a pain.
             PoolsCollection cPoolCollection = new PoolsCollection();
             cPoolCollection.Load();
             foreach (var cItem in cPoolCollection)
@@ -279,6 +252,7 @@ namespace ETN_CPU_GPU_MINER
                 {
                     m_MiningURL = cItem.sPoolMiningURL;
                     m_PoolWebsiteURL = cItem.sPoolWebsite;
+                    m_IPoolID = cItem.iID;
                     PushStatusMessage(cItem.sDisplayName + " selected, " + cItem.sPoolWebsite + " | " + cItem.sPoolInformation);
                     break;
                 }
@@ -337,45 +311,40 @@ namespace ETN_CPU_GPU_MINER
         {
             PushStatusMessage("Loading ETNCRAFT config from registry");
             wallet_address.Text = registryManager.GetWalletId();
-
+            port.Text = registryManager.GetPortNumber();
             chkAutoLoadConfig.Checked = registryManager.GetAutoLoad();
-        }
-
-        private void LoadConfig(string sConfigFilePath)
-        {
-            PushStatusMessage("Loading ETNCRAFT config from " + sConfigFilePath);
-            try
-            {
-                string[] config_contents_load = File.ReadAllLines(sConfigFilePath);
-                wallet_address.Text = config_contents_load[0];
-                cboPool.SelectedItem = config_contents_load[1];
-                txtCustomPool.Text = config_contents_load[2];
-                cboPool.SelectedValue = config_contents_load[3];
-                port.Text = config_contents_load[4];
-                //threads.Text = config_contents_load[5];
-                cpuorgpu.SelectedItem = config_contents_load[6];
-                string ht_checkstate = config_contents_load[9];
-            }
-            catch (Exception e)
-            {
-                PushStatusMessage(e.Message);
-            }
-
+            txtCustomPool.Text = registryManager.GetCustomPool();
+            cpuorgpu.SelectedItem = registryManager.GetComponent();
+            #region Get Pool and select drop down
+            bool bFoundPool = false;
+            //i know i know.... this is the wrong way to go about this. Just for quick testing of registry additions. Git blame Liam
+            PoolsCollection cPools = new PoolsCollection();
+            cPools.Load();
+            if (cPools.Count > 0)
+                foreach (var Pool in cPools)
+                    if (Pool.iID.Equals(registryManager.GetPool()))
+                    {
+                        int index = cboPool.FindString(Pool.sDisplayName);
+                        cboPool.SelectedIndex = index;
+                        m_IPoolID = Pool.iID;
+                        bFoundPool = true;
+                        break;
+                    }
+            if (!bFoundPool)
+                PushStatusMessage("Saved pool no longer exists in our database");
+            #endregion
         }
 
         private void SaveConfig()
         {
+            registryManager.SetAutoLoad(chkAutoLoadConfig.Checked);
+            registryManager.SetCustomPool(txtCustomPool.Text);
+            registryManager.SetComponent(cpuorgpu.SelectedText);
+            registryManager.SetPort(port.Text);
+            registryManager.SetPool(m_IPoolID);
+            registryManager.SetComponent(cpuorgpu.SelectedText);
             registryManager.SetWalletId(wallet_address.Text);
-
-            File.Delete("config_templates\\ENTCRAFT.mcf");
-            File.Create("config_templates\\ENTCRAFT.mcf").Dispose();
-
-            string ht_checkstate = "no";
-            string config_contents_save = "" + Constants.vbNewLine +
-                System.Convert.ToString(cboPool.SelectedItem) + Constants.vbNewLine + txtCustomPool.Text + Constants.vbNewLine + m_MiningURL + Constants.vbNewLine + port.Text + Constants.vbNewLine + "" + Constants.vbNewLine + System.Convert.ToString(cpuorgpu.SelectedItem) + Constants.vbNewLine + "" + Constants.vbNewLine + "" + Constants.vbNewLine + ht_checkstate + Constants.vbNewLine + "";
-            (new Microsoft.VisualBasic.Devices.ServerComputer()).FileSystem.WriteAllText("config_templates\\ENTCRAFT.mcf", config_contents_save, true);
-            PushStatusMessage("ENTCRAFT.mcf deleted & recreated");
-
+            PushStatusMessage("Configuration Updated");
         }
 
         #endregion
@@ -403,10 +372,6 @@ namespace ETN_CPU_GPU_MINER
 
             GetSysTemp();
             #region Timer in window header
-            //DONT BE LAZY LIAM! MAKE THIS WORK ELSEWHERE
-            WorkStatus.SelectionStart = WorkStatus.Text.Length;
-            WorkStatus.ScrollToCaret();
-
             if (m_bStartTime)
             {
                 this.Text = "ETNCRAFT" + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
@@ -554,6 +519,8 @@ namespace ETN_CPU_GPU_MINER
                 m_sAggHashData += cleanMessage + "\r\n";
                 ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
                 loggerPool.Debug(cleanMessage);
+                WorkStatus.SelectionStart = WorkStatus.Text.Length;
+                WorkStatus.ScrollToCaret();
             }
         }
 
@@ -589,8 +556,7 @@ namespace ETN_CPU_GPU_MINER
             Process[] localAll = Process.GetProcesses();
             foreach (Process p in localAll)
             {
-                //Kill XMR miners, ccminer & cpuminer
-                if (p.ProcessName.Contains("ETNCRAFT"))
+                if (p.ProcessName.Equals("etncraft-xmr"))
                 {
                     PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
                     p.Kill();
@@ -611,10 +577,10 @@ namespace ETN_CPU_GPU_MINER
             PoolsCollection cAllPools = new PoolsCollection();
             cAllPools.Load();
             foreach (var citem in cAllPools)
-                cboPool.Items.Add(new PoolComboBoxItems(citem.sPoolMiningURL, citem.sDisplayName));
+                cboPool.Items.Add(new PoolComboBoxItems(citem.iID.ToString(), citem.sDisplayName));
             //Force selected item in dropdown list and fire the onselected change event which sets some global vars
             cboPool.SelectedIndex = 0;
-            //pool_SelectedIndexChanged_1(cboPool, new EventArgs());
+
         }
 
         #endregion

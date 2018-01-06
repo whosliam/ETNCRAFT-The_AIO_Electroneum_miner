@@ -122,6 +122,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ETN_CPU_GPU_MINER_TemporaryKey.pfx" />
+    <None Include="Properties\DataSources\Pools.datasource" />
+    <None Include="Properties\DataSources\PoolsCollection.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
