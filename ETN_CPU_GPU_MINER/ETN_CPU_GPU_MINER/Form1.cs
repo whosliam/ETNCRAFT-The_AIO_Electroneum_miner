@@ -180,7 +180,7 @@ namespace ETN_CPU_GPU_MINER
             stopwatch.Stop();
             //Kill mining
             EndProcesses();
-            BtnStopMining.Enabled = true;
+            StartMining.Enabled = true;
         }
 
         private void BtnCheckBalance_Click(object sender, EventArgs e)
