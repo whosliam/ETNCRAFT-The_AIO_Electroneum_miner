@@ -536,9 +536,13 @@ namespace ETN_CPU_GPU_MINER
                 m_sAggHashData += cleanMessage + "\r\n";
                 ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
                 loggerPool.Debug(cleanMessage);
-                //TEMP SOLUTION -- COMMENT THESE TWO LINES OUT IN LOCAL DEBUG
-                WorkStatus.SelectionStart = WorkStatus.Text.Length;
-                WorkStatus.ScrollToCaret();
+                try
+                {
+                    //TEMP SOLUTION -- COMMENT THESE TWO LINES OUT IN LOCAL DEBUG
+                    WorkStatus.SelectionStart = WorkStatus.Text.Length;
+                    WorkStatus.ScrollToCaret();
+                }
+                catch { }
             }
         }
 

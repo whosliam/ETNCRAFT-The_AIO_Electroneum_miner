@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="groupBox6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="status.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="status.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 18</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="status.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
@@ -129,7 +138,7 @@
     <value>Vertical</value>
   </data>
   <data name="status.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 185</value>
+    <value>361, 186</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="status.TabIndex" type="System.Int32, mscorlib">
@@ -151,10 +160,10 @@
     <value>0</value>
   </data>
   <data name="groupBox6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 339</value>
+    <value>341, 338</value>
   </data>
   <data name="groupBox6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>376, 209</value>
+    <value>375, 210</value>
   </data>
   <data name="groupBox6.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -173,6 +182,12 @@
   </data>
   <data name="&gt;&gt;groupBox6.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="wallet_address.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="wallet_address.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 18</value>
@@ -200,6 +215,9 @@
   </data>
   <data name="&gt;&gt;wallet_address.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="BtnClearWallet.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="BtnClearWallet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -254,6 +272,9 @@
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="groupBox3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="lblCPUUsage.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -418,7 +439,7 @@
     <value>1</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 339</value>
+    <value>8, 338</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>325, 209</value>
@@ -440,6 +461,12 @@
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="groupBox4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="ClearMessagesButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="ClearMessagesButton.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt, style=Bold</value>
@@ -467,6 +494,9 @@
   </data>
   <data name="&gt;&gt;ClearMessagesButton.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="BtnOpenLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="BtnOpenLog.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
@@ -630,6 +660,12 @@
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="groupBox5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="WorkStatus.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <data name="WorkStatus.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 19</value>
   </data>
@@ -640,7 +676,7 @@
     <value>Both</value>
   </data>
   <data name="WorkStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>690, 138</value>
+    <value>689, 143</value>
   </data>
   <data name="WorkStatus.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -664,7 +700,7 @@
     <value>8, 170</value>
   </data>
   <data name="groupBox5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>709, 163</value>
+    <value>708, 168</value>
   </data>
   <data name="groupBox5.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -683,6 +719,12 @@
   </data>
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="label6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -714,6 +756,9 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="port.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="port.Location" type="System.Drawing.Point, System.Drawing">
     <value>665, 16</value>
   </data>
@@ -741,6 +786,9 @@
   <data name="&gt;&gt;port.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -767,6 +815,9 @@
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="cboPool.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="cboPool.Location" type="System.Drawing.Point, System.Drawing">
     <value>338, 15</value>
@@ -886,7 +937,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tab_miner.Size" type="System.Drawing.Size, System.Drawing">
-    <value>725, 576</value>
+    <value>721, 557</value>
   </data>
   <data name="tab_miner.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1339,7 +1390,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tab_as.Size" type="System.Drawing.Size, System.Drawing">
-    <value>725, 576</value>
+    <value>721, 544</value>
   </data>
   <data name="tab_as.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1792,7 +1843,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tbHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>725, 576</value>
+    <value>721, 544</value>
   </data>
   <data name="tbHelp.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1819,7 +1870,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tabs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>733, 602</value>
+    <value>729, 583</value>
   </data>
   <data name="tabs.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -1849,7 +1900,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>733, 576</value>
+    <value>728, 581</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

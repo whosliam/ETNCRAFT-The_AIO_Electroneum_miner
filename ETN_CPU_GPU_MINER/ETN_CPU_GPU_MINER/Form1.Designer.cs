@@ -112,10 +112,10 @@
             // 
             // tabs
             // 
+            resources.ApplyResources(this.tabs, "tabs");
             this.tabs.Controls.Add(this.tab_miner);
             this.tabs.Controls.Add(this.tab_as);
             this.tabs.Controls.Add(this.tbHelp);
-            resources.ApplyResources(this.tabs, "tabs");
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
             // 
@@ -133,23 +133,23 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.status);
             resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Controls.Add(this.status);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
             // 
             // status
             // 
-            this.status.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.status, "status");
+            this.status.BackColor = System.Drawing.SystemColors.Window;
             this.status.Name = "status";
             this.status.ReadOnly = true;
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.wallet_address);
             this.groupBox1.Controls.Add(this.BtnClearWallet);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -167,9 +167,9 @@
             // 
             // groupBox3
             // 
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.groupBox7);
             this.groupBox3.Controls.Add(this.groupBox8);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
@@ -211,12 +211,12 @@
             // 
             // groupBox4
             // 
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.ClearMessagesButton);
             this.groupBox4.Controls.Add(this.BtnOpenLog);
             this.groupBox4.Controls.Add(this.StartMining);
             this.groupBox4.Controls.Add(this.BtnStopMining);
             this.groupBox4.Controls.Add(this.BtnCheckBalance);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
@@ -229,8 +229,8 @@
             // 
             // BtnOpenLog
             // 
-            this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
             resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
+            this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnOpenLog.Name = "BtnOpenLog";
             this.BtnOpenLog.UseVisualStyleBackColor = false;
             this.BtnOpenLog.Click += new System.EventHandler(this.BtnOpenLog_Click);
@@ -263,8 +263,8 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.WorkStatus);
             resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.Controls.Add(this.WorkStatus);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
@@ -276,13 +276,13 @@
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.port);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.cboPool);
             this.groupBox2.Controls.Add(this.cpuorgpu);
             this.groupBox2.Controls.Add(this.label11);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -304,9 +304,9 @@
             // 
             // cboPool
             // 
+            resources.ApplyResources(this.cboPool, "cboPool");
             this.cboPool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPool.FormattingEnabled = true;
-            resources.ApplyResources(this.cboPool, "cboPool");
             this.cboPool.Name = "cboPool";
             this.cboPool.SelectedIndexChanged += new System.EventHandler(this.pool_SelectedIndexChanged_1);
             // 
