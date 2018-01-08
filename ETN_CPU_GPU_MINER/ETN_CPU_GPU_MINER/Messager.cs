@@ -15,10 +15,9 @@ namespace ETN_CPU_GPU_MINER
         {
             Logger = Log;
             Logger.Debug("Message Interface Enabled.");
-
             PushMessage("Original Fork by ParthK117");
-            PushMessage("Current cpuminer multi and ccminer by tpruvot.");
-            PushMessage("Current xmr-stak-amd-ETNCRAFT and nvidia and cpu by fireice-uk");
+            PushMessage("Current xmr-stak by fireice-uk");
+            PushMessage("GUI,Configuration & miner compiled by ETNCRAFT team");
             PushMessage("!!Make sure to use your own wallet address!!");
         }
         

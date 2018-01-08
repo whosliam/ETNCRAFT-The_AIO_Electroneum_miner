@@ -134,7 +134,7 @@ namespace ETN_CPU_GPU_MINER
             #region Arguments
             string sArgs = "";
             if (sComponent.Equals("CPU"))
-                sArgs = "--noGPU";
+                sArgs = "--noAMD --noNVIDIA";
             else if (sComponent.Equals("GPU"))
                 sArgs = "--noCPU";
             #endregion
@@ -536,6 +536,7 @@ namespace ETN_CPU_GPU_MINER
                 m_sAggHashData += cleanMessage + "\r\n";
                 ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
                 loggerPool.Debug(cleanMessage);
+                //TEMP SOLUTION -- COMMENT THESE TWO LINES OUT IN LOCAL DEBUG
                 WorkStatus.SelectionStart = WorkStatus.Text.Length;
                 WorkStatus.ScrollToCaret();
             }
@@ -642,15 +643,6 @@ namespace ETN_CPU_GPU_MINER
                 sETNUSD += "ETN Price CNY: " + r.data.price_cny + "\r\n";
             }
             return sETNUSD;
-        }
-        
-        private void BuildInitAppInformationDisplay()
-        {
-            string sMsg = "";
-            sMsg += "> Original fork by ParthK117\r\n";
-            sMsg += "> Current xmr-stak by fireice-uk";
-            sMsg += "> GUI,Configuration & miner compiled by ETNCRAFT team";
-            status.Text = sMsg;
         }
         #endregion
     }
