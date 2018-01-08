@@ -41,7 +41,6 @@ namespace ETN_CPU_GPU_MINER
             m_Version = registryManager.GetVersion();
             messager.InitializeMessager(logger);
             InitializeComponent();
-
             //Set version in window header
             this.Text = "ETNCRAFT (" + m_Version + ")";
             this.Update();
@@ -238,6 +237,16 @@ namespace ETN_CPU_GPU_MINER
         {
             Process.Start("https://my.electroneum.com/offline_paper_electroneum_walletV1.6.html");
         }
+
+        private void btnETNWorth_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(GetCurrentCoinPrice(), "Current ETN Worth");
+        }
+
+        private void btnDeleteRegKeys_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(registryManager.DeleteRegistryKey(), "ETNCRAFT Services");
+        }
         #endregion
 
         #region DropDown Handlers
@@ -341,14 +350,18 @@ namespace ETN_CPU_GPU_MINER
         {
             registryManager.SetAutoLoad(chkAutoLoadConfig.Checked);
             registryManager.SetCustomPool(txtCustomPool.Text);
-            registryManager.SetComponent(cpuorgpu.SelectedText);
+            registryManager.SetComponent(cpuorgpu.SelectedItem.ToString());
             registryManager.SetPort(port.Text);
             registryManager.SetPool(m_IPoolID);
-            registryManager.SetComponent(cpuorgpu.SelectedText);
             registryManager.SetWalletId(wallet_address.Text);
             registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
             PushStatusMessage("Configuration Updated");
-            MessageBox.Show("Config saved.\r\nThese will be used after app restart", "Saved");
+            //MessageBox.Show("Config saved.\r\nThese will be used after app restart", "Saved");
+        }
+        private void txtTempLimit_TextChanged(object sender, EventArgs e)
+        {
+            //registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
+            m_iTemperatureAlert = int.Parse(CheckTempLimitEntry(txtTempLimit.Text));
         }
 
         #endregion
@@ -589,15 +602,10 @@ namespace ETN_CPU_GPU_MINER
 
         #endregion
 
-        #endregion
-
-        private void btnDeleteRegKeys_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(registryManager.DeleteRegistryKey(), "ETNCRAFT Services");
-        }
 
         private string CheckTempLimitEntry(string sText)
         {
+            bool bFailed = false;
             string sTemperature = "";
             if (!string.IsNullOrWhiteSpace(sText))
             {
@@ -606,12 +614,13 @@ namespace ETN_CPU_GPU_MINER
                     if (temp >= 0)
                         sTemperature = sText;
                     else
-                    {
-                        sTemperature = "90";
-                        PushStatusMessage("Temp field in not an int. Limit set to 90");
-                    }
+                        bFailed = true;
+                else
+                    bFailed = true;
             }
             else
+                sTemperature = "90";
+            if (bFailed)
             {
                 sTemperature = "90";
                 PushStatusMessage("Temp field in not an int. Limit set to 90");
@@ -634,11 +643,16 @@ namespace ETN_CPU_GPU_MINER
             }
             return sETNUSD;
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        
+        private void BuildInitAppInformationDisplay()
         {
-            MessageBox.Show(GetCurrentCoinPrice(),"Current ETN Worth");
+            string sMsg = "";
+            sMsg += "> Original fork by ParthK117\r\n";
+            sMsg += "> Current xmr-stak by fireice-uk";
+            sMsg += "> GUI,Configuration & miner compiled by ETNCRAFT team";
+            status.Text = sMsg;
         }
+        #endregion
     }
     public class PRICE_Rootobject
     {

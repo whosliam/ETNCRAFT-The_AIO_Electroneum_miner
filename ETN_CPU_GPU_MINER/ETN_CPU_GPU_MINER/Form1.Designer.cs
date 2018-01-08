@@ -66,6 +66,7 @@
             this.Label9 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.btnETNWorth = new System.Windows.Forms.Button();
             this.btnDeleteRegKeys = new System.Windows.Forms.Button();
             this.chkDebug = new System.Windows.Forms.CheckBox();
             this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
@@ -90,7 +91,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -354,6 +354,7 @@
             // 
             resources.ApplyResources(this.txtTempLimit, "txtTempLimit");
             this.txtTempLimit.Name = "txtTempLimit";
+            this.txtTempLimit.TextChanged += new System.EventHandler(this.txtTempLimit_TextChanged);
             // 
             // label1
             // 
@@ -377,12 +378,20 @@
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.button1);
+            this.groupBox12.Controls.Add(this.btnETNWorth);
             this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
             this.groupBox12.Controls.Add(this.chkDebug);
             resources.ApplyResources(this.groupBox12, "groupBox12");
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.TabStop = false;
+            // 
+            // btnETNWorth
+            // 
+            this.btnETNWorth.BackColor = System.Drawing.Color.LightSeaGreen;
+            resources.ApplyResources(this.btnETNWorth, "btnETNWorth");
+            this.btnETNWorth.Name = "btnETNWorth";
+            this.btnETNWorth.UseVisualStyleBackColor = false;
+            this.btnETNWorth.Click += new System.EventHandler(this.btnETNWorth_Click);
             // 
             // btnDeleteRegKeys
             // 
@@ -531,14 +540,6 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.LightSeaGreen;
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -640,7 +641,7 @@
         private System.Windows.Forms.Button BtnLoadDefaultConfig;
         private System.Windows.Forms.TextBox txtTempLimit;
         private System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.Button button1;
+        internal System.Windows.Forms.Button btnETNWorth;
     }
 }
 
