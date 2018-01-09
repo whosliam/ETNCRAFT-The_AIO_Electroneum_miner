@@ -1390,7 +1390,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="tab_as.Size" type="System.Drawing.Size, System.Drawing">
-    <value>721, 544</value>
+    <value>721, 557</value>
   </data>
   <data name="tab_as.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1843,7 +1843,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tbHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>721, 544</value>
+    <value>721, 557</value>
   </data>
   <data name="tbHelp.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

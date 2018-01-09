@@ -129,17 +129,14 @@ namespace ETN_CPU_GPU_MINER
             File.SetAttributes(Application.StartupPath + "\\" + sConfig_File_Name, FileAttributes.Normal);
             File.WriteAllText(Application.StartupPath + "\\" + sConfig_File_Name, CONFIG_CONTENTS);
             #endregion
-            //ADD THREAD MODIFICATIONS HERE FOR CPU & GPU -- If we decide to make this configurable again with new miner stak
             #endregion
             #region Spawn miner
-            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent);
-            #region Arguments
+            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent);            
             string sArgs = "";
             if (sComponent.Equals("CPU"))
                 sArgs = "--noAMD --noNVIDIA";
             else if (sComponent.Equals("GPU"))
                 sArgs = "--noCPU";
-            #endregion
             
             Process process = ProcessManager.SpawnMinerProcess(sArgs, m_bDebugging);
             process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);

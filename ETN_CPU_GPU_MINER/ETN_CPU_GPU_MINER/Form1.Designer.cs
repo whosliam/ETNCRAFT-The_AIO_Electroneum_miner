@@ -161,6 +161,7 @@
             // BtnClearWallet
             // 
             resources.ApplyResources(this.BtnClearWallet, "BtnClearWallet");
+            this.BtnClearWallet.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnClearWallet.Name = "BtnClearWallet";
             this.BtnClearWallet.UseVisualStyleBackColor = true;
             this.BtnClearWallet.Click += new System.EventHandler(this.BtnClearWallet_Click);
@@ -223,6 +224,7 @@
             // ClearMessagesButton
             // 
             resources.ApplyResources(this.ClearMessagesButton, "ClearMessagesButton");
+            this.ClearMessagesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ClearMessagesButton.Name = "ClearMessagesButton";
             this.ClearMessagesButton.UseVisualStyleBackColor = true;
             this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
@@ -231,6 +233,7 @@
             // 
             resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnOpenLog.Name = "BtnOpenLog";
             this.BtnOpenLog.UseVisualStyleBackColor = false;
             this.BtnOpenLog.Click += new System.EventHandler(this.BtnOpenLog_Click);
@@ -238,6 +241,7 @@
             // StartMining
             // 
             this.StartMining.BackColor = System.Drawing.Color.LawnGreen;
+            this.StartMining.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.StartMining, "StartMining");
             this.StartMining.ForeColor = System.Drawing.Color.Black;
             this.StartMining.Name = "StartMining";
@@ -247,6 +251,7 @@
             // BtnStopMining
             // 
             this.BtnStopMining.BackColor = System.Drawing.Color.Red;
+            this.BtnStopMining.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnStopMining, "BtnStopMining");
             this.BtnStopMining.ForeColor = System.Drawing.Color.Black;
             this.BtnStopMining.Name = "BtnStopMining";
@@ -256,6 +261,7 @@
             // BtnCheckBalance
             // 
             this.BtnCheckBalance.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.BtnCheckBalance.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnCheckBalance, "BtnCheckBalance");
             this.BtnCheckBalance.Name = "BtnCheckBalance";
             this.BtnCheckBalance.UseVisualStyleBackColor = false;
@@ -388,6 +394,7 @@
             // btnETNWorth
             // 
             this.btnETNWorth.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.btnETNWorth.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.btnETNWorth, "btnETNWorth");
             this.btnETNWorth.Name = "btnETNWorth";
             this.btnETNWorth.UseVisualStyleBackColor = false;
@@ -395,6 +402,7 @@
             // 
             // btnDeleteRegKeys
             // 
+            this.btnDeleteRegKeys.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.btnDeleteRegKeys, "btnDeleteRegKeys");
             this.btnDeleteRegKeys.Name = "btnDeleteRegKeys";
             this.btnDeleteRegKeys.UseVisualStyleBackColor = true;
@@ -408,6 +416,7 @@
             // 
             // BtnLoadDefaultConfig
             // 
+            this.BtnLoadDefaultConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
             this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
             this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
@@ -415,6 +424,7 @@
             // 
             // BtnLoadConfig
             // 
+            this.BtnLoadConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
             this.BtnLoadConfig.Name = "BtnLoadConfig";
             this.BtnLoadConfig.UseVisualStyleBackColor = true;
@@ -422,6 +432,7 @@
             // 
             // BtnSaveConfig
             // 
+            this.BtnSaveConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
             this.BtnSaveConfig.Name = "BtnSaveConfig";
             this.BtnSaveConfig.UseVisualStyleBackColor = true;
@@ -527,6 +538,7 @@
             // LinkWalletGen
             // 
             resources.ApplyResources(this.LinkWalletGen, "LinkWalletGen");
+            this.LinkWalletGen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LinkWalletGen.Name = "LinkWalletGen";
             this.LinkWalletGen.TabStop = true;
             this.LinkWalletGen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkWalletGen_LinkClicked);
