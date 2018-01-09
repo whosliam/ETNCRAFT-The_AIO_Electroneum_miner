@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabs = new System.Windows.Forms.TabControl();
             this.tab_miner = new System.Windows.Forms.TabPage();
@@ -91,6 +92,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -112,10 +114,10 @@
             // 
             // tabs
             // 
-            resources.ApplyResources(this.tabs, "tabs");
             this.tabs.Controls.Add(this.tab_miner);
             this.tabs.Controls.Add(this.tab_as);
             this.tabs.Controls.Add(this.tbHelp);
+            resources.ApplyResources(this.tabs, "tabs");
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
             // 
@@ -133,23 +135,23 @@
             // 
             // groupBox6
             // 
-            resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Controls.Add(this.status);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
             // 
             // status
             // 
-            resources.ApplyResources(this.status, "status");
             this.status.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.status, "status");
             this.status.Name = "status";
             this.status.ReadOnly = true;
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.wallet_address);
             this.groupBox1.Controls.Add(this.BtnClearWallet);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -161,16 +163,15 @@
             // BtnClearWallet
             // 
             resources.ApplyResources(this.BtnClearWallet, "BtnClearWallet");
-            this.BtnClearWallet.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnClearWallet.Name = "BtnClearWallet";
             this.BtnClearWallet.UseVisualStyleBackColor = true;
             this.BtnClearWallet.Click += new System.EventHandler(this.BtnClearWallet_Click);
             // 
             // groupBox3
             // 
-            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.groupBox7);
             this.groupBox3.Controls.Add(this.groupBox8);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
@@ -212,28 +213,26 @@
             // 
             // groupBox4
             // 
-            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.ClearMessagesButton);
             this.groupBox4.Controls.Add(this.BtnOpenLog);
             this.groupBox4.Controls.Add(this.StartMining);
             this.groupBox4.Controls.Add(this.BtnStopMining);
             this.groupBox4.Controls.Add(this.BtnCheckBalance);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
             // ClearMessagesButton
             // 
             resources.ApplyResources(this.ClearMessagesButton, "ClearMessagesButton");
-            this.ClearMessagesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ClearMessagesButton.Name = "ClearMessagesButton";
             this.ClearMessagesButton.UseVisualStyleBackColor = true;
             this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
             // 
             // BtnOpenLog
             // 
-            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.Name = "BtnOpenLog";
             this.BtnOpenLog.UseVisualStyleBackColor = false;
             this.BtnOpenLog.Click += new System.EventHandler(this.BtnOpenLog_Click);
@@ -241,7 +240,6 @@
             // StartMining
             // 
             this.StartMining.BackColor = System.Drawing.Color.LawnGreen;
-            this.StartMining.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.StartMining, "StartMining");
             this.StartMining.ForeColor = System.Drawing.Color.Black;
             this.StartMining.Name = "StartMining";
@@ -251,7 +249,6 @@
             // BtnStopMining
             // 
             this.BtnStopMining.BackColor = System.Drawing.Color.Red;
-            this.BtnStopMining.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnStopMining, "BtnStopMining");
             this.BtnStopMining.ForeColor = System.Drawing.Color.Black;
             this.BtnStopMining.Name = "BtnStopMining";
@@ -261,7 +258,6 @@
             // BtnCheckBalance
             // 
             this.BtnCheckBalance.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.BtnCheckBalance.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnCheckBalance, "BtnCheckBalance");
             this.BtnCheckBalance.Name = "BtnCheckBalance";
             this.BtnCheckBalance.UseVisualStyleBackColor = false;
@@ -269,8 +265,8 @@
             // 
             // groupBox5
             // 
-            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Controls.Add(this.WorkStatus);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
@@ -282,13 +278,13 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.port);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.cboPool);
             this.groupBox2.Controls.Add(this.cpuorgpu);
             this.groupBox2.Controls.Add(this.label11);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -310,9 +306,9 @@
             // 
             // cboPool
             // 
-            resources.ApplyResources(this.cboPool, "cboPool");
             this.cboPool.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPool.FormattingEnabled = true;
+            resources.ApplyResources(this.cboPool, "cboPool");
             this.cboPool.Name = "cboPool";
             this.cboPool.SelectedIndexChanged += new System.EventHandler(this.pool_SelectedIndexChanged_1);
             // 
@@ -394,7 +390,6 @@
             // btnETNWorth
             // 
             this.btnETNWorth.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.btnETNWorth.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.btnETNWorth, "btnETNWorth");
             this.btnETNWorth.Name = "btnETNWorth";
             this.btnETNWorth.UseVisualStyleBackColor = false;
@@ -402,7 +397,6 @@
             // 
             // btnDeleteRegKeys
             // 
-            this.btnDeleteRegKeys.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.btnDeleteRegKeys, "btnDeleteRegKeys");
             this.btnDeleteRegKeys.Name = "btnDeleteRegKeys";
             this.btnDeleteRegKeys.UseVisualStyleBackColor = true;
@@ -416,7 +410,6 @@
             // 
             // BtnLoadDefaultConfig
             // 
-            this.BtnLoadDefaultConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
             this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
             this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
@@ -424,7 +417,6 @@
             // 
             // BtnLoadConfig
             // 
-            this.BtnLoadConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
             this.BtnLoadConfig.Name = "BtnLoadConfig";
             this.BtnLoadConfig.UseVisualStyleBackColor = true;
@@ -432,7 +424,6 @@
             // 
             // BtnSaveConfig
             // 
-            this.BtnSaveConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
             this.BtnSaveConfig.Name = "BtnSaveConfig";
             this.BtnSaveConfig.UseVisualStyleBackColor = true;
@@ -538,7 +529,6 @@
             // LinkWalletGen
             // 
             resources.ApplyResources(this.LinkWalletGen, "LinkWalletGen");
-            this.LinkWalletGen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LinkWalletGen.Name = "LinkWalletGen";
             this.LinkWalletGen.TabStop = true;
             this.LinkWalletGen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkWalletGen_LinkClicked);
@@ -552,6 +542,12 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -559,6 +555,7 @@
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.Controls.Add(this.tabs);
             this.Name = "Form1";
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.tabs.ResumeLayout(false);
             this.tab_miner.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
@@ -654,6 +651,7 @@
         private System.Windows.Forms.TextBox txtTempLimit;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Button btnETNWorth;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 
