@@ -12,13 +12,17 @@ namespace ETN_CPU_GPU_MINER
         /// The main entry point for the application.
         /// </summary>
         public static bool m_bAutoRun = false;
+        public static bool m_bMinimize = false;
         [STAThread]
         static void Main(string[] args)
         {
             foreach (string sArg in args)
             {
-                if (sArg.ToLower().Equals("autorun"))
+                if (sArg.ToLower().Equals("-autorun"))
                     m_bAutoRun = true;
+
+                if (sArg.ToLower().Equals("-minimize"))
+                    m_bMinimize = true;
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

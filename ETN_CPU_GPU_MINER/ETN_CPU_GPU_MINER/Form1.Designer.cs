@@ -94,6 +94,11 @@
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -111,6 +116,7 @@
             this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -338,6 +344,7 @@
             // 
             // tab_as
             // 
+            this.tab_as.Controls.Add(this.groupBox13);
             this.tab_as.Controls.Add(this.groupBox11);
             this.tab_as.Controls.Add(this.groupBox12);
             this.tab_as.Controls.Add(this.BtnLoadDefaultConfig);
@@ -565,6 +572,36 @@
             // 
             this.m_cTimer.Tick += new System.EventHandler(this.m_cTimer_Tick);
             // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label21);
+            this.groupBox13.Controls.Add(this.label20);
+            this.groupBox13.Controls.Add(this.label4);
+            this.groupBox13.Controls.Add(this.label3);
+            resources.ApplyResources(this.groupBox13, "groupBox13");
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.TabStop = false;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -601,6 +638,8 @@
             this.groupBox14.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -671,6 +710,11 @@
         internal System.Windows.Forms.Button btnETNWorth;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Timer m_cTimer;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }
 

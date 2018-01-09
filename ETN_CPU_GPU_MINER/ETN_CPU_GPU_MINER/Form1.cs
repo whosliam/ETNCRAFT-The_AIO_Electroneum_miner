@@ -42,9 +42,10 @@ namespace ETN_CPU_GPU_MINER
             m_cTimer.Enabled = true;
             m_cTimer.Start();
         }
+
         public Form1()
         {
-            ProcessManager.CheckForExistingProcesses();
+            ProcessUtil.CheckForExistingProcesses();
             m_Version = registryManager.GetVersion();
             messager.InitializeMessager(logger);
             InitializeComponent();
@@ -76,12 +77,14 @@ namespace ETN_CPU_GPU_MINER
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
         }
+
         private void CloseForm(object sender, FormClosingEventArgs e)
         {
             logger.Warn("ETNCRAFT window closed, beginning process cleanup.");
-            ProcessManager.EndProcesses();
+            ProcessUtil.EndProcesses();
             registryManager.CloseRegistryKeys();
         }
+
         private void notifyIcon1_MouseDoubleClick_1(object sender, MouseEventArgs e)
         {
             Show();
@@ -160,7 +163,7 @@ namespace ETN_CPU_GPU_MINER
             else if (sComponent.Equals("GPU"))
                 sArgs = "--noCPU";
             
-            Process process = ProcessManager.SpawnMinerProcess(sArgs, m_bDebugging);
+            Process process = ProcessUtil.SpawnMinerProcess(sArgs, m_bDebugging);
             process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
             process.BeginOutputReadLine();
             process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
@@ -177,7 +180,7 @@ namespace ETN_CPU_GPU_MINER
             m_bStartTime = false;
             stopwatch.Stop();
             //Kill mining
-            ProcessManager.EndProcesses();
+            ProcessUtil.EndProcesses();
             StartMining.Enabled = true;
         }
 
@@ -355,7 +358,6 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetWalletId(wallet_address.Text);
             registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
             PushStatusMessage("Configuration Updated");
-            //MessageBox.Show("Config saved.\r\nThese will be used after app restart", "Saved");
         }
         private void txtTempLimit_TextChanged(object sender, EventArgs e)
         {
@@ -593,11 +595,12 @@ namespace ETN_CPU_GPU_MINER
         {
             m_cTimer.Stop();
             m_cTimer.Enabled = false;
+
             if (Program.m_bAutoRun)
-            {
-                BtnStartMining_Click(sender, e);
+                BtnStartMining_Click(sender, e);                
+
+            if (Program.m_bMinimize)
                 WindowState = FormWindowState.Minimized;
-            }
         }
 
         #endregion

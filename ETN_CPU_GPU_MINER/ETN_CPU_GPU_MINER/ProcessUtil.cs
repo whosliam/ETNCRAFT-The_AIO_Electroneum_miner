@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace ETNCRAFT
 {
-    static class ProcessManager
+    static class ProcessUtil
     {
         public static void CheckForExistingProcesses()
         {
