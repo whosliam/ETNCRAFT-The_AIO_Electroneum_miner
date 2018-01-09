@@ -10,25 +10,30 @@ namespace ETN_CPU_GPU_MINER
         private RegistryKey localMachine;
         private RegistryKey etnCraftAppKey;
 
-        private string VERSION_NUM = "1.7.6";
+        private const string VERSION_NUM = "1.7.6";
 
-        private string AUTO_LOAD_KEY_NAME = "AutoLoad";
-        private string NEW_MINER_KEY_NAME = "NewMiner";
-        private string VERSION_KEY_NAME = "Version";
+        private const string AUTO_LOAD_KEY_NAME = "AutoLoad";
+        private const string NEW_MINER_KEY_NAME = "NewMiner";
+        private const string VERSION_KEY_NAME = "Version";
 
-        private string WALLET_ID_KEY_NAME = "WalletId";
-        private string PORT_KEY_NAME = "Port";
-        private string POOL_KEY_NAME = "Pool";
-        private string CUSTOM_POOL_KEY_NAME = "CustPool";
-        private string MINER_COMPONENT = "MinerComp";
-        private string TEMP_LIMIT = "TempLimit";
-        private string IGNORE_TEMP_WARNINGS_KEY_NAME = "IgnoreTempWarnings";
-        private string SUBKEY_TREE = "SOFTWARE\\ETNCRAFT";
+        private const string WALLET_ID_KEY_NAME = "WalletId";
+        private const string PORT_KEY_NAME = "Port";
+        private const string POOL_KEY_NAME = "Pool";
+        private const string CUSTOM_POOL_KEY_NAME = "CustPool";
+        private const string MINER_COMPONENT = "MinerComp";
+        private const string TEMP_LIMIT = "TempLimit";
+        private const string IGNORE_TEMP_WARNINGS_KEY_NAME = "IgnoreTempWarnings";
+        private const string SUBKEY_TREE = "SOFTWARE\\ETNCRAFT";
 
-        private bool autoLoadDefault = false;
-        private bool newMinerDefault = true;
-        private bool ignoreTempWarnDefault = false;
-        private string walletIdDefault = "Enter Your Public Wallet Address";
+        private const bool autoLoadDefault = false;
+        private const bool newMinerDefault = true;
+        private const bool ignoreTempWarnDefault = false;
+        private const string walletIdDefault = "Enter Your Public Wallet Address";
+        private const string portDefault = "5555";
+        private const string customPoolDefault = "";
+        private const int poolDefault = 1;
+        private const string minerComponentDefault = "CPU";
+        private const string tempLimitDefault = "90";
 
         #endregion
 
@@ -43,38 +48,34 @@ namespace ETN_CPU_GPU_MINER
             etnCraftAppKey = GetAppKey();
 
             if (etnCraftAppKey.GetValue(AUTO_LOAD_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(AUTO_LOAD_KEY_NAME, autoLoadDefault);
+                SetAutoLoad(autoLoadDefault);
 
             if (etnCraftAppKey.GetValue(NEW_MINER_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(NEW_MINER_KEY_NAME, newMinerDefault);
+                SetNewMiner(newMinerDefault);
 
             if (etnCraftAppKey.GetValue(IGNORE_TEMP_WARNINGS_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(IGNORE_TEMP_WARNINGS_KEY_NAME, ignoreTempWarnDefault);
+                SetIgnoreTempWarnings(ignoreTempWarnDefault);
 
             if (etnCraftAppKey.GetValue(WALLET_ID_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(WALLET_ID_KEY_NAME, walletIdDefault);
+                SetWalletId(walletIdDefault);
 
-            if (etnCraftAppKey.GetValue(VERSION_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(VERSION_KEY_NAME, VERSION_NUM);
-
-            else if (!etnCraftAppKey.GetValue(VERSION_KEY_NAME).Equals(VERSION_NUM))
-                etnCraftAppKey.SetValue(VERSION_KEY_NAME, VERSION_NUM);
+            if (etnCraftAppKey.GetValue(VERSION_KEY_NAME) == null || !etnCraftAppKey.GetValue(VERSION_KEY_NAME).Equals(VERSION_NUM))
+               SetVersion(VERSION_NUM);            
 
             if (etnCraftAppKey.GetValue(PORT_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(PORT_KEY_NAME, "5555");
+                SetPort(portDefault);
 
             if (etnCraftAppKey.GetValue(CUSTOM_POOL_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(CUSTOM_POOL_KEY_NAME, "");
+                SetCustomPool(customPoolDefault);
 
             if (etnCraftAppKey.GetValue(POOL_KEY_NAME) == null)
-                etnCraftAppKey.SetValue(POOL_KEY_NAME, "1");
+                SetPool(poolDefault);
 
             if (etnCraftAppKey.GetValue(MINER_COMPONENT) == null)
-                etnCraftAppKey.SetValue(MINER_COMPONENT, "CPU");
+                SetComponent(minerComponentDefault);
 
             if (etnCraftAppKey.GetValue(TEMP_LIMIT) == null)
-                etnCraftAppKey.SetValue(TEMP_LIMIT, "90");
-
+                SetTempLimit(tempLimitDefault);
 
             etnCraftAppKey.Close();
             etnCraftAppKey = localMachine.OpenSubKey(SUBKEY_TREE, true);
@@ -117,7 +118,7 @@ namespace ETN_CPU_GPU_MINER
             return Convert.ToString(etnCraftAppKey.GetValue(VERSION_KEY_NAME));
         }
 
-        public void SetVersion(string version)
+        private void SetVersion(string version)
         {
             etnCraftAppKey.SetValue(VERSION_KEY_NAME, version);
         }
