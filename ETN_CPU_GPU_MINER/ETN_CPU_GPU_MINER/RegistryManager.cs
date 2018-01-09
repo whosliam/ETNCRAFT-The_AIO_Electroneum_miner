@@ -10,7 +10,7 @@ namespace ETN_CPU_GPU_MINER
         private RegistryKey localMachine;
         private RegistryKey etnCraftAppKey;
 
-        private const string VERSION_NUM = "1.7.8";
+        private const string VERSION_NUM = "1.7.6";
 
         private const string AUTO_LOAD_KEY_NAME = "AutoLoad";
         private const string NEW_MINER_KEY_NAME = "NewMiner";
