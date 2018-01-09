@@ -6,6 +6,7 @@ using System.IO;
 using OpenHardwareMonitor.Hardware;
 using System.Net;
 using Newtonsoft.Json;
+using ETNCRAFT;
 
 namespace ETN_CPU_GPU_MINER
 {
@@ -29,7 +30,7 @@ namespace ETN_CPU_GPU_MINER
         private Logger logger = new Logger("ETN_Craft");
         private Logger loggerPool = new Logger("ETN_Craft_Pool");
         private Messager messager = new Messager();
-        private RegistryManager registryManager = new RegistryManager();
+        private RegistryManager registryManager = new RegistryManager();        
         public int m_iTemperatureAlert = 90;
 
         #endregion
@@ -38,6 +39,7 @@ namespace ETN_CPU_GPU_MINER
 
         public Form1()
         {
+            ProcessManager.CheckForExistingProcesses();
             m_Version = registryManager.GetVersion();
             messager.InitializeMessager(logger);
             InitializeComponent();
@@ -73,7 +75,7 @@ namespace ETN_CPU_GPU_MINER
         private void CloseForm(object sender, FormClosingEventArgs e)
         {
             logger.Warn("ETNCRAFT window closed, beginning process cleanup.");
-            EndProcesses();
+            ProcessManager.EndProcesses();
             registryManager.CloseRegistryKeys();
         }
 
@@ -138,35 +140,13 @@ namespace ETN_CPU_GPU_MINER
             else if (sComponent.Equals("GPU"))
                 sArgs = "--noCPU";
             #endregion
-
-            string sFileName = Application.StartupPath + "\\app_assets\\etncraft-xmr.exe";
-            string sWorkingDirectory = Application.StartupPath + "\\app_assets";
-            if (m_bDebugging)
-            {
-                Process process = Process.Start(new ProcessStartInfo()
-                {
-                    FileName = sFileName,
-                    Arguments = sArgs,
-                    WorkingDirectory = sWorkingDirectory
-                });
-            }
-            else
-            {
-                Process process = Process.Start(new ProcessStartInfo()
-                {
-                    FileName = sFileName,
-                    WorkingDirectory = sWorkingDirectory,
-                    UseShellExecute = false,
-                    Arguments = sArgs,
-                    CreateNoWindow = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                });
-                process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
-                process.BeginOutputReadLine();
-                process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
-                process.BeginErrorReadLine();
-            }
+            
+            Process process = ProcessManager.SpawnMinerProcess(sArgs, m_bDebugging);
+            process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
+            process.BeginOutputReadLine();
+            process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
+            process.BeginErrorReadLine();
+                        
             #endregion
             StartMining.Enabled = false;
             //BtnStopMining.Enabled = true;
@@ -178,7 +158,7 @@ namespace ETN_CPU_GPU_MINER
             m_bStartTime = false;
             stopwatch.Stop();
             //Kill mining
-            EndProcesses();
+            ProcessManager.EndProcesses();
             StartMining.Enabled = true;
         }
 
@@ -572,22 +552,7 @@ namespace ETN_CPU_GPU_MINER
             }
             return true;
         }
-
-        private void EndProcesses()
-        {
-            Process[] localAll = Process.GetProcesses();
-            foreach (Process p in localAll)
-            {
-                if (p.ProcessName.Equals("etncraft-xmr"))
-                {
-                    PushStatusMessage("Killing Process : " + p.ProcessName + " ( pid " + p.Id + ")");
-                    p.Kill();
-                    PushStatusMessage(p.ProcessName + " Process Killed!");
-
-                }
-            }
-        }
-
+       
         private void LoadPoolListFromWebsite()
         {
             //Set Path
