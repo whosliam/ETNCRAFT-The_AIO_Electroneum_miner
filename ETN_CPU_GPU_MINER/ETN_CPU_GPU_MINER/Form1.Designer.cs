@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabs = new System.Windows.Forms.TabControl();
             this.tab_miner = new System.Windows.Forms.TabPage();
@@ -91,6 +92,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.open_config_dialog = new System.Windows.Forms.OpenFileDialog();
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.m_cTimer = new System.Windows.Forms.Timer(this.components);
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -552,6 +555,16 @@
             // 
             this.open_config_dialog.FileName = "File name";
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick_1);
+            // 
+            // m_cTimer
+            // 
+            this.m_cTimer.Tick += new System.EventHandler(this.m_cTimer_Tick);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -559,6 +572,8 @@
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.Controls.Add(this.tabs);
             this.Name = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize_1);
             this.tabs.ResumeLayout(false);
             this.tab_miner.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
@@ -654,6 +669,8 @@
         private System.Windows.Forms.TextBox txtTempLimit;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.Button btnETNWorth;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Timer m_cTimer;
     }
 }
 

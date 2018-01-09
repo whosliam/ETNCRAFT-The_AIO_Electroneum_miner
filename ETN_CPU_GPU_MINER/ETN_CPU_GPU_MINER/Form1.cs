@@ -36,7 +36,12 @@ namespace ETN_CPU_GPU_MINER
         #endregion
 
         #region Form Initialization
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            m_cTimer.Interval = 1000;
+            m_cTimer.Enabled = true;
+            m_cTimer.Start();
+        }
         public Form1()
         {
             ProcessManager.CheckForExistingProcesses();
@@ -71,14 +76,31 @@ namespace ETN_CPU_GPU_MINER
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
         }
-
         private void CloseForm(object sender, FormClosingEventArgs e)
         {
             logger.Warn("ETNCRAFT window closed, beginning process cleanup.");
             ProcessManager.EndProcesses();
             registryManager.CloseRegistryKeys();
         }
+        private void notifyIcon1_MouseDoubleClick_1(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            notifyIcon1.Visible = false;
+        }
 
+        private void Form1_Resize_1(object sender, EventArgs e)
+        {
+            //if the form is minimized  
+            //hide it from the task bar  
+            //and show the system tray icon (represented by the NotifyIcon control)  
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(2000);
+            }
+        }
         #endregion
 
         #region Control Handlers
@@ -567,6 +589,14 @@ namespace ETN_CPU_GPU_MINER
 
         }
 
+        private void m_cTimer_Tick(object sender, EventArgs e)
+        {
+            m_cTimer.Stop();
+            m_cTimer.Enabled = false;
+            if (Program.m_bAutoRun)
+                BtnStartMining_Click(sender, e);
+        }
+
         #endregion
 
 
@@ -611,6 +641,8 @@ namespace ETN_CPU_GPU_MINER
             return sETNUSD;
         }
         #endregion
+
+
     }
     public class PRICE_Rootobject
     {

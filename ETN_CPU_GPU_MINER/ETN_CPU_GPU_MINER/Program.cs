@@ -11,9 +11,15 @@ namespace ETN_CPU_GPU_MINER
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        public static bool m_bAutoRun = false;
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            foreach (string sArg in args)
+            {
+                if (sArg.ToLower().Equals("autorun"))
+                    m_bAutoRun = true;
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
