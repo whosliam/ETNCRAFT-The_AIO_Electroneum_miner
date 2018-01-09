@@ -594,7 +594,10 @@ namespace ETN_CPU_GPU_MINER
             m_cTimer.Stop();
             m_cTimer.Enabled = false;
             if (Program.m_bAutoRun)
+            {
                 BtnStartMining_Click(sender, e);
+                WindowState = FormWindowState.Minimized;
+            }
         }
 
         #endregion
