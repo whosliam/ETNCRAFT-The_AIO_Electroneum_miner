@@ -372,7 +372,7 @@ namespace ETN_CPU_GPU_MINER
         private void HashTimer()
         {
             Timer HashTxtTimer = new Timer();
-            HashTxtTimer.Interval = 300000;//5 minutes
+            HashTxtTimer.Interval = 600000;//10 minutes
             HashTxtTimer.Tick += new System.EventHandler(Hashtxt_Tick);
             HashTxtTimer.Start();
 

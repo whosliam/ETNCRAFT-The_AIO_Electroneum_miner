@@ -59,6 +59,11 @@
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.txtTempLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -66,14 +71,15 @@
             this.Label9 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.BtnOpenLog = new System.Windows.Forms.Button();
             this.btnETNWorth = new System.Windows.Forms.Button();
             this.btnDeleteRegKeys = new System.Windows.Forms.Button();
             this.chkDebug = new System.Windows.Forms.CheckBox();
-            this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
-            this.BtnLoadConfig = new System.Windows.Forms.Button();
-            this.BtnSaveConfig = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.chkAutoLoadConfig = new System.Windows.Forms.CheckBox();
+            this.BtnLoadConfig = new System.Windows.Forms.Button();
+            this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
+            this.BtnSaveConfig = new System.Windows.Forms.Button();
             this.tbHelp = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -93,12 +99,6 @@
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.BtnOpenLog = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -110,13 +110,13 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tab_as.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.groupBox13.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -343,6 +343,36 @@
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
             // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label21);
+            this.groupBox13.Controls.Add(this.label20);
+            this.groupBox13.Controls.Add(this.label4);
+            this.groupBox13.Controls.Add(this.label3);
+            resources.ApplyResources(this.groupBox13, "groupBox13");
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.TabStop = false;
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.txtTempLimit);
@@ -390,6 +420,14 @@
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.TabStop = false;
             // 
+            // BtnOpenLog
+            // 
+            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
+            this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnOpenLog.Name = "BtnOpenLog";
+            this.BtnOpenLog.UseVisualStyleBackColor = false;
+            // 
             // btnETNWorth
             // 
             this.btnETNWorth.BackColor = System.Drawing.Color.LightSeaGreen;
@@ -414,33 +452,6 @@
             this.chkDebug.Name = "chkDebug";
             this.chkDebug.UseVisualStyleBackColor = true;
             // 
-            // BtnLoadDefaultConfig
-            // 
-            this.BtnLoadDefaultConfig.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnLoadDefaultConfig.Cursor = System.Windows.Forms.Cursors.Hand;
-            resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
-            this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
-            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = false;
-            this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
-            // 
-            // BtnLoadConfig
-            // 
-            this.BtnLoadConfig.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnLoadConfig.Cursor = System.Windows.Forms.Cursors.Hand;
-            resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
-            this.BtnLoadConfig.Name = "BtnLoadConfig";
-            this.BtnLoadConfig.UseVisualStyleBackColor = false;
-            this.BtnLoadConfig.Click += new System.EventHandler(this.BtnLoadConfig_Click);
-            // 
-            // BtnSaveConfig
-            // 
-            this.BtnSaveConfig.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnSaveConfig.Cursor = System.Windows.Forms.Cursors.Hand;
-            resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
-            this.BtnSaveConfig.Name = "BtnSaveConfig";
-            this.BtnSaveConfig.UseVisualStyleBackColor = false;
-            this.BtnSaveConfig.Click += new System.EventHandler(this.BtnSaveConfig_Click);
-            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.chkAutoLoadConfig);
@@ -457,6 +468,33 @@
             this.chkAutoLoadConfig.Name = "chkAutoLoadConfig";
             this.chkAutoLoadConfig.UseVisualStyleBackColor = true;
             this.chkAutoLoadConfig.CheckedChanged += new System.EventHandler(this.chkAutoLoadConfig_CheckedChanged);
+            // 
+            // BtnLoadConfig
+            // 
+            this.BtnLoadConfig.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnLoadConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
+            this.BtnLoadConfig.Name = "BtnLoadConfig";
+            this.BtnLoadConfig.UseVisualStyleBackColor = false;
+            this.BtnLoadConfig.Click += new System.EventHandler(this.BtnLoadConfig_Click);
+            // 
+            // BtnLoadDefaultConfig
+            // 
+            this.BtnLoadDefaultConfig.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnLoadDefaultConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
+            this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
+            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = false;
+            this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
+            // 
+            // BtnSaveConfig
+            // 
+            this.BtnSaveConfig.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnSaveConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
+            this.BtnSaveConfig.Name = "BtnSaveConfig";
+            this.BtnSaveConfig.UseVisualStyleBackColor = false;
+            this.BtnSaveConfig.Click += new System.EventHandler(this.BtnSaveConfig_Click);
             // 
             // tbHelp
             // 
@@ -568,44 +606,6 @@
             // 
             this.m_cTimer.Tick += new System.EventHandler(this.m_cTimer_Tick);
             // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.label21);
-            this.groupBox13.Controls.Add(this.label20);
-            this.groupBox13.Controls.Add(this.label4);
-            this.groupBox13.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBox13, "groupBox13");
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.TabStop = false;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // label20
-            // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = "label20";
-            // 
-            // label21
-            // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.Name = "label21";
-            // 
-            // BtnOpenLog
-            // 
-            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
-            this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnOpenLog.Name = "BtnOpenLog";
-            this.BtnOpenLog.UseVisualStyleBackColor = false;
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -631,6 +631,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tab_as.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -642,8 +644,6 @@
             this.groupBox14.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
             this.ResumeLayout(false);
 
         }
