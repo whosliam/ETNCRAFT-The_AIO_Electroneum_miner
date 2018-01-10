@@ -468,6 +468,9 @@
   <data name="ClearMessagesButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="ClearMessagesButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
   <data name="ClearMessagesButton.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 8.25pt, style=Bold</value>
   </data>
@@ -494,45 +497,6 @@
   </data>
   <data name="&gt;&gt;ClearMessagesButton.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="BtnOpenLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="BtnOpenLog.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Popup</value>
-  </data>
-  <data name="BtnOpenLog.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt, style=Bold</value>
-  </data>
-  <data name="BtnOpenLog.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BtnOpenLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>483, 19</value>
-  </data>
-  <data name="BtnOpenLog.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="BtnOpenLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 25</value>
-  </data>
-  <data name="BtnOpenLog.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="BtnOpenLog.Text" xml:space="preserve">
-    <value>Open Logs</value>
-  </data>
-  <data name="&gt;&gt;BtnOpenLog.Name" xml:space="preserve">
-    <value>BtnOpenLog</value>
-  </data>
-  <data name="&gt;&gt;BtnOpenLog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BtnOpenLog.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;BtnOpenLog.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="StartMining.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -562,7 +526,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;StartMining.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="BtnStopMining.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -598,7 +562,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;BtnStopMining.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="BtnCheckBalance.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
@@ -634,7 +598,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;BtnCheckBalance.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 111</value>
@@ -1249,10 +1213,10 @@
     <value>4</value>
   </data>
   <data name="groupBox11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 112</value>
+    <value>8, 72</value>
   </data>
   <data name="groupBox11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>711, 86</value>
+    <value>709, 86</value>
   </data>
   <data name="groupBox11.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
@@ -1272,29 +1236,68 @@
   <data name="&gt;&gt;groupBox11.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="BtnOpenLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="BtnOpenLog.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="BtnOpenLog.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="BtnOpenLog.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BtnOpenLog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>154, 18</value>
+  </data>
+  <data name="BtnOpenLog.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="BtnOpenLog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 30</value>
+  </data>
+  <data name="BtnOpenLog.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="BtnOpenLog.Text" xml:space="preserve">
+    <value>Open Logs</value>
+  </data>
+  <data name="&gt;&gt;BtnOpenLog.Name" xml:space="preserve">
+    <value>BtnOpenLog</value>
+  </data>
+  <data name="&gt;&gt;BtnOpenLog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnOpenLog.Parent" xml:space="preserve">
+    <value>groupBox12</value>
+  </data>
+  <data name="&gt;&gt;BtnOpenLog.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="btnETNWorth.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
   <data name="btnETNWorth.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt, style=Bold</value>
+    <value>Tahoma, 8.25pt</value>
   </data>
   <data name="btnETNWorth.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnETNWorth.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 18</value>
+    <value>9, 18</value>
   </data>
   <data name="btnETNWorth.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnETNWorth.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 28</value>
+    <value>130, 30</value>
   </data>
   <data name="btnETNWorth.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
   </data>
   <data name="btnETNWorth.Text" xml:space="preserve">
-    <value>ETN - USD Worth</value>
+    <value>ETN Value</value>
   </data>
   <data name="&gt;&gt;btnETNWorth.Name" xml:space="preserve">
     <value>btnETNWorth</value>
@@ -1306,13 +1309,22 @@
     <value>groupBox12</value>
   </data>
   <data name="&gt;&gt;btnETNWorth.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="btnDeleteRegKeys.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="btnDeleteRegKeys.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
   </data>
   <data name="btnDeleteRegKeys.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 51</value>
+    <value>309, 18</value>
+  </data>
+  <data name="btnDeleteRegKeys.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="btnDeleteRegKeys.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 33</value>
+    <value>130, 30</value>
   </data>
   <data name="btnDeleteRegKeys.TabIndex" type="System.Int32, mscorlib">
     <value>49</value>
@@ -1330,7 +1342,7 @@
     <value>groupBox12</value>
   </data>
   <data name="&gt;&gt;btnDeleteRegKeys.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="chkDebug.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1363,13 +1375,13 @@
     <value>groupBox12</value>
   </data>
   <data name="&gt;&gt;chkDebug.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="groupBox12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 204</value>
+    <value>8, 164</value>
   </data>
   <data name="groupBox12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>714, 90</value>
+    <value>709, 90</value>
   </data>
   <data name="groupBox12.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -1389,101 +1401,14 @@
   <data name="&gt;&gt;groupBox12.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="BtnLoadDefaultConfig.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9.75pt</value>
-  </data>
-  <data name="BtnLoadDefaultConfig.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BtnLoadDefaultConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>149, 32</value>
-  </data>
-  <data name="BtnLoadDefaultConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 33</value>
-  </data>
-  <data name="BtnLoadDefaultConfig.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="BtnLoadDefaultConfig.Text" xml:space="preserve">
-    <value>Load Defaults</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadDefaultConfig.Name" xml:space="preserve">
-    <value>BtnLoadDefaultConfig</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadDefaultConfig.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadDefaultConfig.Parent" xml:space="preserve">
-    <value>tab_as</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadDefaultConfig.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="BtnLoadConfig.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9.75pt</value>
-  </data>
-  <data name="BtnLoadConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 32</value>
-  </data>
-  <data name="BtnLoadConfig.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="BtnLoadConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 33</value>
-  </data>
-  <data name="BtnLoadConfig.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="BtnLoadConfig.Text" xml:space="preserve">
-    <value>Re-Init Configuration</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadConfig.Name" xml:space="preserve">
-    <value>BtnLoadConfig</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadConfig.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadConfig.Parent" xml:space="preserve">
-    <value>tab_as</value>
-  </data>
-  <data name="&gt;&gt;BtnLoadConfig.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="BtnSaveConfig.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9.75pt</value>
-  </data>
-  <data name="BtnSaveConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 32</value>
-  </data>
-  <data name="BtnSaveConfig.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="BtnSaveConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 33</value>
-  </data>
-  <data name="BtnSaveConfig.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="BtnSaveConfig.Text" xml:space="preserve">
-    <value>Save Configuration</value>
-  </data>
-  <data name="&gt;&gt;BtnSaveConfig.Name" xml:space="preserve">
-    <value>BtnSaveConfig</value>
-  </data>
-  <data name="&gt;&gt;BtnSaveConfig.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BtnSaveConfig.Parent" xml:space="preserve">
-    <value>tab_as</value>
-  </data>
-  <data name="&gt;&gt;BtnSaveConfig.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="chkAutoLoadConfig.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="chkAutoLoadConfig.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="chkAutoLoadConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 66</value>
+    <value>457, 25</value>
   </data>
   <data name="chkAutoLoadConfig.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 17</value>
@@ -1506,11 +1431,119 @@
   <data name="&gt;&gt;chkAutoLoadConfig.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="BtnLoadConfig.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="BtnLoadConfig.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="BtnLoadConfig.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BtnLoadConfig.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 18</value>
+  </data>
+  <data name="BtnLoadConfig.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="BtnLoadConfig.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 30</value>
+  </data>
+  <data name="BtnLoadConfig.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="BtnLoadConfig.Text" xml:space="preserve">
+    <value>Re-Init Configuration</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadConfig.Name" xml:space="preserve">
+    <value>BtnLoadConfig</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadConfig.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadConfig.Parent" xml:space="preserve">
+    <value>groupBox10</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadConfig.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.Location" type="System.Drawing.Point, System.Drawing">
+    <value>161, 18</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 30</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="BtnLoadDefaultConfig.Text" xml:space="preserve">
+    <value>Load Defaults</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadDefaultConfig.Name" xml:space="preserve">
+    <value>BtnLoadDefaultConfig</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadDefaultConfig.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadDefaultConfig.Parent" xml:space="preserve">
+    <value>groupBox10</value>
+  </data>
+  <data name="&gt;&gt;BtnLoadDefaultConfig.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BtnSaveConfig.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="BtnSaveConfig.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="BtnSaveConfig.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BtnSaveConfig.Location" type="System.Drawing.Point, System.Drawing">
+    <value>311, 18</value>
+  </data>
+  <data name="BtnSaveConfig.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="BtnSaveConfig.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 30</value>
+  </data>
+  <data name="BtnSaveConfig.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="BtnSaveConfig.Text" xml:space="preserve">
+    <value>Save Configuration</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveConfig.Name" xml:space="preserve">
+    <value>BtnSaveConfig</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveConfig.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveConfig.Parent" xml:space="preserve">
+    <value>groupBox10</value>
+  </data>
+  <data name="&gt;&gt;BtnSaveConfig.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="groupBox10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 5</value>
+    <value>8, 5</value>
   </data>
   <data name="groupBox10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>714, 100</value>
+    <value>709, 61</value>
   </data>
   <data name="groupBox10.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
@@ -1528,7 +1561,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;groupBox10.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>3</value>
   </data>
   <data name="tab_as.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

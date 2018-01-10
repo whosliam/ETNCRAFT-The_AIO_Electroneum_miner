@@ -46,7 +46,6 @@
             this.lblGPUTemp = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.ClearMessagesButton = new System.Windows.Forms.Button();
-            this.BtnOpenLog = new System.Windows.Forms.Button();
             this.StartMining = new System.Windows.Forms.Button();
             this.BtnStopMining = new System.Windows.Forms.Button();
             this.BtnCheckBalance = new System.Windows.Forms.Button();
@@ -99,6 +98,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.BtnOpenLog = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -223,7 +223,6 @@
             // 
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.ClearMessagesButton);
-            this.groupBox4.Controls.Add(this.BtnOpenLog);
             this.groupBox4.Controls.Add(this.StartMining);
             this.groupBox4.Controls.Add(this.BtnStopMining);
             this.groupBox4.Controls.Add(this.BtnCheckBalance);
@@ -233,19 +232,11 @@
             // ClearMessagesButton
             // 
             resources.ApplyResources(this.ClearMessagesButton, "ClearMessagesButton");
+            this.ClearMessagesButton.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClearMessagesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ClearMessagesButton.Name = "ClearMessagesButton";
-            this.ClearMessagesButton.UseVisualStyleBackColor = true;
+            this.ClearMessagesButton.UseVisualStyleBackColor = false;
             this.ClearMessagesButton.Click += new System.EventHandler(this.ClearMessagesButton_Click);
-            // 
-            // BtnOpenLog
-            // 
-            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
-            this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnOpenLog.Name = "BtnOpenLog";
-            this.BtnOpenLog.UseVisualStyleBackColor = false;
-            this.BtnOpenLog.Click += new System.EventHandler(this.BtnOpenLog_Click);
             // 
             // StartMining
             // 
@@ -347,9 +338,6 @@
             this.tab_as.Controls.Add(this.groupBox13);
             this.tab_as.Controls.Add(this.groupBox11);
             this.tab_as.Controls.Add(this.groupBox12);
-            this.tab_as.Controls.Add(this.BtnLoadDefaultConfig);
-            this.tab_as.Controls.Add(this.BtnLoadConfig);
-            this.tab_as.Controls.Add(this.BtnSaveConfig);
             this.tab_as.Controls.Add(this.groupBox10);
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
@@ -394,6 +382,7 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.BtnOpenLog);
             this.groupBox12.Controls.Add(this.btnETNWorth);
             this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
             this.groupBox12.Controls.Add(this.chkDebug);
@@ -412,10 +401,11 @@
             // 
             // btnDeleteRegKeys
             // 
+            this.btnDeleteRegKeys.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnDeleteRegKeys.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.btnDeleteRegKeys, "btnDeleteRegKeys");
             this.btnDeleteRegKeys.Name = "btnDeleteRegKeys";
-            this.btnDeleteRegKeys.UseVisualStyleBackColor = true;
+            this.btnDeleteRegKeys.UseVisualStyleBackColor = false;
             this.btnDeleteRegKeys.Click += new System.EventHandler(this.btnDeleteRegKeys_Click);
             // 
             // chkDebug
@@ -426,31 +416,37 @@
             // 
             // BtnLoadDefaultConfig
             // 
+            this.BtnLoadDefaultConfig.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnLoadDefaultConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnLoadDefaultConfig, "BtnLoadDefaultConfig");
             this.BtnLoadDefaultConfig.Name = "BtnLoadDefaultConfig";
-            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = true;
+            this.BtnLoadDefaultConfig.UseVisualStyleBackColor = false;
             this.BtnLoadDefaultConfig.Click += new System.EventHandler(this.BtnLoadDefaultConfig_Click);
             // 
             // BtnLoadConfig
             // 
+            this.BtnLoadConfig.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnLoadConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnLoadConfig, "BtnLoadConfig");
             this.BtnLoadConfig.Name = "BtnLoadConfig";
-            this.BtnLoadConfig.UseVisualStyleBackColor = true;
+            this.BtnLoadConfig.UseVisualStyleBackColor = false;
             this.BtnLoadConfig.Click += new System.EventHandler(this.BtnLoadConfig_Click);
             // 
             // BtnSaveConfig
             // 
+            this.BtnSaveConfig.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnSaveConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             resources.ApplyResources(this.BtnSaveConfig, "BtnSaveConfig");
             this.BtnSaveConfig.Name = "BtnSaveConfig";
-            this.BtnSaveConfig.UseVisualStyleBackColor = true;
+            this.BtnSaveConfig.UseVisualStyleBackColor = false;
             this.BtnSaveConfig.Click += new System.EventHandler(this.BtnSaveConfig_Click);
             // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.chkAutoLoadConfig);
+            this.groupBox10.Controls.Add(this.BtnLoadConfig);
+            this.groupBox10.Controls.Add(this.BtnLoadDefaultConfig);
+            this.groupBox10.Controls.Add(this.BtnSaveConfig);
             resources.ApplyResources(this.groupBox10, "groupBox10");
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.TabStop = false;
@@ -602,6 +598,14 @@
             resources.ApplyResources(this.label21, "label21");
             this.label21.Name = "label21";
             // 
+            // BtnOpenLog
+            // 
+            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
+            this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnOpenLog.Name = "BtnOpenLog";
+            this.BtnOpenLog.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -675,7 +679,6 @@
         private System.Windows.Forms.Label lblGPUTemp;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox8;
-        internal System.Windows.Forms.Button BtnOpenLog;
         private System.Windows.Forms.CheckBox chkAutoLoadConfig;
         private System.Windows.Forms.TabPage tbHelp;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -715,6 +718,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.Button BtnOpenLog;
     }
 }
 
