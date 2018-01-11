@@ -13,6 +13,7 @@ namespace ETN_CPU_GPU_MINER
         /// </summary>
         public static bool m_bAutoRun = false;
         public static bool m_bMinimize = false;
+        public static bool m_bDoLog = true;
         [STAThread]
         static void Main(string[] args)
         {
@@ -23,6 +24,9 @@ namespace ETN_CPU_GPU_MINER
 
                 if (sArg.ToLower().Equals("-minimize"))
                     m_bMinimize = true;
+
+                if (sArg.ToLower().Equals("-nolog"))
+                    m_bDoLog = false;
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

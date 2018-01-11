@@ -25,10 +25,11 @@ namespace ETN_CPU_GPU_MINER
         public bool m_bDebugging = false;
         public bool m_bReadETNCRAFTULog = false;
         public bool m_bTempWarningModalIsOpen = false;
+        public bool m_bDoLog = true;
 
         private Stopwatch stopwatch = new Stopwatch();
-        private Logger logger = new Logger("ETN_Craft");
-        private Logger loggerPool = new Logger("ETN_Craft_Pool");
+        private Logger logger;
+        private Logger loggerPool;
         private Messager messager = new Messager();
         private RegistryManager registryManager = new RegistryManager();        
         public int m_iTemperatureAlert = 90;
@@ -45,9 +46,18 @@ namespace ETN_CPU_GPU_MINER
 
         public Form1()
         {
+            m_bDoLog = Program.m_bDoLog;
             ProcessUtil.CheckForExistingProcesses();
-            m_Version = registryManager.GetVersion();
-            messager.InitializeMessager(logger);
+
+            if (m_bDoLog)
+            {
+                logger = new Logger("ETN_Craft");
+                loggerPool = new Logger("ETN_Craft_Pool");
+                messager.InitializeMessager(logger);
+            }
+
+
+            m_Version = registryManager.GetVersion();            
             InitializeComponent();
             //Set version in window header
             this.Text = "ETNCRAFT (" + m_Version + ")";
@@ -56,15 +66,15 @@ namespace ETN_CPU_GPU_MINER
             //force first item in index -- just in case for new user.
             cpuorgpu.SelectedIndex = 0;
             // Check Registry for AutoLoad
-            PushStatusMessage("Checking for ETNCRAFT registry keys");
+            PushStatusMessage("Checking for ETNCRAFT registry keys", m_bDoLog);
             if (registryManager.GetAutoLoad())
                 LoadRegistryConfig();
-            PushStatusMessage("AutoLoad registry key loaded (" + registryManager.GetAutoLoad() + ")");
+            PushStatusMessage("AutoLoad registry key loaded (" + registryManager.GetAutoLoad() + ")", m_bDoLog);
 
             // Check Registry for NewMiner
             if (registryManager.GetNewMiner())
             {
-                PushStatusMessage("Welcome New Miner!");
+                PushStatusMessage("Welcome New Miner!", m_bDoLog);
                 DialogResult UserInput = MessageBox.Show("Welcome new miner!\r\nThe help tab has been pre selected.\r\nPlease read and follow the directions.", "WELCOME!", MessageBoxButtons.OK);
                 //Load Help tab
                 tabs.SelectedTab = tbHelp;
@@ -80,7 +90,8 @@ namespace ETN_CPU_GPU_MINER
 
         private void CloseForm(object sender, FormClosingEventArgs e)
         {
-            logger.Warn("ETNCRAFT window closed, beginning process cleanup.");
+            if (m_bDoLog)
+                logger.Warn("ETNCRAFT window closed, beginning process cleanup.");
             ProcessUtil.EndProcesses();
             registryManager.CloseRegistryKeys();
         }
@@ -120,7 +131,7 @@ namespace ETN_CPU_GPU_MINER
             if (!IsWalletValid())
                 return;
             SpawnMiner(cpuorgpu.SelectedItem.ToString());
-            PushStatusMessage("config.txt updated");
+            PushStatusMessage("config.txt updated", m_bDoLog);
             //Start header Timer for app run time
             m_bStartTime = true;
             stopwatch.Start();
@@ -142,7 +153,7 @@ namespace ETN_CPU_GPU_MINER
                 File.Create(sConfig_File_Name).Dispose();
             #endregion
             #region push msg
-            PushStatusMessage("config created for " + sComponent);
+            PushStatusMessage("config created for " + sComponent, m_bDoLog);
             #endregion
             #region  copy template to new config.txt
             File.Copy(sConfig_Template_File_Name, sConfig_File_Name, true);
@@ -156,7 +167,7 @@ namespace ETN_CPU_GPU_MINER
             #endregion
             #endregion
             #region Spawn miner
-            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent);            
+            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent, m_bDoLog);            
             string sArgs = "";
             if (sComponent.Equals("CPU"))
                 sArgs = "--noAMD --noNVIDIA";
@@ -264,7 +275,7 @@ namespace ETN_CPU_GPU_MINER
                     m_MiningURL = cItem.sPoolMiningURL;
                     m_PoolWebsiteURL = cItem.sPoolWebsite;
                     m_IPoolID = cItem.iID;
-                    PushStatusMessage(cItem.sDisplayName + " selected, " + cItem.sPoolWebsite + " | " + cItem.sPoolInformation);
+                    PushStatusMessage(cItem.sDisplayName + " selected, " + cItem.sPoolWebsite + " | " + cItem.sPoolInformation, m_bDoLog);
                     break;
                 }
             }
@@ -275,7 +286,7 @@ namespace ETN_CPU_GPU_MINER
             if (!txtCustomPool.Equals(""))
             {
                 m_MiningURL = txtCustomPool.Text;
-                PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!");
+                PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!", m_bDoLog);
             }
         }
 
@@ -307,7 +318,7 @@ namespace ETN_CPU_GPU_MINER
                 else
                     registryManager.SetAutoLoad(false);
             }
-            PushStatusMessage("AutoLoad registry key updated.");
+            PushStatusMessage("AutoLoad registry key updated.", m_bDoLog);
         }
 
         #endregion
@@ -320,7 +331,7 @@ namespace ETN_CPU_GPU_MINER
 
         private void LoadRegistryConfig()
         {
-            PushStatusMessage("Loading ETNCRAFT config from registry");
+            PushStatusMessage("Loading ETNCRAFT config from registry", m_bDoLog);
             wallet_address.Text = registryManager.GetWalletId();
             port.Text = registryManager.GetPortNumber();
             chkAutoLoadConfig.Checked = registryManager.GetAutoLoad();
@@ -344,7 +355,7 @@ namespace ETN_CPU_GPU_MINER
                         break;
                     }
             if (!bFoundPool)
-                PushStatusMessage("Saved pool no longer exists in our database");
+                PushStatusMessage("Saved pool no longer exists in our database", m_bDoLog);
             #endregion
         }
 
@@ -357,7 +368,7 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetPool(m_IPoolID);
             registryManager.SetWalletId(wallet_address.Text);
             registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
-            PushStatusMessage("Configuration Updated");
+            PushStatusMessage("Configuration Updated", m_bDoLog);
         }
         private void txtTempLimit_TextChanged(object sender, EventArgs e)
         {
@@ -519,11 +530,11 @@ namespace ETN_CPU_GPU_MINER
         /// 
         /// </summary>
         /// <param name="message"></param>
-        private void PushStatusMessage(string message)
+        private void PushStatusMessage(string message, bool doLog = true)
         {
             if (message != null)
             {
-                status.Text = messager.PushMessage(message);
+                status.Text = messager.PushMessage(message, doLog);
                 status.SelectionStart = status.Text.Length;
                 status.ScrollToCaret();
             }
@@ -536,7 +547,9 @@ namespace ETN_CPU_GPU_MINER
                 string cleanMessage = RemoveAnsiEscapes(message);
                 m_sAggHashData += cleanMessage + "\r\n";
                 ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
-                loggerPool.Debug(cleanMessage);
+                if (m_bDoLog)
+                    loggerPool.Debug(cleanMessage);
+
                 try
                 {
                     //TEMP SOLUTION -- COMMENT THESE TWO LINES OUT IN LOCAL DEBUG
@@ -567,7 +580,7 @@ namespace ETN_CPU_GPU_MINER
                 else if (UserInput.Equals(DialogResult.OK))
                 {
                     wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
-                    PushStatusMessage("Developer Wallet Address Selected! Thanks!");
+                    PushStatusMessage("Developer Wallet Address Selected! Thanks!", m_bDoLog);
                     return true;
                 }
             }
@@ -626,7 +639,7 @@ namespace ETN_CPU_GPU_MINER
             if (bFailed)
             {
                 sTemperature = "90";
-                PushStatusMessage("Temp field in not an int. Limit set to 90");
+                PushStatusMessage("Temp field in not an int. Limit set to 90", m_bDoLog);
             }
             return sTemperature;
         }
