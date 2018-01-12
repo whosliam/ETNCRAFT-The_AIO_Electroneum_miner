@@ -60,6 +60,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -99,8 +101,6 @@
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -357,6 +357,16 @@
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.TabStop = false;
             // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Name = "label22";
+            // 
             // label21
             // 
             resources.ApplyResources(this.label21, "label21");
@@ -609,16 +619,6 @@
             // m_cTimer
             // 
             this.m_cTimer.Tick += new System.EventHandler(this.m_cTimer_Tick);
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = "label22";
-            // 
-            // label23
-            // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.Name = "label23";
             // 
             // Form1
             // 
