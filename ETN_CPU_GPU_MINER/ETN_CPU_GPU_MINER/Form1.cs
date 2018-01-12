@@ -323,6 +323,7 @@ namespace ETN_CPU_GPU_MINER
 
         #endregion
 
+
         #endregion
 
         #region Utility Methods
@@ -659,9 +660,13 @@ namespace ETN_CPU_GPU_MINER
             }
             return sETNUSD;
         }
+
         #endregion
 
-
+        private void wallet_address_Click(object sender, EventArgs e)
+        {
+            wallet_address.SelectAll();
+        }
     }
     public class PRICE_Rootobject
     {

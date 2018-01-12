@@ -168,6 +168,7 @@
             // 
             resources.ApplyResources(this.wallet_address, "wallet_address");
             this.wallet_address.Name = "wallet_address";
+            this.wallet_address.Click += new System.EventHandler(this.wallet_address_Click);
             // 
             // BtnClearWallet
             // 
