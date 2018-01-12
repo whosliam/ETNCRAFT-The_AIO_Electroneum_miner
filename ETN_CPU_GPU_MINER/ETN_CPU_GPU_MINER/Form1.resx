@@ -1726,7 +1726,7 @@
     <value>1</value>
   </data>
   <data name="groupBox14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 173</value>
+    <value>2, 158</value>
   </data>
   <data name="groupBox14.Size" type="System.Drawing.Size, System.Drawing">
     <value>710, 59</value>
@@ -1759,7 +1759,7 @@
     <value>NoControl</value>
   </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 139</value>
+    <value>7, 121</value>
   </data>
   <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
     <value>527, 17</value>
@@ -1789,7 +1789,7 @@
     <value>Arial Black, 9pt</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 122</value>
+    <value>7, 104</value>
   </data>
   <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
     <value>530, 17</value>
@@ -1798,7 +1798,7 @@
     <value>8</value>
   </data>
   <data name="label18.Text" xml:space="preserve">
-    <value>7) Change POOL. Default pool is currently the best performing(has most miners)</value>
+    <value>6) Change POOL. Default pool is currently the best performing(has most miners)</value>
   </data>
   <data name="&gt;&gt;label18.Name" xml:space="preserve">
     <value>label18</value>
@@ -1819,7 +1819,7 @@
     <value>Arial Black, 9pt</value>
   </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 105</value>
+    <value>7, 87</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
     <value>632, 17</value>
@@ -1828,7 +1828,7 @@
     <value>7</value>
   </data>
   <data name="label17.Text" xml:space="preserve">
-    <value>6) Change PORT if applicable [(3333 - Low end PC) (5555 - Mid range PC) (7777 - High end PC) ]</value>
+    <value>5) Change PORT if applicable [(3333 - Low end PC) (5555 - Mid range PC) (7777 - High end PC) ]</value>
   </data>
   <data name="&gt;&gt;label17.Name" xml:space="preserve">
     <value>label17</value>
@@ -1841,39 +1841,6 @@
   </data>
   <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label16.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Black, 9pt</value>
-  </data>
-  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 88</value>
-  </data>
-  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>474, 17</value>
-  </data>
-  <data name="label16.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>5) Change THREAD COUNT if desired. No more than 2 threads per core.</value>
-  </data>
-  <data name="&gt;&gt;label16.Name" xml:space="preserve">
-    <value>label16</value>
-  </data>
-  <data name="&gt;&gt;label16.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1903,7 +1870,7 @@
     <value>groupBox9</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1933,7 +1900,7 @@
     <value>groupBox9</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1963,7 +1930,7 @@
     <value>groupBox9</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1996,7 +1963,7 @@
     <value>groupBox9</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="LinkWalletGen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2023,7 +1990,7 @@
     <value>groupBox9</value>
   </data>
   <data name="&gt;&gt;LinkWalletGen.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2056,13 +2023,13 @@
     <value>groupBox9</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="groupBox9.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 6</value>
   </data>
   <data name="groupBox9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>710, 161</value>
+    <value>710, 146</value>
   </data>
   <data name="groupBox9.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
