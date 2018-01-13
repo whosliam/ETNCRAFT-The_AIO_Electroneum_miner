@@ -630,6 +630,9 @@
   <data name="WorkStatus.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="WorkStatus.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Lucida Console, 8.25pt</value>
+  </data>
   <data name="WorkStatus.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 19</value>
   </data>
