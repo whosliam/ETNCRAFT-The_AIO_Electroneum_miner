@@ -347,13 +347,13 @@
             // 
             // groupBox13
             // 
+            resources.ApplyResources(this.groupBox13, "groupBox13");
             this.groupBox13.Controls.Add(this.label23);
             this.groupBox13.Controls.Add(this.label22);
             this.groupBox13.Controls.Add(this.label21);
             this.groupBox13.Controls.Add(this.label20);
             this.groupBox13.Controls.Add(this.label4);
             this.groupBox13.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBox13, "groupBox13");
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.TabStop = false;
             // 
@@ -389,12 +389,12 @@
             // 
             // groupBox11
             // 
+            resources.ApplyResources(this.groupBox11, "groupBox11");
             this.groupBox11.Controls.Add(this.txtTempLimit);
             this.groupBox11.Controls.Add(this.label1);
             this.groupBox11.Controls.Add(this.txtCustomPool);
             this.groupBox11.Controls.Add(this.Label9);
             this.groupBox11.Controls.Add(this.Label5);
-            resources.ApplyResources(this.groupBox11, "groupBox11");
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.TabStop = false;
             // 
@@ -426,19 +426,19 @@
             // 
             // groupBox12
             // 
+            resources.ApplyResources(this.groupBox12, "groupBox12");
             this.groupBox12.Controls.Add(this.BtnOpenLog);
             this.groupBox12.Controls.Add(this.btnETNWorth);
             this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
             this.groupBox12.Controls.Add(this.chkDebug);
-            resources.ApplyResources(this.groupBox12, "groupBox12");
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.TabStop = false;
             // 
             // BtnOpenLog
             // 
-            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.Name = "BtnOpenLog";
             this.BtnOpenLog.UseVisualStyleBackColor = false;
             // 
@@ -468,11 +468,11 @@
             // 
             // groupBox10
             // 
+            resources.ApplyResources(this.groupBox10, "groupBox10");
             this.groupBox10.Controls.Add(this.chkAutoLoadConfig);
             this.groupBox10.Controls.Add(this.BtnLoadConfig);
             this.groupBox10.Controls.Add(this.BtnLoadDefaultConfig);
             this.groupBox10.Controls.Add(this.BtnSaveConfig);
-            resources.ApplyResources(this.groupBox10, "groupBox10");
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.TabStop = false;
             // 
@@ -520,9 +520,9 @@
             // 
             // groupBox14
             // 
+            resources.ApplyResources(this.groupBox14, "groupBox14");
             this.groupBox14.Controls.Add(this.label10);
             this.groupBox14.Controls.Add(this.label8);
-            resources.ApplyResources(this.groupBox14, "groupBox14");
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.TabStop = false;
             // 
@@ -538,6 +538,7 @@
             // 
             // groupBox9
             // 
+            resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Controls.Add(this.label18);
             this.groupBox9.Controls.Add(this.label17);
@@ -547,7 +548,6 @@
             this.groupBox9.Controls.Add(this.label12);
             this.groupBox9.Controls.Add(this.LinkWalletGen);
             this.groupBox9.Controls.Add(this.label7);
-            resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.TabStop = false;
             // 
