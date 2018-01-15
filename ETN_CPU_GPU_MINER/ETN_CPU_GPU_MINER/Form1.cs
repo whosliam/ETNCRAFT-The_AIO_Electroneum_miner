@@ -31,7 +31,7 @@ namespace ETN_CPU_GPU_MINER
         private Logger logger;
         private Logger loggerPool;
         private Messager messager = new Messager();
-        private RegistryManager registryManager = new RegistryManager();        
+        private RegistryManager registryManager = new RegistryManager();
         public int m_iTemperatureAlert = 90;
 
         #endregion
@@ -57,7 +57,7 @@ namespace ETN_CPU_GPU_MINER
             }
 
 
-            m_Version = registryManager.GetVersion();            
+            m_Version = registryManager.GetVersion();
             InitializeComponent();
             //Set version in window header
             this.Text = "ETNCRAFT (" + m_Version + ")";
@@ -167,19 +167,19 @@ namespace ETN_CPU_GPU_MINER
             #endregion
             #endregion
             #region Spawn miner
-            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent, m_bDoLog);            
+            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent, m_bDoLog);
             string sArgs = "";
             if (sComponent.Equals("CPU"))
                 sArgs = "--noAMD --noNVIDIA";
             else if (sComponent.Equals("GPU"))
                 sArgs = "--noCPU";
-            
+
             Process process = ProcessUtil.SpawnMinerProcess(sArgs, m_bDebugging);
             process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
             process.BeginOutputReadLine();
             process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
             process.BeginErrorReadLine();
-                        
+
             #endregion
             StartMining.Enabled = false;
             //BtnStopMining.Enabled = true;
@@ -393,22 +393,34 @@ namespace ETN_CPU_GPU_MINER
         {
             WorkStatus.Text = "Log Cleared!";
             m_sAggHashData = "";
-           // PushStatusMessage(GetCurrentCoinPrice());
+            // PushStatusMessage(GetCurrentCoinPrice());
         }
         #endregion
 
         #region Temp/Uptime Timers etc
         void timer_Tick(object sender, EventArgs e)
         {
-
-            GetSysTemp();
-            #region Timer in window header
-            if (m_bStartTime)
+            double m_dElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
+            if (m_dElapsedSeconds < Program.m_iMaxRuntime || Program.m_iMaxRuntime == 0)
             {
-                this.Text = "ETNCRAFT " + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
-                this.Update();
+                GetSysTemp();
+                #region Timer in window header
+                if (m_bStartTime)
+                {
+                    this.Text = "ETNCRAFT " + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
+                    this.Update();
+                }
+                #endregion
+            }            
+            else
+            {                
+                PushStatusMessage("Maximum UpTime Limit Reached At : " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")));
+                stopwatch.Stop();
+                PushStatusMessage("Cleanup in preperation for shutdown");                    
+                ProcessUtil.EndProcesses();
+                PushStatusMessage("Done. Shutting down.");
+                Environment.Exit(0);                               
             }
-            #endregion
         }
         Computer myComputer;
         Timer timer = new Timer { Enabled = true, Interval = 1000 };
