@@ -15,7 +15,7 @@ namespace ETN_CPU_GPU_MINER
         public static bool m_bMinimize = false;
         public static bool m_bDoLog = true;
         private static bool m_bHasMaxRuntime = false;
-        public static double m_dMaxRuntime = 0;
+        public static double m_dMaxRuntime = 0.00;
 
         [STAThread]
         static void Main(string[] args)
@@ -37,7 +37,7 @@ namespace ETN_CPU_GPU_MINER
                 if (m_bHasMaxRuntime && !sArg.ToLower().Equals("-maxuptime")
                     && !sArg.ToLower().Equals("-nolog") && !sArg.ToLower().Equals("-minimize")
                     && !sArg.ToLower().Equals("-autorun"))
-                    m_dMaxRuntime = Convert.ToDouble(sArg) * 60.00;
+                    m_dMaxRuntime = Convert.ToDouble(sArg);
 
             }
             Application.EnableVisualStyles();
