@@ -19,6 +19,7 @@ namespace ETN_CPU_GPU_MINER
         public static string m_PoolWebsiteURL = "";
         public static int m_IPoolID = 0;
         public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
+        public static double m_dMaxUpTime = Program.m_dMaxRuntime;
 
         public bool b_FormLoaded = false;
         public bool m_bStartTime = false;
@@ -80,9 +81,13 @@ namespace ETN_CPU_GPU_MINER
                 tabs.SelectedTab = tbHelp;
             }
 
-            // cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             //Spool up timers
             InitTemps();
+            if (!this.chkMaxUp.Checked)
+            {
+                this.strMinutes.Visible = false;
+                this.maxUpTimeMin.Visible = false;
+            }
             //This is to keep the event handlers from firing when the form load. Just wrap functions in this.
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
@@ -321,6 +326,31 @@ namespace ETN_CPU_GPU_MINER
             PushStatusMessage("AutoLoad registry key updated.", m_bDoLog);
         }
 
+        private void chkMaxUp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMaxUp.Checked)
+            {
+                strMinutes.Visible = true;
+                maxUpTimeMin.Visible = true;
+            }
+        }
+
+        #endregion
+
+        #region Text Box Handlers
+
+        private void wallet_address_Click(object sender, EventArgs e)
+        {
+            wallet_address.SelectAll();
+        }
+
+        private void maxUpTimeMin_TextChanged(object sender, EventArgs e)
+        {
+            if (maxUpTimeMin.Text.Length > 0)
+                m_dMaxUpTime = Convert.ToDouble(maxUpTimeMin.Text);
+            else
+                m_dMaxUpTime = 0;
+        }
         #endregion
 
 
@@ -340,6 +370,8 @@ namespace ETN_CPU_GPU_MINER
             cpuorgpu.SelectedItem = registryManager.GetComponent();
             txtTempLimit.Text = CheckTempLimitEntry(registryManager.GetTempLimit());
             m_iTemperatureAlert = int.Parse(txtTempLimit.Text);
+            chkMaxUp.Checked = registryManager.GetEnforceMaxUpTime();
+            maxUpTimeMin.Text = Convert.ToString(registryManager.GetMaxUpTime());
             #region Get Pool and select drop down
             bool bFoundPool = false;
             //i know i know.... this is the wrong way to go about this. Just for quick testing of registry additions. Git blame Liam
@@ -369,6 +401,8 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetPool(m_IPoolID);
             registryManager.SetWalletId(wallet_address.Text);
             registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
+            registryManager.SetEnforceMaxUpTime(chkMaxUp.Checked);
+            registryManager.SetMaxUpTime(maxUpTimeMin.Text.Length > 0 ? Convert.ToDouble(maxUpTimeMin.Text) : 0);           
             PushStatusMessage("Configuration Updated", m_bDoLog);
         }
         private void txtTempLimit_TextChanged(object sender, EventArgs e)
@@ -401,7 +435,7 @@ namespace ETN_CPU_GPU_MINER
         void timer_Tick(object sender, EventArgs e)
         {
             double m_dElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
-            if (m_dElapsedSeconds < Program.m_iMaxRuntime || Program.m_iMaxRuntime == 0)
+            if (m_dElapsedSeconds < (m_dMaxUpTime * 60.00) || m_dMaxUpTime == 0)
             {
                 GetSysTemp();
                 #region Timer in window header
@@ -674,11 +708,7 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-
-        private void wallet_address_Click(object sender, EventArgs e)
-        {
-            wallet_address.SelectAll();
-        }
+        
     }
     public class PRICE_Rootobject
     {

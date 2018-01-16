@@ -20,6 +20,8 @@ namespace ETN_CPU_GPU_MINER
         private const string PORT_KEY_NAME = "Port";
         private const string POOL_KEY_NAME = "Pool";
         private const string CUSTOM_POOL_KEY_NAME = "CustPool";
+        private const string ENFORCE_MAX_UPTIME = "EnforceMaxUpTime";
+        private const string MAX_UPTIME = "MaxUpTime";
         private const string MINER_COMPONENT = "MinerComp";
         private const string TEMP_LIMIT = "TempLimit";
         private const string IGNORE_TEMP_WARNINGS_KEY_NAME = "IgnoreTempWarnings";
@@ -28,6 +30,8 @@ namespace ETN_CPU_GPU_MINER
         private const bool autoLoadDefault = false;
         private const bool newMinerDefault = true;
         private const bool ignoreTempWarnDefault = false;
+        private const bool enforceMaxUpTimeDefaul = false;
+        private const double maxUpTimeDefault = 0.0;
         private const string walletIdDefault = "Enter Your Public Wallet Address";
         private const string portDefault = "5555";
         private const string customPoolDefault = "";
@@ -76,6 +80,9 @@ namespace ETN_CPU_GPU_MINER
 
             if (etnCraftAppKey.GetValue(TEMP_LIMIT) == null)
                 SetTempLimit(tempLimitDefault);
+
+            //if (etnCraftAppKey.GetValue(ENFORCE_MAX_UPTIME) == null)
+                
 
             etnCraftAppKey.Close();
             etnCraftAppKey = localMachine.OpenSubKey(SUBKEY_TREE, true);
@@ -184,6 +191,26 @@ namespace ETN_CPU_GPU_MINER
         public string GetTempLimit()
         {
             return etnCraftAppKey.GetValue(TEMP_LIMIT).ToString();
+        }
+
+        public void SetEnforceMaxUpTime(bool enforceMaxUpTime)
+        {
+            etnCraftAppKey.SetValue(ENFORCE_MAX_UPTIME, enforceMaxUpTime);
+        }
+
+        public bool GetEnforceMaxUpTime()
+        {
+            return Convert.ToBoolean(etnCraftAppKey.GetValue(ENFORCE_MAX_UPTIME));
+        }
+
+        public void SetMaxUpTime(double maxUpTime)
+        {
+            etnCraftAppKey.SetValue(MAX_UPTIME, maxUpTime);
+        }
+
+        public double GetMaxUpTime()
+        {
+            return Convert.ToDouble(etnCraftAppKey.GetValue(MAX_UPTIME));
         }
 
         #endregion

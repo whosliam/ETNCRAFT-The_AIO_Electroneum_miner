@@ -924,6 +924,126 @@
   <data name="&gt;&gt;tab_miner.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="maxUpTimeMin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>638, 514</value>
+  </data>
+  <data name="maxUpTimeMin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 20</value>
+  </data>
+  <data name="maxUpTimeMin.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="maxUpTimeMin.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;maxUpTimeMin.Name" xml:space="preserve">
+    <value>maxUpTimeMin</value>
+  </data>
+  <data name="&gt;&gt;maxUpTimeMin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maxUpTimeMin.Parent" xml:space="preserve">
+    <value>tab_as</value>
+  </data>
+  <data name="&gt;&gt;maxUpTimeMin.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="strMinutes.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="strMinutes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="strMinutes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>669, 517</value>
+  </data>
+  <data name="strMinutes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="strMinutes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 13</value>
+  </data>
+  <data name="strMinutes.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="strMinutes.Text" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="&gt;&gt;strMinutes.Name" xml:space="preserve">
+    <value>strMinutes</value>
+  </data>
+  <data name="&gt;&gt;strMinutes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;strMinutes.Parent" xml:space="preserve">
+    <value>tab_as</value>
+  </data>
+  <data name="&gt;&gt;strMinutes.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label16.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
+    <value>82, 50</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 13</value>
+  </data>
+  <data name="label16.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>- send app to taskbar on open</value>
+  </data>
+  <data name="&gt;&gt;label16.Name" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;label16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label16.Parent" xml:space="preserve">
+    <value>groupBox13</value>
+  </data>
+  <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label24.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label24.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="label24.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label24.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 50</value>
+  </data>
+  <data name="label24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 13</value>
+  </data>
+  <data name="label24.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>-minimize</value>
+  </data>
+  <data name="&gt;&gt;label24.Name" xml:space="preserve">
+    <value>label24</value>
+  </data>
+  <data name="&gt;&gt;label24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label24.Parent" xml:space="preserve">
+    <value>groupBox13</value>
+  </data>
+  <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="label23.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -931,7 +1051,7 @@
     <value>NoControl</value>
   </data>
   <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 45</value>
+    <value>82, 67</value>
   </data>
   <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 13</value>
@@ -952,7 +1072,7 @@
     <value>groupBox13</value>
   </data>
   <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="label22.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -964,7 +1084,7 @@
     <value>NoControl</value>
   </data>
   <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 45</value>
+    <value>6, 67</value>
   </data>
   <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
     <value>42, 13</value>
@@ -985,7 +1105,7 @@
     <value>groupBox13</value>
   </data>
   <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="label21.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -994,16 +1114,16 @@
     <value>NoControl</value>
   </data>
   <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 31</value>
+    <value>82, 33</value>
   </data>
   <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 13</value>
+    <value>99, 13</value>
   </data>
   <data name="label21.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
   </data>
   <data name="label21.Text" xml:space="preserve">
-    <value>- send app to taskbar on open</value>
+    <value>- max up time in min</value>
   </data>
   <data name="&gt;&gt;label21.Name" xml:space="preserve">
     <value>label21</value>
@@ -1015,7 +1135,7 @@
     <value>groupBox13</value>
   </data>
   <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1024,7 +1144,7 @@
     <value>NoControl</value>
   </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 16</value>
+    <value>82, 16</value>
   </data>
   <data name="label20.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 13</value>
@@ -1045,7 +1165,7 @@
     <value>groupBox13</value>
   </data>
   <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1057,16 +1177,16 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 31</value>
+    <value>6, 33</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
+    <value>70, 13</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>-minimize</value>
+    <value>-maxuptime</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -1078,7 +1198,7 @@
     <value>groupBox13</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1111,13 +1231,13 @@
     <value>groupBox13</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="groupBox13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 487</value>
+    <value>5, 467</value>
   </data>
   <data name="groupBox13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 65</value>
+    <value>232, 85</value>
   </data>
   <data name="groupBox13.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
@@ -1135,10 +1255,43 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;groupBox13.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
+  </data>
+  <data name="chkMaxUp.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkMaxUp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkMaxUp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 516</value>
+  </data>
+  <data name="chkMaxUp.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="chkMaxUp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 17</value>
+  </data>
+  <data name="chkMaxUp.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="chkMaxUp.Text" xml:space="preserve">
+    <value>Limit Up Time</value>
+  </data>
+  <data name="&gt;&gt;chkMaxUp.Name" xml:space="preserve">
+    <value>chkMaxUp</value>
+  </data>
+  <data name="&gt;&gt;chkMaxUp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkMaxUp.Parent" xml:space="preserve">
+    <value>tab_as</value>
+  </data>
+  <data name="&gt;&gt;chkMaxUp.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="txtTempLimit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>158, 52</value>
+    <value>158, 51</value>
   </data>
   <data name="txtTempLimit.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 20</value>
@@ -1300,7 +1453,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;groupBox11.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="BtnOpenLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1465,7 +1618,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;groupBox12.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="chkAutoLoadConfig.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1627,7 +1780,7 @@
     <value>tab_as</value>
   </data>
   <data name="&gt;&gt;groupBox10.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="tab_as.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
