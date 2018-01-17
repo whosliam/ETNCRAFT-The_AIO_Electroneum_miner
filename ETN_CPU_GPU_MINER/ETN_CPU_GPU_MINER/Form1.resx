@@ -924,6 +924,9 @@
   <data name="&gt;&gt;tab_miner.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="maxUpTimeMin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="maxUpTimeMin.Location" type="System.Drawing.Point, System.Drawing">
     <value>638, 514</value>
   </data>
@@ -947,6 +950,9 @@
   </data>
   <data name="&gt;&gt;maxUpTimeMin.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="strMinutes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="strMinutes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1257,6 +1263,9 @@
   <data name="&gt;&gt;groupBox13.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="chkMaxUp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="chkMaxUp.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1289,6 +1298,9 @@
   </data>
   <data name="&gt;&gt;chkMaxUp.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="groupBox11.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="txtTempLimit.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 51</value>
@@ -1455,6 +1467,9 @@
   <data name="&gt;&gt;groupBox11.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="groupBox12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="BtnOpenLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1619,6 +1634,9 @@
   </data>
   <data name="&gt;&gt;groupBox12.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="groupBox10.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="chkAutoLoadConfig.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1812,6 +1830,9 @@
   <data name="&gt;&gt;tab_as.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="groupBox14.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1904,6 +1925,9 @@
   </data>
   <data name="&gt;&gt;groupBox14.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="groupBox9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="label19.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
