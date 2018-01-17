@@ -59,13 +59,18 @@
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
+            this.maxUpTimeMin = new System.Windows.Forms.TextBox();
+            this.strMinutes = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.chkMaxUp = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.txtTempLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -337,7 +342,10 @@
             // 
             // tab_as
             // 
+            this.tab_as.Controls.Add(this.maxUpTimeMin);
+            this.tab_as.Controls.Add(this.strMinutes);
             this.tab_as.Controls.Add(this.groupBox13);
+            this.tab_as.Controls.Add(this.chkMaxUp);
             this.tab_as.Controls.Add(this.groupBox11);
             this.tab_as.Controls.Add(this.groupBox12);
             this.tab_as.Controls.Add(this.groupBox10);
@@ -345,17 +353,40 @@
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
             // 
+            // maxUpTimeMin
+            // 
+            resources.ApplyResources(this.maxUpTimeMin, "maxUpTimeMin");
+            this.maxUpTimeMin.Name = "maxUpTimeMin";
+            this.maxUpTimeMin.TextChanged += new System.EventHandler(this.maxUpTimeMin_TextChanged);
+            // 
+            // strMinutes
+            // 
+            resources.ApplyResources(this.strMinutes, "strMinutes");
+            this.strMinutes.Name = "strMinutes";
+            // 
             // groupBox13
             // 
-            resources.ApplyResources(this.groupBox13, "groupBox13");
+            this.groupBox13.Controls.Add(this.label16);
+            this.groupBox13.Controls.Add(this.label24);
             this.groupBox13.Controls.Add(this.label23);
             this.groupBox13.Controls.Add(this.label22);
             this.groupBox13.Controls.Add(this.label21);
             this.groupBox13.Controls.Add(this.label20);
             this.groupBox13.Controls.Add(this.label4);
             this.groupBox13.Controls.Add(this.label3);
+            resources.ApplyResources(this.groupBox13, "groupBox13");
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.TabStop = false;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // label24
+            // 
+            resources.ApplyResources(this.label24, "label24");
+            this.label24.Name = "label24";
             // 
             // label23
             // 
@@ -387,14 +418,21 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             // 
+            // chkMaxUp
+            // 
+            resources.ApplyResources(this.chkMaxUp, "chkMaxUp");
+            this.chkMaxUp.Name = "chkMaxUp";
+            this.chkMaxUp.UseVisualStyleBackColor = true;
+            this.chkMaxUp.CheckedChanged += new System.EventHandler(this.chkMaxUp_CheckedChanged);
+            // 
             // groupBox11
             // 
-            resources.ApplyResources(this.groupBox11, "groupBox11");
             this.groupBox11.Controls.Add(this.txtTempLimit);
             this.groupBox11.Controls.Add(this.label1);
             this.groupBox11.Controls.Add(this.txtCustomPool);
             this.groupBox11.Controls.Add(this.Label9);
             this.groupBox11.Controls.Add(this.Label5);
+            resources.ApplyResources(this.groupBox11, "groupBox11");
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.TabStop = false;
             // 
@@ -426,19 +464,19 @@
             // 
             // groupBox12
             // 
-            resources.ApplyResources(this.groupBox12, "groupBox12");
             this.groupBox12.Controls.Add(this.BtnOpenLog);
             this.groupBox12.Controls.Add(this.btnETNWorth);
             this.groupBox12.Controls.Add(this.btnDeleteRegKeys);
             this.groupBox12.Controls.Add(this.chkDebug);
+            resources.ApplyResources(this.groupBox12, "groupBox12");
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.TabStop = false;
             // 
             // BtnOpenLog
             // 
+            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
-            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.Name = "BtnOpenLog";
             this.BtnOpenLog.UseVisualStyleBackColor = false;
             // 
@@ -468,11 +506,11 @@
             // 
             // groupBox10
             // 
-            resources.ApplyResources(this.groupBox10, "groupBox10");
             this.groupBox10.Controls.Add(this.chkAutoLoadConfig);
             this.groupBox10.Controls.Add(this.BtnLoadConfig);
             this.groupBox10.Controls.Add(this.BtnLoadDefaultConfig);
             this.groupBox10.Controls.Add(this.BtnSaveConfig);
+            resources.ApplyResources(this.groupBox10, "groupBox10");
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.TabStop = false;
             // 
@@ -520,9 +558,9 @@
             // 
             // groupBox14
             // 
-            resources.ApplyResources(this.groupBox14, "groupBox14");
             this.groupBox14.Controls.Add(this.label10);
             this.groupBox14.Controls.Add(this.label8);
+            resources.ApplyResources(this.groupBox14, "groupBox14");
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.TabStop = false;
             // 
@@ -538,7 +576,6 @@
             // 
             // groupBox9
             // 
-            resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Controls.Add(this.label18);
             this.groupBox9.Controls.Add(this.label17);
@@ -548,6 +585,7 @@
             this.groupBox9.Controls.Add(this.label12);
             this.groupBox9.Controls.Add(this.LinkWalletGen);
             this.groupBox9.Controls.Add(this.label7);
+            resources.ApplyResources(this.groupBox9, "groupBox9");
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.TabStop = false;
             // 
@@ -639,6 +677,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tab_as.ResumeLayout(false);
+            this.tab_as.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox11.ResumeLayout(false);
@@ -728,6 +767,11 @@
         internal System.Windows.Forms.Button BtnOpenLog;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label24;
+        internal System.Windows.Forms.CheckBox chkMaxUp;
+        private System.Windows.Forms.TextBox maxUpTimeMin;
+        internal System.Windows.Forms.Label strMinutes;
     }
 }
 

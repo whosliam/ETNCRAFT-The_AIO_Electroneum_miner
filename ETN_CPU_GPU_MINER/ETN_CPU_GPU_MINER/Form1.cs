@@ -19,6 +19,7 @@ namespace ETN_CPU_GPU_MINER
         public static string m_PoolWebsiteURL = "";
         public static int m_IPoolID = 0;
         public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
+        public static double m_dMaxUpTimeSec;
 
         public bool b_FormLoaded = false;
         public bool m_bStartTime = false;
@@ -31,21 +32,16 @@ namespace ETN_CPU_GPU_MINER
         private Logger logger;
         private Logger loggerPool;
         private Messager messager = new Messager();
-        private RegistryManager registryManager = new RegistryManager();        
-        public int m_iTemperatureAlert = 90;
-
+        private RegistryManager registryManager = new RegistryManager();
+        private int m_iTemperatureAlert = 90;
+        private Timer upTimer;
+        private Computer myComputer;
         #endregion
 
-        #region Form Initialization
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            m_cTimer.Interval = 1000;
-            m_cTimer.Enabled = true;
-            m_cTimer.Start();
-        }
-
+        #region Form Contructor/Events
         public Form1()
         {
+            m_dMaxUpTimeSec = Program.m_dMaxRuntime * 60.00;
             m_bDoLog = Program.m_bDoLog;
             ProcessUtil.CheckForExistingProcesses();
 
@@ -57,7 +53,7 @@ namespace ETN_CPU_GPU_MINER
             }
 
 
-            m_Version = registryManager.GetVersion();            
+            m_Version = registryManager.GetVersion();
             InitializeComponent();
             //Set version in window header
             this.Text = "ETNCRAFT (" + m_Version + ")";
@@ -71,6 +67,15 @@ namespace ETN_CPU_GPU_MINER
                 LoadRegistryConfig();
             PushStatusMessage("AutoLoad registry key loaded (" + registryManager.GetAutoLoad() + ")", m_bDoLog);
 
+            if (!chkMaxUp.Checked)
+            {
+                strMinutes.Visible = false;
+                maxUpTimeMin.Visible = false;
+            }
+            // overload registry config with cmd arg
+            if (m_dMaxUpTimeSec > 0.00)
+                maxUpTimeMin.Text = Convert.ToString(m_dMaxUpTimeSec / 60.00);
+
             // Check Registry for NewMiner
             if (registryManager.GetNewMiner())
             {
@@ -80,14 +85,21 @@ namespace ETN_CPU_GPU_MINER
                 tabs.SelectedTab = tbHelp;
             }
 
-            // cpuorgpu.SelectedItem = cpuorgpu.Items[0];
             //Spool up timers
             InitTemps();
+                        
             //This is to keep the event handlers from firing when the form load. Just wrap functions in this.
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            m_cTimer.Interval = 1000;
+            m_cTimer.Enabled = true;
+            m_cTimer.Start();            
+        }
+       
         private void CloseForm(object sender, FormClosingEventArgs e)
         {
             if (m_bDoLog)
@@ -114,11 +126,10 @@ namespace ETN_CPU_GPU_MINER
                 notifyIcon1.Visible = true;
                 notifyIcon1.ShowBalloonTip(2000);
             }
-        }
+        }        
         #endregion
 
         #region Control Handlers
-
         #region Click Handlers
 
         private void BtnStartMining_Click(object sender, EventArgs e)
@@ -167,19 +178,19 @@ namespace ETN_CPU_GPU_MINER
             #endregion
             #endregion
             #region Spawn miner
-            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent, m_bDoLog);            
+            PushStatusMessage("Spawning ETNCRAFT miner for " + sComponent, m_bDoLog);
             string sArgs = "";
             if (sComponent.Equals("CPU"))
                 sArgs = "--noAMD --noNVIDIA";
             else if (sComponent.Equals("GPU"))
                 sArgs = "--noCPU";
-            
+
             Process process = ProcessUtil.SpawnMinerProcess(sArgs, m_bDebugging);
             process.OutputDataReceived += (object SenderOut, DataReceivedEventArgs eOut) => PushWorkStatusMessage(eOut.Data);
             process.BeginOutputReadLine();
             process.ErrorDataReceived += (object SenderErr, DataReceivedEventArgs eErr) => PushWorkStatusMessage(eErr.Data);
             process.BeginErrorReadLine();
-                        
+
             #endregion
             StartMining.Enabled = false;
             //BtnStopMining.Enabled = true;
@@ -261,7 +272,6 @@ namespace ETN_CPU_GPU_MINER
             MessageBox.Show(registryManager.DeleteRegistryKey(), "ETNCRAFT Services");
         }
         #endregion
-
         #region DropDown Handlers
 
         private void pool_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -291,7 +301,6 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-
         #region Check Box Handlers
 
         private void chkAutoLoadConfig_CheckedChanged(object sender, EventArgs e)
@@ -321,13 +330,40 @@ namespace ETN_CPU_GPU_MINER
             PushStatusMessage("AutoLoad registry key updated.", m_bDoLog);
         }
 
+        private void chkMaxUp_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMaxUp.Checked)
+            {
+                strMinutes.Visible = true;
+                maxUpTimeMin.Visible = true;
+            }
+        }
+
         #endregion
+        #region Text Box Handlers
 
+        private void wallet_address_Click(object sender, EventArgs e)
+        {
+            wallet_address.SelectAll();
+        }
 
+        private void maxUpTimeMin_TextChanged(object sender, EventArgs e)
+        {
+            if (maxUpTimeMin.Text.Length > 0)
+                m_dMaxUpTimeSec = Convert.ToDouble(maxUpTimeMin.Text) * 60.00;
+            else
+                m_dMaxUpTimeSec = 0;
+        }
+
+        private void txtTempLimit_TextChanged(object sender, EventArgs e)
+        {
+            m_iTemperatureAlert = int.Parse(CheckTempLimitEntry(txtTempLimit.Text));
+        }
+
+        #endregion
         #endregion
 
         #region Utility Methods
-
         #region Config/Registry
 
         private void LoadRegistryConfig()
@@ -340,6 +376,11 @@ namespace ETN_CPU_GPU_MINER
             cpuorgpu.SelectedItem = registryManager.GetComponent();
             txtTempLimit.Text = CheckTempLimitEntry(registryManager.GetTempLimit());
             m_iTemperatureAlert = int.Parse(txtTempLimit.Text);
+            chkMaxUp.Checked = registryManager.GetEnforceMaxUpTime();
+
+            if (m_dMaxUpTimeSec == 0.00)
+                maxUpTimeMin.Text = Convert.ToString(registryManager.GetMaxUpTimeMin());
+            
             #region Get Pool and select drop down
             bool bFoundPool = false;
             //i know i know.... this is the wrong way to go about this. Just for quick testing of registry additions. Git blame Liam
@@ -369,18 +410,17 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetPool(m_IPoolID);
             registryManager.SetWalletId(wallet_address.Text);
             registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
+            registryManager.SetEnforceMaxUpTime(chkMaxUp.Checked);
+            registryManager.SetMaxUpTimeMin(maxUpTimeMin.Text.Length > 0 ? Convert.ToDouble(maxUpTimeMin.Text) : 0);           
             PushStatusMessage("Configuration Updated", m_bDoLog);
-        }
-        private void txtTempLimit_TextChanged(object sender, EventArgs e)
-        {
-            //registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
-            m_iTemperatureAlert = int.Parse(CheckTempLimitEntry(txtTempLimit.Text));
         }
 
         #endregion
 
         #region Timers/Temperature Data/CPU LOG READ
-        #region Hash Timers & Miner log parse
+
+        #region Hash Timer
+
         private void HashTimer()
         {
             Timer HashTxtTimer = new Timer();
@@ -389,33 +429,57 @@ namespace ETN_CPU_GPU_MINER
             HashTxtTimer.Start();
 
         }
+
         private void Hashtxt_Tick(object sender, EventArgs e)
         {
             WorkStatus.Text = "Log Cleared!";
             m_sAggHashData = "";
-           // PushStatusMessage(GetCurrentCoinPrice());
         }
+
+        private void m_cTimer_Tick(object sender, EventArgs e)
+        {
+            m_cTimer.Stop();
+            m_cTimer.Enabled = false;
+
+            if (Program.m_bAutoRun)
+                BtnStartMining_Click(sender, e);
+
+            if (Program.m_bMinimize)
+                WindowState = FormWindowState.Minimized;
+        }
+
+        private void UpTimer_Tick(object sender, EventArgs e)
+        {
+            double m_dElapsedSeconds = stopwatch.Elapsed.TotalSeconds;
+            if (m_dElapsedSeconds < m_dMaxUpTimeSec || m_dMaxUpTimeSec == 0.00)
+            {
+                GetSysTemp();
+                #region Timer in window header
+                if (m_bStartTime)
+                {
+                    this.Text = "ETNCRAFT " + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
+                    this.Update();
+                }
+                #endregion
+            }
+            else
+            {
+                stopwatch.Stop();
+                this.Text = ("Maximum UpTime Limit Reached At : " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")));
+                ProcessUtil.EndProcesses();
+                this.Update();                               
+                Environment.Exit(0);
+            }
+        }
+
         #endregion
 
         #region Temp/Uptime Timers etc
-        void timer_Tick(object sender, EventArgs e)
-        {
 
-            GetSysTemp();
-            #region Timer in window header
-            if (m_bStartTime)
-            {
-                this.Text = "ETNCRAFT " + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
-                this.Update();
-            }
-            #endregion
-        }
-        Computer myComputer;
-        Timer timer = new Timer { Enabled = true, Interval = 1000 };
         public void InitTemps()
         {
-
-            timer.Tick += new EventHandler(timer_Tick);
+            upTimer = new Timer { Enabled = true, Interval = 1000 };
+            upTimer.Tick += new EventHandler(UpTimer_Tick);
 
             GetTemperature.System settings = new GetTemperature.System(new Dictionary<string, string>
             {
@@ -434,6 +498,7 @@ namespace ETN_CPU_GPU_MINER
             };
             myComputer.Open();
         }
+
         public void GetSysTemp()
         {
             lblCPUTemp.Text = "";
@@ -523,14 +588,11 @@ namespace ETN_CPU_GPU_MINER
                     registryManager.SetIgnoreTempWarnings(false);
             }
         }
+        
         #endregion
 
         #region Logger/Messager
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
+        
         private void PushStatusMessage(string message, bool doLog = true)
         {
             if (message != null)
@@ -545,11 +607,10 @@ namespace ETN_CPU_GPU_MINER
         {
             if (message != null && !message.Equals(""))
             {
-                string cleanMessage = RemoveAnsiEscapes(message);
-                m_sAggHashData += cleanMessage + "\r\n";
+                m_sAggHashData += message + "\r\n";
                 ThreadHelperClass.SetText(this, WorkStatus, m_sAggHashData);
                 if (m_bDoLog)
-                    loggerPool.Debug(cleanMessage);
+                    loggerPool.Debug(message);
 
                 try
                 {
@@ -562,13 +623,7 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-
-        private string RemoveAnsiEscapes(string message)
-        {
-            //string cleanMessage = Regex.Replace(message, @"\\u(?<Value>[a-zA-Z0-9]{4})", "");
-            return message;
-        }
-
+       
         private bool IsWalletValid()
         {
             if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals("") || wallet_address.Text.Equals("EnterPublicWalletHere"))
@@ -603,18 +658,6 @@ namespace ETN_CPU_GPU_MINER
             //Force selected item in dropdown list and fire the onselected change event which sets some global vars
             cboPool.SelectedIndex = 0;
 
-        }
-
-        private void m_cTimer_Tick(object sender, EventArgs e)
-        {
-            m_cTimer.Stop();
-            m_cTimer.Enabled = false;
-
-            if (Program.m_bAutoRun)
-                BtnStartMining_Click(sender, e);                
-
-            if (Program.m_bMinimize)
-                WindowState = FormWindowState.Minimized;
         }
 
         #endregion
@@ -662,11 +705,7 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-
-        private void wallet_address_Click(object sender, EventArgs e)
-        {
-            wallet_address.SelectAll();
-        }
+        
     }
     public class PRICE_Rootobject
     {
