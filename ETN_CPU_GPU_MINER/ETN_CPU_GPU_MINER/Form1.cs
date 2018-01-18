@@ -35,6 +35,7 @@ namespace ETN_CPU_GPU_MINER
         private RegistryManager registryManager = new RegistryManager();
         private int m_iTemperatureAlert = 90;
         private Timer upTimer;
+        
         private Computer myComputer;
         #endregion
 
@@ -457,7 +458,7 @@ namespace ETN_CPU_GPU_MINER
                 #region Timer in window header
                 if (m_bStartTime)
                 {
-                    this.Text = "ETNCRAFT " + m_Version + " | Uptime " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
+                    this.Text = "ETNCRAFT " + m_Version + " | Uptime " + String.Format("{0} Days {1}:{2}:{3}", stopwatch.Elapsed.Days.ToString("00"), stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")); ;
                     this.Update();
                 }
                 #endregion
@@ -705,7 +706,11 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-        
+
+        private void lnkgit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/whosliam/ETNCRAFT-The_AIO_Electroneum_miner");            
+        }
     }
     public class PRICE_Rootobject
     {

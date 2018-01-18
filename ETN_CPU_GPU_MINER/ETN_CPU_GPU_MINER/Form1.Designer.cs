@@ -59,6 +59,7 @@
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.maxUpTimeMin = new System.Windows.Forms.TextBox();
             this.strMinutes = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -105,6 +106,8 @@
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
+            this.label25 = new System.Windows.Forms.Label();
+            this.lnkgit = new System.Windows.Forms.LinkLabel();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -116,6 +119,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tab_as.SuspendLayout();
+            this.groupBox15.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox12.SuspendLayout();
@@ -342,6 +346,7 @@
             // 
             // tab_as
             // 
+            this.tab_as.Controls.Add(this.groupBox15);
             this.tab_as.Controls.Add(this.maxUpTimeMin);
             this.tab_as.Controls.Add(this.strMinutes);
             this.tab_as.Controls.Add(this.groupBox13);
@@ -352,6 +357,14 @@
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.lnkgit);
+            this.groupBox15.Controls.Add(this.label25);
+            resources.ApplyResources(this.groupBox15, "groupBox15");
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.TabStop = false;
             // 
             // maxUpTimeMin
             // 
@@ -652,6 +665,18 @@
             // 
             this.m_cTimer.Tick += new System.EventHandler(this.m_cTimer_Tick);
             // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
+            // lnkgit
+            // 
+            resources.ApplyResources(this.lnkgit, "lnkgit");
+            this.lnkgit.Name = "lnkgit";
+            this.lnkgit.TabStop = true;
+            this.lnkgit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkgit_LinkClicked);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -678,6 +703,8 @@
             this.groupBox2.PerformLayout();
             this.tab_as.ResumeLayout(false);
             this.tab_as.PerformLayout();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox11.ResumeLayout(false);
@@ -772,6 +799,9 @@
         internal System.Windows.Forms.CheckBox chkMaxUp;
         private System.Windows.Forms.TextBox maxUpTimeMin;
         internal System.Windows.Forms.Label strMinutes;
+        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.LinkLabel lnkgit;
+        private System.Windows.Forms.Label label25;
     }
 }
 
