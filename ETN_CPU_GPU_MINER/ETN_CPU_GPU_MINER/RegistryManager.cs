@@ -26,6 +26,8 @@ namespace ETN_CPU_GPU_MINER
         private const string TEMP_LIMIT = "TempLimit";
         private const string IGNORE_TEMP_WARNINGS_KEY_NAME = "IgnoreTempWarnings";
         private const string SUBKEY_TREE = "SOFTWARE\\ETNCRAFT";
+        private const string SCHEDULE_DATA = "SchedDat";
+        private const string SCHEDULE_ENABLED = "SchedEnabled";
 
         private const bool autoLoadDefault = false;
         private const bool newMinerDefault = true;
@@ -217,6 +219,24 @@ namespace ETN_CPU_GPU_MINER
             return Convert.ToDouble(etnCraftAppKey.GetValue(MAX_UPTIME_MIN));
         }
 
+        public void SetScheduleData(string sData)
+        {
+            etnCraftAppKey.SetValue(SCHEDULE_DATA, sData);
+        }
+
+        public string GetScheduleData()
+        {
+            return Convert.ToString(etnCraftAppKey.GetValue(SCHEDULE_DATA));
+        }
+        public bool GetScheduleEnabled()
+        {
+            return Convert.ToBoolean(etnCraftAppKey.GetValue(SCHEDULE_ENABLED));
+        }
+
+        public void SetScheduleEnabled(bool bScheduleEnabled)
+        {
+            etnCraftAppKey.SetValue(SCHEDULE_ENABLED, bScheduleEnabled);
+        }
         #endregion
 
         #region Utilities

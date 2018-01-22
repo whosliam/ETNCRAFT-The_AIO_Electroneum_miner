@@ -59,7 +59,6 @@
             this.cpuorgpu = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tab_as = new System.Windows.Forms.TabPage();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.maxUpTimeMin = new System.Windows.Forms.TextBox();
             this.strMinutes = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -88,6 +87,26 @@
             this.BtnLoadConfig = new System.Windows.Forms.Button();
             this.BtnLoadDefaultConfig = new System.Windows.Forms.Button();
             this.BtnSaveConfig = new System.Windows.Forms.Button();
+            this.tabSchedule = new System.Windows.Forms.TabPage();
+            this.lvList = new System.Windows.Forms.ListView();
+            this.colDay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colStartTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colEndTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.chkEnabled = new System.Windows.Forms.CheckBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
+            this.dtEnd = new System.Windows.Forms.DateTimePicker();
+            this.label26 = new System.Windows.Forms.Label();
+            this.dtStart = new System.Windows.Forms.DateTimePicker();
+            this.chkDay6 = new System.Windows.Forms.CheckBox();
+            this.chkDay5 = new System.Windows.Forms.CheckBox();
+            this.chkDay4 = new System.Windows.Forms.CheckBox();
+            this.chkDay3 = new System.Windows.Forms.CheckBox();
+            this.chkDay2 = new System.Windows.Forms.CheckBox();
+            this.chkDay1 = new System.Windows.Forms.CheckBox();
+            this.chkDay0 = new System.Windows.Forms.CheckBox();
             this.tbHelp = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -106,8 +125,7 @@
             this.save_config_dialog = new System.Windows.Forms.SaveFileDialog();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
-            this.label25 = new System.Windows.Forms.Label();
-            this.lnkgit = new System.Windows.Forms.LinkLabel();
+            this.m_cScheduleTimer = new System.Windows.Forms.Timer(this.components);
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -119,11 +137,12 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tab_as.SuspendLayout();
-            this.groupBox15.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            this.tabSchedule.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -134,6 +153,7 @@
             resources.ApplyResources(this.tabs, "tabs");
             this.tabs.Controls.Add(this.tab_miner);
             this.tabs.Controls.Add(this.tab_as);
+            this.tabs.Controls.Add(this.tabSchedule);
             this.tabs.Controls.Add(this.tbHelp);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
@@ -346,7 +366,6 @@
             // 
             // tab_as
             // 
-            this.tab_as.Controls.Add(this.groupBox15);
             this.tab_as.Controls.Add(this.maxUpTimeMin);
             this.tab_as.Controls.Add(this.strMinutes);
             this.tab_as.Controls.Add(this.groupBox13);
@@ -357,14 +376,6 @@
             resources.ApplyResources(this.tab_as, "tab_as");
             this.tab_as.Name = "tab_as";
             this.tab_as.UseVisualStyleBackColor = true;
-            // 
-            // groupBox15
-            // 
-            this.groupBox15.Controls.Add(this.lnkgit);
-            this.groupBox15.Controls.Add(this.label25);
-            resources.ApplyResources(this.groupBox15, "groupBox15");
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.TabStop = false;
             // 
             // maxUpTimeMin
             // 
@@ -561,6 +572,151 @@
             this.BtnSaveConfig.UseVisualStyleBackColor = false;
             this.BtnSaveConfig.Click += new System.EventHandler(this.BtnSaveConfig_Click);
             // 
+            // tabSchedule
+            // 
+            this.tabSchedule.Controls.Add(this.lvList);
+            this.tabSchedule.Controls.Add(this.groupBox16);
+            resources.ApplyResources(this.tabSchedule, "tabSchedule");
+            this.tabSchedule.Name = "tabSchedule";
+            this.tabSchedule.UseVisualStyleBackColor = true;
+            // 
+            // lvList
+            // 
+            resources.ApplyResources(this.lvList, "lvList");
+            this.lvList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colDay,
+            this.colStartTime,
+            this.colEndTime});
+            this.lvList.FullRowSelect = true;
+            this.lvList.GridLines = true;
+            this.lvList.Name = "lvList";
+            this.lvList.OwnerDraw = true;
+            this.lvList.UseCompatibleStateImageBehavior = false;
+            this.lvList.View = System.Windows.Forms.View.Details;
+            this.lvList.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.lvList_DrawColumnHeader);
+            this.lvList.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.lvList_DrawItem);
+            this.lvList.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.lvList_DrawSubItem);
+            this.lvList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvList_KeyDown);
+            // 
+            // colDay
+            // 
+            resources.ApplyResources(this.colDay, "colDay");
+            // 
+            // colStartTime
+            // 
+            resources.ApplyResources(this.colStartTime, "colStartTime");
+            // 
+            // colEndTime
+            // 
+            resources.ApplyResources(this.colEndTime, "colEndTime");
+            // 
+            // groupBox16
+            // 
+            resources.ApplyResources(this.groupBox16, "groupBox16");
+            this.groupBox16.Controls.Add(this.chkEnabled);
+            this.groupBox16.Controls.Add(this.btnSave);
+            this.groupBox16.Controls.Add(this.btnAdd);
+            this.groupBox16.Controls.Add(this.label27);
+            this.groupBox16.Controls.Add(this.dtEnd);
+            this.groupBox16.Controls.Add(this.label26);
+            this.groupBox16.Controls.Add(this.dtStart);
+            this.groupBox16.Controls.Add(this.chkDay6);
+            this.groupBox16.Controls.Add(this.chkDay5);
+            this.groupBox16.Controls.Add(this.chkDay4);
+            this.groupBox16.Controls.Add(this.chkDay3);
+            this.groupBox16.Controls.Add(this.chkDay2);
+            this.groupBox16.Controls.Add(this.chkDay1);
+            this.groupBox16.Controls.Add(this.chkDay0);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.TabStop = false;
+            // 
+            // chkEnabled
+            // 
+            resources.ApplyResources(this.chkEnabled, "chkEnabled");
+            this.chkEnabled.Name = "chkEnabled";
+            this.chkEnabled.UseVisualStyleBackColor = true;
+            this.chkEnabled.CheckedChanged += new System.EventHandler(this.chkEnabled_CheckedChanged);
+            // 
+            // btnSave
+            // 
+            resources.ApplyResources(this.btnSave, "btnSave");
+            this.btnSave.Name = "btnSave";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnAdd
+            // 
+            resources.ApplyResources(this.btnAdd, "btnAdd");
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.Name = "label27";
+            // 
+            // dtEnd
+            // 
+            this.dtEnd.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            resources.ApplyResources(this.dtEnd, "dtEnd");
+            this.dtEnd.Name = "dtEnd";
+            this.dtEnd.ShowUpDown = true;
+            // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
+            // 
+            // dtStart
+            // 
+            this.dtStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            resources.ApplyResources(this.dtStart, "dtStart");
+            this.dtStart.Name = "dtStart";
+            this.dtStart.ShowUpDown = true;
+            // 
+            // chkDay6
+            // 
+            resources.ApplyResources(this.chkDay6, "chkDay6");
+            this.chkDay6.Name = "chkDay6";
+            this.chkDay6.UseVisualStyleBackColor = true;
+            // 
+            // chkDay5
+            // 
+            resources.ApplyResources(this.chkDay5, "chkDay5");
+            this.chkDay5.Name = "chkDay5";
+            this.chkDay5.UseVisualStyleBackColor = true;
+            // 
+            // chkDay4
+            // 
+            resources.ApplyResources(this.chkDay4, "chkDay4");
+            this.chkDay4.Name = "chkDay4";
+            this.chkDay4.UseVisualStyleBackColor = true;
+            // 
+            // chkDay3
+            // 
+            resources.ApplyResources(this.chkDay3, "chkDay3");
+            this.chkDay3.Name = "chkDay3";
+            this.chkDay3.UseVisualStyleBackColor = true;
+            // 
+            // chkDay2
+            // 
+            resources.ApplyResources(this.chkDay2, "chkDay2");
+            this.chkDay2.Name = "chkDay2";
+            this.chkDay2.UseVisualStyleBackColor = true;
+            // 
+            // chkDay1
+            // 
+            resources.ApplyResources(this.chkDay1, "chkDay1");
+            this.chkDay1.Name = "chkDay1";
+            this.chkDay1.UseVisualStyleBackColor = true;
+            // 
+            // chkDay0
+            // 
+            resources.ApplyResources(this.chkDay0, "chkDay0");
+            this.chkDay0.Name = "chkDay0";
+            this.chkDay0.UseVisualStyleBackColor = true;
+            // 
             // tbHelp
             // 
             this.tbHelp.Controls.Add(this.groupBox14);
@@ -665,17 +821,10 @@
             // 
             this.m_cTimer.Tick += new System.EventHandler(this.m_cTimer_Tick);
             // 
-            // label25
+            // m_cScheduleTimer
             // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
-            // 
-            // lnkgit
-            // 
-            resources.ApplyResources(this.lnkgit, "lnkgit");
-            this.lnkgit.Name = "lnkgit";
-            this.lnkgit.TabStop = true;
-            this.lnkgit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkgit_LinkClicked);
+            this.m_cScheduleTimer.Interval = 15000;
+            this.m_cScheduleTimer.Tick += new System.EventHandler(this.OnScheduleTimer);
             // 
             // Form1
             // 
@@ -703,8 +852,6 @@
             this.groupBox2.PerformLayout();
             this.tab_as.ResumeLayout(false);
             this.tab_as.PerformLayout();
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox11.ResumeLayout(false);
@@ -713,6 +860,9 @@
             this.groupBox12.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            this.tabSchedule.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.tbHelp.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
@@ -799,9 +949,27 @@
         internal System.Windows.Forms.CheckBox chkMaxUp;
         private System.Windows.Forms.TextBox maxUpTimeMin;
         internal System.Windows.Forms.Label strMinutes;
-        private System.Windows.Forms.GroupBox groupBox15;
-        private System.Windows.Forms.LinkLabel lnkgit;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TabPage tabSchedule;
+        private System.Windows.Forms.ListView lvList;
+        private System.Windows.Forms.ColumnHeader colDay;
+        private System.Windows.Forms.ColumnHeader colStartTime;
+        private System.Windows.Forms.ColumnHeader colEndTime;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.DateTimePicker dtEnd;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.DateTimePicker dtStart;
+        private System.Windows.Forms.CheckBox chkDay6;
+        private System.Windows.Forms.CheckBox chkDay5;
+        private System.Windows.Forms.CheckBox chkDay4;
+        private System.Windows.Forms.CheckBox chkDay3;
+        private System.Windows.Forms.CheckBox chkDay2;
+        private System.Windows.Forms.CheckBox chkDay1;
+        private System.Windows.Forms.CheckBox chkDay0;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.CheckBox chkEnabled;
+        private System.Windows.Forms.Timer m_cScheduleTimer;
     }
 }
 

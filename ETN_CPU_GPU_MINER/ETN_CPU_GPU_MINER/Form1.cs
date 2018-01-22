@@ -3,6 +3,8 @@ using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Drawing;
+using System.Globalization;
 using OpenHardwareMonitor.Hardware;
 using System.Net;
 using Newtonsoft.Json;
@@ -27,6 +29,8 @@ namespace ETN_CPU_GPU_MINER
         public bool m_bReadETNCRAFTULog = false;
         public bool m_bTempWarningModalIsOpen = false;
         public bool m_bDoLog = true;
+        public string m_sScheduleData = "";
+        private List<ScheduleEvent> m_cScheduleList = new List<ScheduleEvent>();
 
         private Stopwatch stopwatch = new Stopwatch();
         private Logger logger;
@@ -93,14 +97,20 @@ namespace ETN_CPU_GPU_MINER
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
+            chkEnabled.Checked = registryManager.GetScheduleEnabled();
+            LoadScheduleData();
+            EnabledScheduleControls();
             m_cTimer.Interval = 1000;
             m_cTimer.Enabled = true;
-            m_cTimer.Start();            
+            m_cTimer.Start();           
+            if (chkEnabled.Checked)
+            {
+                m_cScheduleTimer.Enabled = true;
+                m_cScheduleTimer.Start();
+            }
         }
-       
         private void CloseForm(object sender, FormClosingEventArgs e)
         {
             if (m_bDoLog)
@@ -108,14 +118,12 @@ namespace ETN_CPU_GPU_MINER
             ProcessUtil.EndProcesses();
             registryManager.CloseRegistryKeys();
         }
-
         private void notifyIcon1_MouseDoubleClick_1(object sender, MouseEventArgs e)
         {
             Show();
             this.WindowState = FormWindowState.Normal;
             notifyIcon1.Visible = false;
         }
-
         private void Form1_Resize_1(object sender, EventArgs e)
         {
             //if the form is minimized  
@@ -129,7 +137,6 @@ namespace ETN_CPU_GPU_MINER
             }
         }        
         #endregion
-
         #region Control Handlers
         #region Click Handlers
 
@@ -363,7 +370,6 @@ namespace ETN_CPU_GPU_MINER
 
         #endregion
         #endregion
-
         #region Utility Methods
         #region Config/Registry
 
@@ -378,6 +384,7 @@ namespace ETN_CPU_GPU_MINER
             txtTempLimit.Text = CheckTempLimitEntry(registryManager.GetTempLimit());
             m_iTemperatureAlert = int.Parse(txtTempLimit.Text);
             chkMaxUp.Checked = registryManager.GetEnforceMaxUpTime();
+            m_sScheduleData = registryManager.GetScheduleData();
 
             if (m_dMaxUpTimeSec == 0.00)
                 maxUpTimeMin.Text = Convert.ToString(registryManager.GetMaxUpTimeMin());
@@ -412,12 +419,12 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetWalletId(wallet_address.Text);
             registryManager.SetTempLimit(CheckTempLimitEntry(txtTempLimit.Text));
             registryManager.SetEnforceMaxUpTime(chkMaxUp.Checked);
-            registryManager.SetMaxUpTimeMin(maxUpTimeMin.Text.Length > 0 ? Convert.ToDouble(maxUpTimeMin.Text) : 0);           
+            registryManager.SetMaxUpTimeMin(maxUpTimeMin.Text.Length > 0 ? Convert.ToDouble(maxUpTimeMin.Text) : 0);
+            registryManager.SetScheduleData(m_sScheduleData);
             PushStatusMessage("Configuration Updated", m_bDoLog);
         }
 
         #endregion
-
         #region Timers/Temperature Data/CPU LOG READ
 
         #region Hash Timer
@@ -624,9 +631,34 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-       
-        
-       
+
+        private bool IsWalletValid()
+        {
+            if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals("") || wallet_address.Text.Equals("EnterPublicWalletHere"))
+            {
+                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
+                if (UserInput.Equals(DialogResult.Cancel))
+                {
+                    return false;
+                }
+                else if (UserInput.Equals(DialogResult.OK))
+                {
+                    wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
+                    PushStatusMessage("Developer Wallet Address Selected! Thanks!", m_bDoLog);
+                    return true;
+                }
+            }
+
+            var minLength = 98;
+            if (wallet_address.Text.Length < minLength || !wallet_address.Text.StartsWith("etn"))
+            {
+                DialogResult UserInput = MessageBox.Show("Wallet ID Invalid! \n ID must be 98 chracters in length, \nand start with etn.", "Invalid Wallet", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
+        }
+
         private void LoadPoolListFromWebsite()
         {
             //Set Path
@@ -645,34 +677,6 @@ namespace ETN_CPU_GPU_MINER
         }
 
         #endregion
-
-        private bool IsWalletValid()
-        {            
-            if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals("") || wallet_address.Text.Equals("EnterPublicWalletHere"))
-            {
-                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
-                if (UserInput.Equals(DialogResult.Cancel))
-                {
-                    return false;
-                }
-                else if (UserInput.Equals(DialogResult.OK))
-                {
-                    wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
-                    PushStatusMessage("Developer Wallet Address Selected! Thanks!", m_bDoLog);
-                    return true;
-                }
-            }
-
-            var minLength = 98;
-            if (wallet_address.Text.Length < minLength || !wallet_address.Text.StartsWith("etn"))
-            {         
-                DialogResult UserInput = MessageBox.Show("Wallet ID Invalid! \n ID must be 98 chracters in length, \nand start with etn.", "Invalid Wallet", MessageBoxButtons.OK);
-                return false;
-            }
-
-            return true;
-        }
-
         private string CheckTempLimitEntry(string sText)
         {
             bool bFailed = false;
@@ -697,7 +701,6 @@ namespace ETN_CPU_GPU_MINER
             }
             return sTemperature;
         }
-
         private string GetCurrentCoinPrice()
         {
             string sETNUSD = "";
@@ -713,20 +716,253 @@ namespace ETN_CPU_GPU_MINER
             }
             return sETNUSD;
         }
-
+        private void LoadScheduleData()
+        {
+            lvList.Items.Clear();
+            char[] sDelim1 = { '|' };
+            char[] sDelim2 = { ',' };
+            string[] sRecs = m_sScheduleData.Split(sDelim1);
+            foreach (string sRec in sRecs)
+            {
+                string[] sParts = sRec.Split(sDelim2);
+                if (sParts.Length.Equals(3))
+                {
+                    ListViewItem lvi = new ListViewItem(CultureInfo.CurrentCulture.DateTimeFormat.DayNames[int.Parse(sParts[0])]);
+                    lvi.SubItems.Add(sParts[1]);
+                    lvi.SubItems.Add(sParts[2]);
+                    lvList.Items.Add(lvi);
+                }
+            }
+        }
+        private List<ScheduleEvent> LoadScheduleDataOnly()
+        {
+            List<ScheduleEvent> cList = new List<ScheduleEvent>();
+            char[] sDelim1 = { '|' };
+            char[] sDelim2 = { ',' };
+            string[] sRecs = m_sScheduleData.Split(sDelim1);
+            foreach (string sRec in sRecs)
+            {
+                string[] sParts = sRec.Split(sDelim2);
+                if (sParts.Length.Equals(3))
+                {
+                    ScheduleEvent cEvent = new ScheduleEvent(int.Parse(sParts[0]), DateTime.Parse(sParts[1]), DateTime.Parse(sParts[2]));
+                    cList.Add(cEvent);
+                }
+            }
+            return cList;
+        }
+        private void SaveScheduleData()
+        {
+            string sWad = "";
+            foreach(ListViewItem lvi in lvList.Items)
+            {
+                string sRec = GetDayIndex(lvi.SubItems[0].Text).ToString() + "," + lvi.SubItems[1].Text + "," + lvi.SubItems[2].Text;
+                if (sWad.Length > 0) sWad += "|";
+                sWad += sRec;
+            }
+            m_sScheduleData = sWad;
+            registryManager.SetScheduleData(m_sScheduleData);
+            registryManager.SetScheduleEnabled(chkEnabled.Checked);
+            // force data reload for timer checks
+            m_cScheduleList.Clear();
+            if (chkEnabled.Checked && !m_cScheduleTimer.Enabled)
+            {
+                // start the timer
+                m_cScheduleTimer.Enabled = true;
+                m_cScheduleTimer.Start();
+            }
+        }
         #endregion
-
+        #region Event Handlers
         private void lnkgit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/whosliam/ETNCRAFT-The_AIO_Electroneum_miner");            
         }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveScheduleData();
+        }
+        private void lvList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+                foreach (int iNdx in lvList.SelectedIndices)
+                    lvList.Items.RemoveAt(iNdx);
+        }
+        private void EnabledScheduleControls()
+        {
+            chkDay0.Enabled = chkEnabled.Checked;
+            chkDay1.Enabled = chkEnabled.Checked;
+            chkDay2.Enabled = chkEnabled.Checked;
+            chkDay3.Enabled = chkEnabled.Checked;
+            chkDay4.Enabled = chkEnabled.Checked;
+            chkDay5.Enabled = chkEnabled.Checked;
+            chkDay6.Enabled = chkEnabled.Checked;
+            dtStart.Enabled = chkEnabled.Checked;
+            dtEnd.Enabled = chkEnabled.Checked;
+            btnAdd.Enabled = chkEnabled.Checked;
+            btnSave.Enabled = chkEnabled.Checked;
+            lvList.Enabled = chkEnabled.Checked;
+        }
+        private void OnScheduleTimer(object sender, EventArgs e)
+        {
+            if (!chkEnabled.Checked)
+            {
+                // turn it off and get out
+                m_cScheduleTimer.Stop();
+                m_cScheduleTimer.Enabled = false;
+                return;
+            }
+            if (m_cScheduleList.Count.Equals(0))    // if not loaded, load up the schedule data
+                m_cScheduleList = LoadScheduleDataOnly();
+            int iDayOfWeek = ((int)DateTime.Today.DayOfWeek);
+            bool bShouldBeMining = false;
+            foreach (ScheduleEvent cEvent in m_cScheduleList)
+            {
+                if (cEvent.DayOfWeek.Equals(iDayOfWeek))
+                {
+                    // this record is for today
+                    // let see if we should be running or not.
+                    DateTime cStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, cEvent.StartTime.Hour, cEvent.StartTime.Minute, cEvent.StartTime.Second);
+                    DateTime cEnd = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, cEvent.EndTime.Hour, cEvent.EndTime.Minute, cEvent.EndTime.Second);
+                    if (!bShouldBeMining)
+                        bShouldBeMining = (DateTime.Now.CompareTo(cStart) >= 0 && DateTime.Now.CompareTo(cEnd) <= 0);
+                }
+            }
+            if (bShouldBeMining && !m_bStartTime)
+            {
+                // start the miner
+                BtnStartMining_Click(null, null);
+                PushStatusMessage("Mining started by scheduler.");
+            }
+            else if (!bShouldBeMining && m_bStartTime)
+            {
+                // stop the miner
+                BtnStopMining_Click(null, null);
+                PushStatusMessage("Mining stopped by scheduler.");
+            }
+        }
+        private void chkEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            EnabledScheduleControls();
+        }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            // build list of all events
+            List<ScheduleEvent> cEvents = new List<ScheduleEvent>();
+            #region first, get all the new events
+            CheckBox[] cCBs = { chkDay0, chkDay1, chkDay2, chkDay3, chkDay4, chkDay5, chkDay6 };
+            foreach (CheckBox cCB in cCBs)
+            {
+                if (!cCB.Checked)
+                    continue;
+                string sIndex = cCB.Name.Substring(6, 1);
+                int iIndex = int.Parse(sIndex);
+                ScheduleEvent cEvent = new ScheduleEvent(iIndex, dtStart.Value, dtEnd.Value);
+                cEvents.Add(cEvent);
+            }
+            #endregion
+            #region add all existing events
+            foreach(ListViewItem cItem in lvList.Items)
+            {
+                ScheduleEvent cEvent = new ScheduleEvent(GetDayIndex(cItem.SubItems[0].Text), DateTime.Parse(cItem.SubItems[1].Text), DateTime.Parse(cItem.SubItems[2].Text));
+                cEvents.Add(cEvent);
+            }
+            #endregion
+            #region sort the list
+            cEvents.Sort();
+            #endregion
+            #region re-populate the listview control
+            lvList.Items.Clear();
+            foreach(ScheduleEvent cEvent in cEvents)
+            {
+                ListViewItem lvi = new ListViewItem(((DayOfWeek)cEvent.DayOfWeek).ToString());
+                lvi.SubItems.Add(cEvent.StartTime.ToShortTimeString());
+                lvi.SubItems.Add(cEvent.EndTime.ToShortTimeString());
+                lvList.Items.Add(lvi);
+            }
+            #endregion
+        }
+        private int GetDayIndex(string sDay)
+        {
+            switch(sDay.ToLower())
+            {
+                case "sunday":
+                    return 0;
+                case "monday":
+                    return 1;
+                case "tuesday":
+                    return 2;
+                case "wednesday":
+                    return 3;
+                case "thursday":
+                    return 4;
+                case "friday":
+                    return 5;
+                case "saturday":
+                    return 6;
+            }
+            return -1;
+        }
+        #endregion
+        #region custom drawing methods
+        private void lvList_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            using (var sf = new StringFormat())
+            {
+                sf.Alignment = StringAlignment.Near;
+
+                using (var headerFont = new Font("Microsoft Sans Serif", 9, FontStyle.Bold))
+                {
+                    e.Graphics.FillRectangle(Brushes.LightGray, e.Bounds);
+                    e.Graphics.DrawString(e.Header.Text, headerFont,
+                        Brushes.Black, e.Bounds, sf);
+                }
+            }
+        }
+        private void lvList_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            using (var sf = new StringFormat())
+            {
+                sf.Alignment = StringAlignment.Near;
+
+                using (var itemFont = new Font("Microsoft Sans Serif", 9, FontStyle.Regular))
+                {
+                    Brush cBrush = Brushes.Black;
+                    if (e.Item.Selected)
+                    {
+                        e.Graphics.FillRectangle(Brushes.LightSlateGray, e.Bounds);
+                        cBrush = Brushes.White;
+                    }
+                    e.Graphics.DrawString(e.Item.Text, itemFont, cBrush, e.Bounds, sf);
+                }
+            }
+        }
+        private void lvList_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            using (var sf = new StringFormat())
+            {
+                sf.Alignment = StringAlignment.Near;
+
+                using (var itemFont = new Font("Microsoft Sans Serif", 9, FontStyle.Regular))
+                {
+                    Brush cBrush = Brushes.Black;
+                    if (e.Item.Selected)
+                    {
+                        e.Graphics.FillRectangle(Brushes.LightSlateGray, e.Bounds);
+                        cBrush = Brushes.White;
+                    }
+                    e.Graphics.DrawString(e.SubItem.Text, itemFont, cBrush, e.Bounds, sf);
+                }
+            }
+        }
+        #endregion
+
     }
     public class PRICE_Rootobject
     {
         public bool status { get; set; }
         public PRICE_Data data { get; set; }
     }
-
     public class PRICE_Data
     {
         public float price_btc { get; set; }
@@ -735,5 +971,55 @@ namespace ETN_CPU_GPU_MINER
         public float price_rur { get; set; }
         public float price_cny { get; set; }
     }
-
+    public class ScheduleEvent : IComparable
+    {
+        #region member definitions (private)
+        private int m_iDayOfWeek = 0;
+        private DateTime m_cStartTime = new DateTime();
+        private DateTime m_cEndTime = new DateTime();
+        #endregion
+        #region property declarations (public)
+        public int DayOfWeek
+        {
+            get { return m_iDayOfWeek; }
+            set { m_iDayOfWeek = value; }
+        }
+        public DateTime StartTime
+        {
+            get { return m_cStartTime; }
+            set { m_cStartTime = value; }
+        }
+        public DateTime EndTime
+        {
+            get { return m_cEndTime; }
+            set { m_cEndTime = value; }
+        }
+        #endregion
+        #region constructors
+        public ScheduleEvent()
+        {
+        }
+        public ScheduleEvent(int iDayOfWeek, DateTime cStartTime, DateTime cEndTime)
+        {
+            DayOfWeek = iDayOfWeek;
+            StartTime = cStartTime;
+            EndTime = cEndTime;
+        }
+        #endregion
+        #region utility methods
+        int IComparable.CompareTo(object cObj)
+        {
+            ScheduleEvent cEvent = (ScheduleEvent)cObj;
+            if (cEvent.DayOfWeek > DayOfWeek)
+                return -1;
+            if (cEvent.DayOfWeek < DayOfWeek)
+                return 1;
+            if (cEvent.StartTime > StartTime)
+                return -1;
+            if (cEvent.StartTime < StartTime)
+                return 1;
+            return 0;
+        }
+        #endregion
+    }
 }
