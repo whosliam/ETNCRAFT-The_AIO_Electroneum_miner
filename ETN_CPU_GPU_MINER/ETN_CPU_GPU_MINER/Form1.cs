@@ -625,24 +625,7 @@ namespace ETN_CPU_GPU_MINER
 
         #endregion
        
-        private bool IsWalletValid()
-        {
-            if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals("") || wallet_address.Text.Equals("EnterPublicWalletHere"))
-            {
-                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
-                if (UserInput.Equals(DialogResult.Cancel))
-                {
-                    return false;
-                }
-                else if (UserInput.Equals(DialogResult.OK))
-                {
-                    wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
-                    PushStatusMessage("Developer Wallet Address Selected! Thanks!", m_bDoLog);
-                    return true;
-                }
-            }
-            return true;
-        }
+        
        
         private void LoadPoolListFromWebsite()
         {
@@ -663,6 +646,32 @@ namespace ETN_CPU_GPU_MINER
 
         #endregion
 
+        private bool IsWalletValid()
+        {            
+            if (wallet_address.Text.Equals("Enter Public Wallet Here") || wallet_address.Text.Equals("") || wallet_address.Text.Equals("EnterPublicWalletHere"))
+            {
+                DialogResult UserInput = MessageBox.Show("Developer Wallet Will Be Used!\r\nARE YOU SURE?!", "READ THIS", MessageBoxButtons.OKCancel);
+                if (UserInput.Equals(DialogResult.Cancel))
+                {
+                    return false;
+                }
+                else if (UserInput.Equals(DialogResult.OK))
+                {
+                    wallet_address.Text = "etnk73mQE5yfqZUnMYeJPyJUb5AigTtox8cgd3zw493uRwgG6fKXUdeaBcny4kuy5DN3XiizKUCPjM2ySkJvK9Cm7ZTGJMr7gT";
+                    PushStatusMessage("Developer Wallet Address Selected! Thanks!", m_bDoLog);
+                    return true;
+                }
+            }
+
+            var minLength = 98;
+            if (wallet_address.Text.Length < minLength || !wallet_address.Text.StartsWith("etn"))
+            {         
+                DialogResult UserInput = MessageBox.Show("Wallet ID Invalid! \n ID must be 98 chracters in length, \nand start with etn.", "Invalid Wallet", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
+        }
 
         private string CheckTempLimitEntry(string sText)
         {
