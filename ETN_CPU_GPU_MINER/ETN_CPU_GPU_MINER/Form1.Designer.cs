@@ -126,6 +126,16 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
             this.m_cScheduleTimer = new System.Windows.Forms.Timer(this.components);
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -146,6 +156,7 @@
             this.tbHelp.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox15.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -719,6 +730,10 @@
             // 
             // tbHelp
             // 
+            this.tbHelp.Controls.Add(this.label35);
+            this.tbHelp.Controls.Add(this.label34);
+            this.tbHelp.Controls.Add(this.label33);
+            this.tbHelp.Controls.Add(this.groupBox15);
             this.tbHelp.Controls.Add(this.groupBox14);
             this.tbHelp.Controls.Add(this.groupBox9);
             resources.ApplyResources(this.tbHelp, "tbHelp");
@@ -826,6 +841,63 @@
             this.m_cScheduleTimer.Interval = 15000;
             this.m_cScheduleTimer.Tick += new System.EventHandler(this.OnScheduleTimer);
             // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.label32);
+            this.groupBox15.Controls.Add(this.label31);
+            this.groupBox15.Controls.Add(this.label30);
+            this.groupBox15.Controls.Add(this.label29);
+            this.groupBox15.Controls.Add(this.label28);
+            this.groupBox15.Controls.Add(this.label25);
+            resources.ApplyResources(this.groupBox15, "groupBox15");
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.TabStop = false;
+            // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
+            // 
+            // label29
+            // 
+            resources.ApplyResources(this.label29, "label29");
+            this.label29.Name = "label29";
+            // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.Name = "label30";
+            // 
+            // label31
+            // 
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.Name = "label31";
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.Name = "label32";
+            // 
+            // label33
+            // 
+            resources.ApplyResources(this.label33, "label33");
+            this.label33.Name = "label33";
+            // 
+            // label34
+            // 
+            resources.ApplyResources(this.label34, "label34");
+            this.label34.Name = "label34";
+            // 
+            // label35
+            // 
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -864,10 +936,13 @@
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
             this.tbHelp.ResumeLayout(false);
+            this.tbHelp.PerformLayout();
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -970,6 +1045,16 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.CheckBox chkEnabled;
         private System.Windows.Forms.Timer m_cScheduleTimer;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label35;
     }
 }
 
