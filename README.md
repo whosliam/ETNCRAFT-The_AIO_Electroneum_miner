@@ -6,6 +6,7 @@ Feel free to send us a message if you have any ideas or features you would like 
 
 ## FEATURES
 * Hardware temperature monitoring with alerts above configurable limit
+* Miner scheduling by day of the week and time of day
 * Pool/Hash information embedded into application
 * Auto load configuration
 * Selectable pool list that is automatically updated.
