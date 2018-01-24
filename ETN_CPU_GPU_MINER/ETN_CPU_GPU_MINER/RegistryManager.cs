@@ -50,8 +50,14 @@ namespace ETN_CPU_GPU_MINER
 
         public void Initialize()
         {
+            System.Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            string sVersion = String.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Revision);
+
+
             localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
             etnCraftAppKey = GetAppKey();
+
+            SetVersion(sVersion);
 
             if (etnCraftAppKey.GetValue(AUTO_LOAD_KEY_NAME) == null)
                 SetAutoLoad(autoLoadDefault);
@@ -66,7 +72,8 @@ namespace ETN_CPU_GPU_MINER
                 SetWalletId(walletIdDefault);
 
             if (etnCraftAppKey.GetValue(VERSION_KEY_NAME) == null || !etnCraftAppKey.GetValue(VERSION_KEY_NAME).Equals(VERSION_NUM))
-               SetVersion(VERSION_NUM);            
+                SetVersion(sVersion);
+                //SetVersion(VERSION_NUM);            
 
             if (etnCraftAppKey.GetValue(PORT_KEY_NAME) == null)
                 SetPort(portDefault);
