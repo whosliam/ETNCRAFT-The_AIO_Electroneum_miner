@@ -844,6 +844,7 @@ namespace ETN_CPU_GPU_MINER
         private void chkEnabled_CheckedChanged(object sender, EventArgs e)
         {
             EnabledScheduleControls();
+            SaveScheduleData();
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {

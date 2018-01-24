@@ -18,3 +18,15 @@ C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_G
 C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.pdb
 C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\Newtonsoft.Json.dll
 C:\Users\SaturnV\Desktop\Local GIT\ETNCRAFT\ETNCRAFT\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\Newtonsoft.Json.xml
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.Form1.resources
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.Properties.Resources.resources
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.csproj.GenerateResource.Cache
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.csproj.CoreCompileInputs.cache
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.exe
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Release\ETN_CPU_GPU_MINER.pdb
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\ETN_CPU_GPU_MINER.exe.config
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\ETN_CPU_GPU_MINER.exe
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\ETN_CPU_GPU_MINER.pdb
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\Newtonsoft.Json.dll
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Release\Newtonsoft.Json.xml

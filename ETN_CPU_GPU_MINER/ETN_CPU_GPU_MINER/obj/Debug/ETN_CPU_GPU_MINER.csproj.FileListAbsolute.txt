@@ -101,3 +101,15 @@ C:\Projects\$HOLDING_TANK\entcraft\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER
 C:\Projects\$HOLDING_TANK\entcraft\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
 C:\Projects\$HOLDING_TANK\entcraft\ETN_CPU_GPU_MINER\bin\Debug\Newtonsoft.Json.dll
 C:\Projects\$HOLDING_TANK\entcraft\ETN_CPU_GPU_MINER\bin\Debug\Newtonsoft.Json.xml
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe.config
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.exe
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\ETN_CPU_GPU_MINER.pdb
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\Newtonsoft.Json.dll
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\bin\Debug\Newtonsoft.Json.xml
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csprojResolveAssemblyReference.cache
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Form1.resources
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.Properties.Resources.resources
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.GenerateResource.Cache
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.csproj.CoreCompileInputs.cache
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.exe
+C:\Projects\$HOLDING_TANK\ETNCRAFT-The_AIO_Electroneum_miner\ETN_CPU_GPU_MINER\ETN_CPU_GPU_MINER\obj\Debug\ETN_CPU_GPU_MINER.pdb
