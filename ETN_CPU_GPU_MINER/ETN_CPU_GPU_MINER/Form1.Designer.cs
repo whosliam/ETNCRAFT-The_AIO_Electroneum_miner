@@ -72,7 +72,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.chkMaxUp = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.btnCPUConfig = new System.Windows.Forms.Button();
             this.txtTempLimit = new System.Windows.Forms.TextBox();
+            this.btnGPUConfig = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCustomPool = new System.Windows.Forms.TextBox();
             this.Label9 = new System.Windows.Forms.Label();
@@ -108,6 +111,16 @@
             this.chkDay1 = new System.Windows.Forms.CheckBox();
             this.chkDay0 = new System.Windows.Forms.CheckBox();
             this.tbHelp = new System.Windows.Forms.TabPage();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -126,16 +139,6 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
             this.m_cScheduleTimer = new System.Windows.Forms.Timer(this.components);
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -154,9 +157,9 @@
             this.tabSchedule.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.tbHelp.SuspendLayout();
+            this.groupBox15.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.groupBox15.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabs
@@ -463,7 +466,10 @@
             // groupBox11
             // 
             resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.Controls.Add(this.label36);
+            this.groupBox11.Controls.Add(this.btnCPUConfig);
             this.groupBox11.Controls.Add(this.txtTempLimit);
+            this.groupBox11.Controls.Add(this.btnGPUConfig);
             this.groupBox11.Controls.Add(this.label1);
             this.groupBox11.Controls.Add(this.txtCustomPool);
             this.groupBox11.Controls.Add(this.Label9);
@@ -471,11 +477,30 @@
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.TabStop = false;
             // 
+            // label36
+            // 
+            resources.ApplyResources(this.label36, "label36");
+            this.label36.Name = "label36";
+            // 
+            // btnCPUConfig
+            // 
+            resources.ApplyResources(this.btnCPUConfig, "btnCPUConfig");
+            this.btnCPUConfig.Name = "btnCPUConfig";
+            this.btnCPUConfig.UseVisualStyleBackColor = true;
+            this.btnCPUConfig.Click += new System.EventHandler(this.btnCPUConfig_Click);
+            // 
             // txtTempLimit
             // 
             resources.ApplyResources(this.txtTempLimit, "txtTempLimit");
             this.txtTempLimit.Name = "txtTempLimit";
             this.txtTempLimit.TextChanged += new System.EventHandler(this.txtTempLimit_TextChanged);
+            // 
+            // btnGPUConfig
+            // 
+            resources.ApplyResources(this.btnGPUConfig, "btnGPUConfig");
+            this.btnGPUConfig.Name = "btnGPUConfig";
+            this.btnGPUConfig.UseVisualStyleBackColor = true;
+            this.btnGPUConfig.Click += new System.EventHandler(this.btnGPUConfig_Click);
             // 
             // label1
             // 
@@ -740,6 +765,63 @@
             this.tbHelp.Name = "tbHelp";
             this.tbHelp.UseVisualStyleBackColor = true;
             // 
+            // label35
+            // 
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
+            // 
+            // label34
+            // 
+            resources.ApplyResources(this.label34, "label34");
+            this.label34.Name = "label34";
+            // 
+            // label33
+            // 
+            resources.ApplyResources(this.label33, "label33");
+            this.label33.Name = "label33";
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.label32);
+            this.groupBox15.Controls.Add(this.label31);
+            this.groupBox15.Controls.Add(this.label30);
+            this.groupBox15.Controls.Add(this.label29);
+            this.groupBox15.Controls.Add(this.label28);
+            this.groupBox15.Controls.Add(this.label25);
+            resources.ApplyResources(this.groupBox15, "groupBox15");
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.TabStop = false;
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.Name = "label32";
+            // 
+            // label31
+            // 
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.Name = "label31";
+            // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.Name = "label30";
+            // 
+            // label29
+            // 
+            resources.ApplyResources(this.label29, "label29");
+            this.label29.Name = "label29";
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
+            // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
             // groupBox14
             // 
             resources.ApplyResources(this.groupBox14, "groupBox14");
@@ -841,63 +923,6 @@
             this.m_cScheduleTimer.Interval = 15000;
             this.m_cScheduleTimer.Tick += new System.EventHandler(this.OnScheduleTimer);
             // 
-            // groupBox15
-            // 
-            this.groupBox15.Controls.Add(this.label32);
-            this.groupBox15.Controls.Add(this.label31);
-            this.groupBox15.Controls.Add(this.label30);
-            this.groupBox15.Controls.Add(this.label29);
-            this.groupBox15.Controls.Add(this.label28);
-            this.groupBox15.Controls.Add(this.label25);
-            resources.ApplyResources(this.groupBox15, "groupBox15");
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.TabStop = false;
-            // 
-            // label25
-            // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
-            // 
-            // label28
-            // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.Name = "label28";
-            // 
-            // label29
-            // 
-            resources.ApplyResources(this.label29, "label29");
-            this.label29.Name = "label29";
-            // 
-            // label30
-            // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.Name = "label30";
-            // 
-            // label31
-            // 
-            resources.ApplyResources(this.label31, "label31");
-            this.label31.Name = "label31";
-            // 
-            // label32
-            // 
-            resources.ApplyResources(this.label32, "label32");
-            this.label32.Name = "label32";
-            // 
-            // label33
-            // 
-            resources.ApplyResources(this.label33, "label33");
-            this.label33.Name = "label33";
-            // 
-            // label34
-            // 
-            resources.ApplyResources(this.label34, "label34");
-            this.label34.Name = "label34";
-            // 
-            // label35
-            // 
-            resources.ApplyResources(this.label35, "label35");
-            this.label35.Name = "label35";
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -937,12 +962,12 @@
             this.groupBox16.PerformLayout();
             this.tbHelp.ResumeLayout(false);
             this.tbHelp.PerformLayout();
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1055,6 +1080,9 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Button btnCPUConfig;
+        private System.Windows.Forms.Button btnGPUConfig;
+        private System.Windows.Forms.Label label36;
     }
 }
 

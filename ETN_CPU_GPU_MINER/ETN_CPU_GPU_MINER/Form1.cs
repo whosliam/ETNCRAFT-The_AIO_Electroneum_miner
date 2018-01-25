@@ -21,6 +21,9 @@ namespace ETN_CPU_GPU_MINER
         public static string m_PoolWebsiteURL = "";
         public static int m_IPoolID = 0;
         public static string m_sETNCRAFTCPULogFileLocation = Application.StartupPath + "\\app_assets\\ETN_CRAFT_CPU_LOG.txt";
+        public static string m_sMinerCpuConfig = Application.StartupPath + "\\app_assets\\cpu.txt";
+        public static string m_sMinerAMDGPUConfig = Application.StartupPath + "\\app_assets\\amd.txt";
+        public static string m_sMinerNVIDIAGPUConfig = Application.StartupPath + "\\app_assets\\nvidia.txt";
         public static double m_dMaxUpTimeSec;
 
         public bool b_FormLoaded = false;
@@ -39,7 +42,7 @@ namespace ETN_CPU_GPU_MINER
         private RegistryManager registryManager = new RegistryManager();
         private int m_iTemperatureAlert = 90;
         private Timer upTimer;
-        
+
         private Computer myComputer;
         #endregion
 
@@ -92,7 +95,7 @@ namespace ETN_CPU_GPU_MINER
 
             //Spool up timers
             InitTemps();
-                        
+
             //This is to keep the event handlers from firing when the form load. Just wrap functions in this.
             b_FormLoaded = true;
             this.FormClosing += new FormClosingEventHandler(CloseForm);
@@ -104,7 +107,7 @@ namespace ETN_CPU_GPU_MINER
             EnabledScheduleControls();
             m_cTimer.Interval = 1000;
             m_cTimer.Enabled = true;
-            m_cTimer.Start();           
+            m_cTimer.Start();
             if (chkEnabled.Checked)
             {
                 m_cScheduleTimer.Enabled = true;
@@ -135,7 +138,7 @@ namespace ETN_CPU_GPU_MINER
                 notifyIcon1.Visible = true;
                 notifyIcon1.ShowBalloonTip(2000);
             }
-        }        
+        }
         #endregion
         #region Control Handlers
         #region Click Handlers
@@ -156,6 +159,7 @@ namespace ETN_CPU_GPU_MINER
             stopwatch.Start();
             //Start Hash textbox reset timer
             HashTimer();
+
         }
 
         private void SpawnMiner(string sComponent)
@@ -201,6 +205,7 @@ namespace ETN_CPU_GPU_MINER
 
             #endregion
             StartMining.Enabled = false;
+            StartMining.BackColor = Color.LightGray;
             //BtnStopMining.Enabled = true;
         }
 
@@ -212,6 +217,8 @@ namespace ETN_CPU_GPU_MINER
             //Kill mining
             ProcessUtil.EndProcesses();
             StartMining.Enabled = true;
+            StartMining.BackColor = Color.LawnGreen;
+
         }
 
         private void BtnCheckBalance_Click(object sender, EventArgs e)
@@ -278,6 +285,40 @@ namespace ETN_CPU_GPU_MINER
         private void btnDeleteRegKeys_Click(object sender, EventArgs e)
         {
             MessageBox.Show(registryManager.DeleteRegistryKey(), "ETNCRAFT Services");
+        }
+
+        private void btnCPUConfig_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(m_sMinerCpuConfig))
+                MessageBox.Show("You must run the CPU miner first.\r\nThis will build the init config.", "Run Miner");
+            else
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    UseShellExecute = true,
+                    FileName = m_sMinerCpuConfig
+                });
+            }
+        }
+
+        private void btnGPUConfig_Click(object sender, EventArgs e)
+        {
+            bool bAMD = false;
+            bool bNivida = false;
+
+            if (File.Exists(m_sMinerAMDGPUConfig))
+                bAMD = true;
+            if (File.Exists(m_sMinerNVIDIAGPUConfig))
+                bNivida = true;
+            if (!bAMD && !bNivida)
+                MessageBox.Show("You must run the GPU miner first.\r\nThis will build the init config.", "Run Miner");
+            else
+            {
+                if (bAMD)
+                    Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName = m_sMinerAMDGPUConfig });
+                else if (bNivida)
+                    Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName = m_sMinerNVIDIAGPUConfig });
+            }
         }
         #endregion
         #region DropDown Handlers
@@ -388,7 +429,7 @@ namespace ETN_CPU_GPU_MINER
 
             if (m_dMaxUpTimeSec == 0.00)
                 maxUpTimeMin.Text = Convert.ToString(registryManager.GetMaxUpTimeMin());
-            
+
             #region Get Pool and select drop down
             bool bFoundPool = false;
             //i know i know.... this is the wrong way to go about this. Just for quick testing of registry additions. Git blame Liam
@@ -475,7 +516,7 @@ namespace ETN_CPU_GPU_MINER
                 stopwatch.Stop();
                 this.Text = ("Maximum UpTime Limit Reached At : " + String.Format("{0}:{1}:{2}", stopwatch.Elapsed.Hours.ToString("00"), stopwatch.Elapsed.Minutes.ToString("00"), stopwatch.Elapsed.Seconds.ToString("00")));
                 ProcessUtil.EndProcesses();
-                this.Update();                               
+                this.Update();
                 Environment.Exit(0);
             }
         }
@@ -596,11 +637,11 @@ namespace ETN_CPU_GPU_MINER
                     registryManager.SetIgnoreTempWarnings(false);
             }
         }
-        
+
         #endregion
 
         #region Logger/Messager
-        
+
         private void PushStatusMessage(string message, bool doLog = true)
         {
             if (message != null)
@@ -708,7 +749,7 @@ namespace ETN_CPU_GPU_MINER
             if (!json.Equals(""))
             {
                 PRICE_Rootobject r = JsonConvert.DeserializeObject<PRICE_Rootobject>(json);
-                sETNUSD =  "ETN Price USD: " + r.data.price_usd + "\r\n";
+                sETNUSD = "ETN Price USD: " + r.data.price_usd + "\r\n";
                 sETNUSD += "ETN Price BTN: " + r.data.price_btc + "\r\n";
                 sETNUSD += "ETN Price EUR: " + r.data.price_eur + "\r\n";
                 sETNUSD += "ETN Price RUR: " + r.data.price_rur + "\r\n";
@@ -754,7 +795,7 @@ namespace ETN_CPU_GPU_MINER
         private void SaveScheduleData()
         {
             string sWad = "";
-            foreach(ListViewItem lvi in lvList.Items)
+            foreach (ListViewItem lvi in lvList.Items)
             {
                 string sRec = GetDayIndex(lvi.SubItems[0].Text).ToString() + "," + lvi.SubItems[1].Text + "," + lvi.SubItems[2].Text;
                 if (sWad.Length > 0) sWad += "|";
@@ -776,7 +817,7 @@ namespace ETN_CPU_GPU_MINER
         #region Event Handlers
         private void lnkgit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/whosliam/ETNCRAFT-The_AIO_Electroneum_miner");            
+            Process.Start("https://github.com/whosliam/ETNCRAFT-The_AIO_Electroneum_miner");
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -863,7 +904,7 @@ namespace ETN_CPU_GPU_MINER
             }
             #endregion
             #region add all existing events
-            foreach(ListViewItem cItem in lvList.Items)
+            foreach (ListViewItem cItem in lvList.Items)
             {
                 ScheduleEvent cEvent = new ScheduleEvent(GetDayIndex(cItem.SubItems[0].Text), DateTime.Parse(cItem.SubItems[1].Text), DateTime.Parse(cItem.SubItems[2].Text));
                 cEvents.Add(cEvent);
@@ -874,7 +915,7 @@ namespace ETN_CPU_GPU_MINER
             #endregion
             #region re-populate the listview control
             lvList.Items.Clear();
-            foreach(ScheduleEvent cEvent in cEvents)
+            foreach (ScheduleEvent cEvent in cEvents)
             {
                 ListViewItem lvi = new ListViewItem(((DayOfWeek)cEvent.DayOfWeek).ToString());
                 lvi.SubItems.Add(cEvent.StartTime.ToShortTimeString());
@@ -885,7 +926,7 @@ namespace ETN_CPU_GPU_MINER
         }
         private int GetDayIndex(string sDay)
         {
-            switch(sDay.ToLower())
+            switch (sDay.ToLower())
             {
                 case "sunday":
                     return 0;
@@ -957,7 +998,6 @@ namespace ETN_CPU_GPU_MINER
             }
         }
         #endregion
-
     }
     public class PRICE_Rootobject
     {
