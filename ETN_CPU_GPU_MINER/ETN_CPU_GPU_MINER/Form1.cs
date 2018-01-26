@@ -757,6 +757,8 @@ namespace ETN_CPU_GPU_MINER
             }
             return sETNUSD;
         }
+
+
         private void LoadScheduleData()
         {
             lvList.Items.Clear();
@@ -853,10 +855,17 @@ namespace ETN_CPU_GPU_MINER
                 m_cScheduleTimer.Enabled = false;
                 return;
             }
-            if (m_cScheduleList.Count.Equals(0))    // if not loaded, load up the schedule data
+            
+            // if not loaded, load up the schedule data
+            if (m_cScheduleList.Count.Equals(0))    
                 m_cScheduleList = LoadScheduleDataOnly();
+
+            if (m_cScheduleList.Count.Equals(0) && m_bStartTime)
+                return;// no records, manually started, get out
+
             int iDayOfWeek = ((int)DateTime.Today.DayOfWeek);
             bool bShouldBeMining = false;
+
             foreach (ScheduleEvent cEvent in m_cScheduleList)
             {
                 if (cEvent.DayOfWeek.Equals(iDayOfWeek))
@@ -1012,6 +1021,7 @@ namespace ETN_CPU_GPU_MINER
         public float price_rur { get; set; }
         public float price_cny { get; set; }
     }
+
     public class ScheduleEvent : IComparable
     {
         #region member definitions (private)
