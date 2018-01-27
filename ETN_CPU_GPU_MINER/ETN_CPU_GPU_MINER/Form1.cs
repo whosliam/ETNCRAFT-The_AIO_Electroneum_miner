@@ -62,6 +62,7 @@ namespace ETN_CPU_GPU_MINER
 
 
             m_Version = registryManager.GetVersion();
+            CheckVersion();
             InitializeComponent();
             //Set version in window header
             this.Text = "ETNCRAFT (" + m_Version + ")";
@@ -412,6 +413,24 @@ namespace ETN_CPU_GPU_MINER
         #endregion
         #endregion
         #region Utility Methods
+        private void CheckVersion()
+        {
+            //Set Path
+            string filepath = Application.StartupPath + "\\app_assets\\version.txt";
+            //Download doc from website
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile("http://liamthrower.com/version.txt", filepath);
+            //Check version
+            StreamReader sr = new StreamReader(filepath);
+            string sVersion = sr.ReadLine();
+            DialogResult UserInput = new DialogResult();
+            if (!sVersion.Equals(m_Version))
+                UserInput = MessageBox.Show("Version " + sVersion + " is avaliable \r\n Download?", "New Version", MessageBoxButtons.YesNo);
+            if (UserInput.Equals(DialogResult.Yes))
+                Process.Start("https://github.com/whosliam/ETNCRAFT-The_AIO_Electroneum_miner/releases");
+
+
+        }
         #region Config/Registry
 
         private void LoadRegistryConfig()
@@ -855,9 +874,9 @@ namespace ETN_CPU_GPU_MINER
                 m_cScheduleTimer.Enabled = false;
                 return;
             }
-            
+
             // if not loaded, load up the schedule data
-            if (m_cScheduleList.Count.Equals(0))    
+            if (m_cScheduleList.Count.Equals(0))
                 m_cScheduleList = LoadScheduleDataOnly();
 
             if (m_cScheduleList.Count.Equals(0) && m_bStartTime)
