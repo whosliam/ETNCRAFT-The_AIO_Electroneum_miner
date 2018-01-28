@@ -418,8 +418,15 @@ namespace ETN_CPU_GPU_MINER
             //Set Path
             string filepath = Application.StartupPath + "\\app_assets\\version.txt";
             //Download doc from website
-            WebClient webClient = new WebClient();
-            webClient.DownloadFile("http://liamthrower.com/version.txt", filepath);
+            try
+            {
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile("http://liamthrower.com/version.txt", filepath);
+            }
+            catch (Exception e)
+            {
+                messager.PushMessage(e.Message, true);
+            }
             //Check version
             StreamReader sr = new StreamReader(filepath);
             string sVersion = sr.ReadLine();
@@ -724,8 +731,15 @@ namespace ETN_CPU_GPU_MINER
             //Set Path
             string filepath = Application.StartupPath + "\\app_assets\\pools.txt";
             //Download doc from website
-            WebClient webClient = new WebClient();
-            webClient.DownloadFile("http://liamthrower.com/pools.txt", filepath);
+            try
+            {
+                WebClient webClient = new WebClient();
+                webClient.DownloadFile("http://liamthrower.com/pools.txt", filepath);
+            }
+            catch (Exception e)
+            {
+                messager.PushMessage(e.Message, true);
+            }
             //Build Collection of pools
             PoolsCollection cAllPools = new PoolsCollection();
             cAllPools.Load();
