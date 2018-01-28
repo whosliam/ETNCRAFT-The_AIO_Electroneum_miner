@@ -171,6 +171,8 @@ namespace ETN_CPU_GPU_MINER
                 m_MiningURL = txtCustomPool.Text;
                 PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your port if needed!", m_bDoLog);
             }
+            else
+                pool_SelectedIndexChanged_1(cboPool, EventArgs.Empty);
 
             #endregion
             #region UPDATE CONFIG
