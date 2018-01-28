@@ -165,6 +165,14 @@ namespace ETN_CPU_GPU_MINER
 
         private void SpawnMiner(string sComponent)
         {
+            #region Check for cust pool
+            if (!txtCustomPool.Text.Equals(""))
+            {
+                m_MiningURL = txtCustomPool.Text;
+                PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your port if needed!", m_bDoLog);
+            }
+
+            #endregion
             #region UPDATE CONFIG
             #region House Keeping
             string sConfig_Template_File_Name = "config_templates/config-etncraft.txt";
@@ -338,15 +346,6 @@ namespace ETN_CPU_GPU_MINER
                     PushStatusMessage(cItem.sDisplayName + " selected, " + cItem.sPoolWebsite + " | " + cItem.sPoolInformation, m_bDoLog);
                     break;
                 }
-            }
-        }
-
-        private void txtCustomPool_TextChanged(object sender, EventArgs e)
-        {
-            if (!txtCustomPool.Equals(""))
-            {
-                m_MiningURL = txtCustomPool.Text;
-                PushStatusMessage("custom pool selected[" + txtCustomPool.Text + "], make sure to add your pool address!", m_bDoLog);
             }
         }
 
