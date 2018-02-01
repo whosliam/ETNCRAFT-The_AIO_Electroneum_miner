@@ -404,6 +404,7 @@
             // 
             // groupBox13
             // 
+            resources.ApplyResources(this.groupBox13, "groupBox13");
             this.groupBox13.Controls.Add(this.label16);
             this.groupBox13.Controls.Add(this.label24);
             this.groupBox13.Controls.Add(this.label23);
@@ -412,7 +413,6 @@
             this.groupBox13.Controls.Add(this.label20);
             this.groupBox13.Controls.Add(this.label4);
             this.groupBox13.Controls.Add(this.label3);
-            resources.ApplyResources(this.groupBox13, "groupBox13");
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.TabStop = false;
             // 

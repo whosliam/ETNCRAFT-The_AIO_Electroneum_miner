@@ -925,7 +925,7 @@
     <value>0</value>
   </data>
   <data name="maxUpTimeMin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+    <value>Bottom, Right</value>
   </data>
   <data name="maxUpTimeMin.Location" type="System.Drawing.Point, System.Drawing">
     <value>638, 514</value>
@@ -952,7 +952,7 @@
     <value>0</value>
   </data>
   <data name="strMinutes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+    <value>Bottom, Right</value>
   </data>
   <data name="strMinutes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -986,6 +986,9 @@
   </data>
   <data name="&gt;&gt;strMinutes.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="groupBox13.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="label16.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1264,7 +1267,7 @@
     <value>2</value>
   </data>
   <data name="chkMaxUp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+    <value>Bottom, Right</value>
   </data>
   <data name="chkMaxUp.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1302,6 +1305,9 @@
   <data name="groupBox11.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="label36.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="label36.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1329,6 +1335,9 @@ Otherwise changes will not take effect.</value>
   </data>
   <data name="&gt;&gt;label36.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="btnCPUConfig.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="btnCPUConfig.Location" type="System.Drawing.Point, System.Drawing">
     <value>457, 46</value>
@@ -1377,6 +1386,9 @@ Otherwise changes will not take effect.</value>
   </data>
   <data name="&gt;&gt;txtTempLimit.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="btnGPUConfig.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="btnGPUConfig.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1713,6 +1725,9 @@ Otherwise changes will not take effect.</value>
   </data>
   <data name="groupBox10.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="chkAutoLoadConfig.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="chkAutoLoadConfig.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
