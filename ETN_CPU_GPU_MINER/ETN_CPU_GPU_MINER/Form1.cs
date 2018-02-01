@@ -783,11 +783,13 @@ namespace ETN_CPU_GPU_MINER
             if (!json.Equals(""))
             {
                 PRICE_Rootobject r = JsonConvert.DeserializeObject<PRICE_Rootobject>(json);
-                sETNUSD = "ETN Price USD: " + r.data.price_usd + "\r\n";
+                sETNUSD = "Date: " + DateTime.Now.ToString("MMM dd @ hh:mm:ss") + "\r\n";
+                sETNUSD += "ETN Price USD: " + r.data.price_usd + "\r\n";
                 sETNUSD += "ETN Price BTN: " + r.data.price_btc + "\r\n";
                 sETNUSD += "ETN Price EUR: " + r.data.price_eur + "\r\n";
                 sETNUSD += "ETN Price RUR: " + r.data.price_rur + "\r\n";
-                sETNUSD += "ETN Price CNY: " + r.data.price_cny + "\r\n";
+                sETNUSD += "ETN Price CNY: " + r.data.price_cny + "\r\n\r\n";
+                sETNUSD += "Source: Nanopool.org";
             }
             return sETNUSD;
         }

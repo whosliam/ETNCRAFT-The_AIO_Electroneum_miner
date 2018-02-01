@@ -534,9 +534,9 @@
             // 
             // BtnOpenLog
             // 
-            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnOpenLog.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.BtnOpenLog, "BtnOpenLog");
             this.BtnOpenLog.Name = "BtnOpenLog";
             this.BtnOpenLog.UseVisualStyleBackColor = false;
             // 
@@ -782,13 +782,13 @@
             // 
             // groupBox15
             // 
+            resources.ApplyResources(this.groupBox15, "groupBox15");
             this.groupBox15.Controls.Add(this.label32);
             this.groupBox15.Controls.Add(this.label31);
             this.groupBox15.Controls.Add(this.label30);
             this.groupBox15.Controls.Add(this.label29);
             this.groupBox15.Controls.Add(this.label28);
             this.groupBox15.Controls.Add(this.label25);
-            resources.ApplyResources(this.groupBox15, "groupBox15");
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.TabStop = false;
             // 
