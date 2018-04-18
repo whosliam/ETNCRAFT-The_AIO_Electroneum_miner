@@ -1305,6 +1305,35 @@
   <data name="groupBox11.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="label37.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label37.Location" type="System.Drawing.Point, System.Drawing">
+    <value>409, 26</value>
+  </data>
+  <data name="label37.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 26</value>
+  </data>
+  <data name="label37.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="label37.Text" xml:space="preserve">
+    <value>Enter Port
+on Miner Tab
+</value>
+  </data>
+  <data name="&gt;&gt;label37.Name" xml:space="preserve">
+    <value>label37</value>
+  </data>
+  <data name="&gt;&gt;label37.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label37.Parent" xml:space="preserve">
+    <value>groupBox11</value>
+  </data>
+  <data name="&gt;&gt;label37.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label36.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -1312,7 +1341,7 @@
     <value>True</value>
   </data>
   <data name="label36.Location" type="System.Drawing.Point, System.Drawing">
-    <value>454, 14</value>
+    <value>513, 14</value>
   </data>
   <data name="label36.Size" type="System.Drawing.Size, System.Drawing">
     <value>190, 26</value>
@@ -1334,13 +1363,13 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;label36.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="btnCPUConfig.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <data name="btnCPUConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>457, 46</value>
+    <value>516, 47</value>
   </data>
   <data name="btnCPUConfig.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 29</value>
@@ -1361,7 +1390,7 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;btnCPUConfig.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="txtTempLimit.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 51</value>
@@ -1385,7 +1414,7 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;txtTempLimit.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btnGPUConfig.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1394,7 +1423,7 @@ Otherwise changes will not take effect.</value>
     <value>NoControl</value>
   </data>
   <data name="btnGPUConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>550, 46</value>
+    <value>618, 46</value>
   </data>
   <data name="btnGPUConfig.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 30</value>
@@ -1415,7 +1444,7 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;btnGPUConfig.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1442,7 +1471,7 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="txtCustomPool.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 23</value>
@@ -1466,7 +1495,7 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;txtCustomPool.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1499,7 +1528,7 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;Label9.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="Label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1532,7 +1561,7 @@ Otherwise changes will not take effect.</value>
     <value>groupBox11</value>
   </data>
   <data name="&gt;&gt;Label5.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="groupBox11.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 72</value>

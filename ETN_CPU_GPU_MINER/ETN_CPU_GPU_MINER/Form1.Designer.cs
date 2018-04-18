@@ -139,6 +139,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
             this.m_cScheduleTimer = new System.Windows.Forms.Timer(this.components);
+            this.label37 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -466,6 +467,7 @@
             // groupBox11
             // 
             resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.Controls.Add(this.label37);
             this.groupBox11.Controls.Add(this.label36);
             this.groupBox11.Controls.Add(this.btnCPUConfig);
             this.groupBox11.Controls.Add(this.txtTempLimit);
@@ -923,6 +925,12 @@
             this.m_cScheduleTimer.Interval = 15000;
             this.m_cScheduleTimer.Tick += new System.EventHandler(this.OnScheduleTimer);
             // 
+            // label37
+            // 
+            resources.ApplyResources(this.label37, "label37");
+            this.label37.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label37.Name = "label37";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -1083,6 +1091,7 @@
         private System.Windows.Forms.Button btnCPUConfig;
         private System.Windows.Forms.Button btnGPUConfig;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label37;
     }
 }
 

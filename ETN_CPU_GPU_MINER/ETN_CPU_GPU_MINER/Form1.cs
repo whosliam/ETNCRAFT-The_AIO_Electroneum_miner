@@ -717,12 +717,13 @@ namespace ETN_CPU_GPU_MINER
                 }
             }
 
-            var minLength = 98;
-            if (wallet_address.Text.Length < minLength || !wallet_address.Text.StartsWith("etn"))
-            {
-                DialogResult UserInput = MessageBox.Show("Wallet ID Invalid! \n ID must be 98 chracters in length, \nand start with etn.", "Invalid Wallet", MessageBoxButtons.OK);
-                return false;
-            }
+            //removed to allow users the ability to enter non ETN wallets due to ASIC issues
+            //var minLength = 98;
+            //if (wallet_address.Text.Length < minLength || !wallet_address.Text.StartsWith("etn"))
+            //{
+            //    DialogResult UserInput = MessageBox.Show("Wallet ID Invalid! \n ID must be 98 chracters in length, \nand start with etn.", "Invalid Wallet", MessageBoxButtons.OK);
+            //    return false;
+            //}
 
             return true;
         }
