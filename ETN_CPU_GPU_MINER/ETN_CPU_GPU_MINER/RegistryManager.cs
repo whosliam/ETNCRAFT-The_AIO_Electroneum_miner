@@ -28,11 +28,13 @@ namespace ETN_CPU_GPU_MINER
         private const string SUBKEY_TREE = "SOFTWARE\\ETNCRAFT";
         private const string SCHEDULE_DATA = "SchedDat";
         private const string SCHEDULE_ENABLED = "SchedEnabled";
+        private const string USE_TLS = "TLS";
 
         private const bool autoLoadDefault = false;
         private const bool newMinerDefault = true;
         private const bool ignoreTempWarnDefault = false;
         private const bool enforceMaxUpTimeDefault = false;
+        private const bool TLSFlag = false;
         private const double maxUpTimeDefault = 0.0;
         private const string walletIdDefault = "Enter Your Public Wallet Address";
         private const string portDefault = "5555";
@@ -96,8 +98,10 @@ namespace ETN_CPU_GPU_MINER
             if (etnCraftAppKey.GetValue(MAX_UPTIME_MIN) == null)
                 SetMaxUpTimeMin(maxUpTimeDefault);
 
+            if (etnCraftAppKey.GetValue(USE_TLS) == null)
+                SetTLSFlag(TLSFlag);
 
-                etnCraftAppKey.Close();
+            etnCraftAppKey.Close();
             etnCraftAppKey = localMachine.OpenSubKey(SUBKEY_TREE, true);
         }
 
@@ -243,6 +247,14 @@ namespace ETN_CPU_GPU_MINER
         public void SetScheduleEnabled(bool bScheduleEnabled)
         {
             etnCraftAppKey.SetValue(SCHEDULE_ENABLED, bScheduleEnabled);
+        }
+        public bool GetTLSFLAG()
+        {
+            return Convert.ToBoolean(etnCraftAppKey.GetValue(USE_TLS));
+        }
+        public void SetTLSFlag(bool bUseTLS)
+        {
+            etnCraftAppKey.SetValue(USE_TLS, bUseTLS);
         }
         #endregion
 

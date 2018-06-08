@@ -52,6 +52,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.WorkStatus = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkTLS = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.port = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -72,6 +73,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.chkMaxUp = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.btnCPUConfig = new System.Windows.Forms.Button();
             this.txtTempLimit = new System.Windows.Forms.TextBox();
@@ -125,8 +127,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label38 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -139,7 +141,6 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.m_cTimer = new System.Windows.Forms.Timer(this.components);
             this.m_cScheduleTimer = new System.Windows.Forms.Timer(this.components);
-            this.label37 = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
             this.tab_miner.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -329,6 +330,7 @@
             // groupBox2
             // 
             resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.chkTLS);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.port);
             this.groupBox2.Controls.Add(this.label2);
@@ -337,6 +339,12 @@
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // chkTLS
+            // 
+            resources.ApplyResources(this.chkTLS, "chkTLS");
+            this.chkTLS.Name = "chkTLS";
+            this.chkTLS.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -478,6 +486,12 @@
             this.groupBox11.Controls.Add(this.Label5);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.TabStop = false;
+            // 
+            // label37
+            // 
+            resources.ApplyResources(this.label37, "label37");
+            this.label37.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label37.Name = "label37";
             // 
             // label36
             // 
@@ -845,8 +859,8 @@
             // groupBox9
             // 
             resources.ApplyResources(this.groupBox9, "groupBox9");
+            this.groupBox9.Controls.Add(this.label38);
             this.groupBox9.Controls.Add(this.label19);
-            this.groupBox9.Controls.Add(this.label18);
             this.groupBox9.Controls.Add(this.label17);
             this.groupBox9.Controls.Add(this.label15);
             this.groupBox9.Controls.Add(this.label14);
@@ -857,15 +871,15 @@
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.TabStop = false;
             // 
+            // label38
+            // 
+            resources.ApplyResources(this.label38, "label38");
+            this.label38.Name = "label38";
+            // 
             // label19
             // 
             resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
-            // 
-            // label18
-            // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
             // 
             // label17
             // 
@@ -924,12 +938,6 @@
             // 
             this.m_cScheduleTimer.Interval = 15000;
             this.m_cScheduleTimer.Tick += new System.EventHandler(this.OnScheduleTimer);
-            // 
-            // label37
-            // 
-            resources.ApplyResources(this.label37, "label37");
-            this.label37.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label37.Name = "label37";
             // 
             // Form1
             // 
@@ -1021,7 +1029,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox WorkStatus;
         private System.Windows.Forms.Label lblCPUUsage;
         private System.Windows.Forms.Label lblGPUUsage;
@@ -1092,6 +1099,8 @@
         private System.Windows.Forms.Button btnGPUConfig;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.CheckBox chkTLS;
+        private System.Windows.Forms.Label label38;
     }
 }
 

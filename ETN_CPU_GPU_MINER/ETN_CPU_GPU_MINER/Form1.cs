@@ -93,7 +93,8 @@ namespace ETN_CPU_GPU_MINER
                 //Load Help tab
                 tabs.SelectedTab = tbHelp;
             }
-
+            //Set TLS flag
+            chkTLS.Checked = registryManager.GetTLSFLAG();
             //Spool up timers
             InitTemps();
 
@@ -154,7 +155,7 @@ namespace ETN_CPU_GPU_MINER
             if (!IsWalletValid())
                 return;
             SpawnMiner(cpuorgpu.SelectedItem.ToString());
-            PushStatusMessage("config.txt updated", m_bDoLog);
+            PushStatusMessage("configs updated", m_bDoLog);
             //Start header Timer for app run time
             m_bStartTime = true;
             stopwatch.Start();
@@ -178,7 +179,7 @@ namespace ETN_CPU_GPU_MINER
             #region UPDATE CONFIG
             #region House Keeping
             string sConfig_Template_File_Name = "config_templates/config-etncraft.txt";
-            string sConfig_File_Name = "app_assets/config.txt";
+            string sConfig_File_Name = "app_assets/pools.txt";
             #endregion
             #region Delete and recreate config.txt
             if (File.Exists(sConfig_File_Name))
@@ -196,6 +197,9 @@ namespace ETN_CPU_GPU_MINER
             var CONFIG_CONTENTS = File.ReadAllText(sConfig_File_Name);
             CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("address_replace", m_MiningURL + ":" + port.Text);
             CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("wallet_replace", wallet_address.Text.Replace(" ", ""));
+            CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("rig_id_replace", "ETNCRAFT_" + System.Environment.UserName.Replace(" ", "_"));
+            CONFIG_CONTENTS = CONFIG_CONTENTS.Replace("use_tls_replace", chkTLS.Checked.ToString().ToLower());
+
             File.SetAttributes(Application.StartupPath + "\\" + sConfig_File_Name, FileAttributes.Normal);
             File.WriteAllText(Application.StartupPath + "\\" + sConfig_File_Name, CONFIG_CONTENTS);
             #endregion
@@ -489,6 +493,7 @@ namespace ETN_CPU_GPU_MINER
             registryManager.SetEnforceMaxUpTime(chkMaxUp.Checked);
             registryManager.SetMaxUpTimeMin(maxUpTimeMin.Text.Length > 0 ? Convert.ToDouble(maxUpTimeMin.Text) : 0);
             registryManager.SetScheduleData(m_sScheduleData);
+            registryManager.SetTLSFlag(chkTLS.Checked);
             PushStatusMessage("Configuration Updated", m_bDoLog);
         }
 
@@ -731,12 +736,12 @@ namespace ETN_CPU_GPU_MINER
         private void LoadPoolListFromWebsite()
         {
             //Set Path
-            string filepath = Application.StartupPath + "\\app_assets\\pools.txt";
+            string filepath = Application.StartupPath + "\\app_assets\\etnpools.txt";
             //Download doc from website
             try
             {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile("http://liamthrower.com/pools.txt", filepath);
+                webClient.DownloadFile("http://liamthrower.com/etnpools.txt", filepath);
             }
             catch (Exception e)
             {
@@ -780,17 +785,24 @@ namespace ETN_CPU_GPU_MINER
         private string GetCurrentCoinPrice()
         {
             string sETNUSD = "";
-            var json = new WebClient().DownloadString("https://api.nanopool.org/v1/etn/prices");
-            if (!json.Equals(""))
+            try
             {
-                PRICE_Rootobject r = JsonConvert.DeserializeObject<PRICE_Rootobject>(json);
-                sETNUSD = "Date: " + DateTime.Now.ToString("MMM dd @ hh:mm:ss") + "\r\n";
-                sETNUSD += "ETN Price USD: " + r.data.price_usd + "\r\n";
-                sETNUSD += "ETN Price BTN: " + r.data.price_btc + "\r\n";
-                sETNUSD += "ETN Price EUR: " + r.data.price_eur + "\r\n";
-                sETNUSD += "ETN Price RUR: " + r.data.price_rur + "\r\n";
-                sETNUSD += "ETN Price CNY: " + r.data.price_cny + "\r\n\r\n";
-                sETNUSD += "Source: Nanopool.org";
+                var json = new WebClient().DownloadString("https://api.nanopool.org/v1/etn/prices");
+                if (!json.Equals(""))
+                {
+                    PRICE_Rootobject r = JsonConvert.DeserializeObject<PRICE_Rootobject>(json);
+                    sETNUSD = "Date: " + DateTime.Now.ToString("MMM dd @ hh:mm:ss") + "\r\n";
+                    sETNUSD += "ETN Price USD: " + r.data.price_usd + "\r\n";
+                    sETNUSD += "ETN Price BTN: " + r.data.price_btc + "\r\n";
+                    sETNUSD += "ETN Price EUR: " + r.data.price_eur + "\r\n";
+                    sETNUSD += "ETN Price RUR: " + r.data.price_rur + "\r\n";
+                    sETNUSD += "ETN Price CNY: " + r.data.price_cny + "\r\n\r\n";
+                    sETNUSD += "Source: Nanopool.org";
+                }
+            }
+            catch (Exception e)
+            {
+                sETNUSD = e.Message;
             }
             return sETNUSD;
         }

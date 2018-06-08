@@ -11,7 +11,7 @@ namespace ETN_CPU_GPU_MINER
             this.Clear();
             try
             {
-                using (StreamReader sr = new StreamReader(Application.StartupPath + "\\app_assets\\pools.txt"))
+                using (StreamReader sr = new StreamReader(Application.StartupPath + "\\app_assets\\etnpools.txt"))
                 {
                     while (sr.Peek() >= 0)
                     {
